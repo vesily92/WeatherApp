@@ -1,0 +1,33 @@
+//
+//  DailyCollectionMapper.swift
+//  WeatherApp
+//
+//  Created by Василий Пронин on 16.05.2023.
+//
+
+import Foundation
+
+final class DailyCollectionMapper {
+    
+    private let dateFormatter: DateFormatter
+    private let weatherFormatter: IWeatherFormatter
+    
+    init(dateFormatter: DateFormatter,
+         weatherFormatter: IWeatherFormatter) {
+        self.dateFormatter = dateFormatter
+        self.weatherFormatter = weatherFormatter
+    }
+
+    func map(_ model: WeatherData) -> [WeatherModel.ViewModel.DailyCollection] {        
+        let items = DailyMapper(
+            dateFormatter: dateFormatter,
+            weatherFormatter: weatherFormatter
+        ).map(model)
+//        let dailySectionConfigurator = DailySectionConfigurator(type: .daily, items: items)
+//        let section = Section(section: dailySectionConfigurator)
+//        let dailyCollectionViewModel = WeatherModel.ViewModel.DailyCollection(section: section)
+        let dailyCollectionViewModel = WeatherModel.ViewModel.DailyCollection(items: items)
+        return [dailyCollectionViewModel]
+    }
+}
+

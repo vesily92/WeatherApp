@@ -16,6 +16,7 @@ protocol IMaskable: UIView {
 }
 
 // MARK: - BaseCell
+
 /// Abstract class for collection view cell.
 class BaseCell: UICollectionViewCell {
     
@@ -47,7 +48,9 @@ class BaseCell: UICollectionViewCell {
 }
 
 // MARK: - BaseCell + IMaskable
+
 extension BaseCell: IMaskable {
+    
     func makeMask(for margin: CGFloat) {
         layer.mask = setAlphaMask(with: margin / frame.size.height)
         layer.masksToBounds = true

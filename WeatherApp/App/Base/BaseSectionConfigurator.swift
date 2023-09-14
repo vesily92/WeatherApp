@@ -8,6 +8,7 @@
 import UIKit
 
 // MARK: - BaseSectionConfigurator
+
 /// Abstract class for section configurator.
 class BaseSectionConfigurator {
     
@@ -78,7 +79,6 @@ class BaseSectionConfigurator {
                 forElementKind: SectionHeader.reuseIdentifier,
                 at: item.indexPath
             ) as? SectionHeader else { return }
-            
             animate(
                 header: header,
                 offsetDelta: offsetDelta,
@@ -97,6 +97,7 @@ class BaseSectionConfigurator {
 }
 
 // MARK: - BaseSectionConfigurator + Extension
+
 extension BaseSectionConfigurator {
     
     /// Animates section's header.
@@ -110,7 +111,6 @@ extension BaseSectionConfigurator {
         sectionIsDisappearing: Bool
     ) {
         guard let header = header as? SectionHeader else { return }
-        
         if sectionIsDisappearing {
             let alpha = 1 - (offsetDelta / 30)
             header.setAlphaForHeader(with: alpha)
@@ -119,10 +119,10 @@ extension BaseSectionConfigurator {
         }
         
         if sectionIsDisappearing {
-            header.offset = offsetDelta
+            header.setConstraint(with: offsetDelta)
             header.layer.zPosition = -1
         } else {
-            header.offset = 0
+            header.setConstraint(with: 0)
             header.layer.zPosition = 1
         }
     }

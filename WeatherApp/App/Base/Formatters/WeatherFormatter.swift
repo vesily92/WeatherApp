@@ -58,9 +58,17 @@ protocol IWeatherFormatter {
     ///   - icon: Name of the weather icon.
     /// - Returns: String representation.
     func getWeatherSymbolName(_ weatherID: Int, icon: String) -> String
+    
+    /// Gets the type of background gradient
+    /// - Parameters:
+    ///   - weatherID: ID of weather condition.
+    ///   - dayTime: Type of day time.
+    /// - Returns: Type of gradient color based on day time.
+    func getBackgroundColor(_ weatherID: Int, dayTime: DayTime) -> BackgroundType
 }
 
 // MARK: - WeatherFormatter + IWeatherFormatter
+
 /// Weather formatter object.
 final class WeatherFormatter: IWeatherFormatter {
     
@@ -141,6 +149,55 @@ final class WeatherFormatter: IWeatherFormatter {
             ? Symbol.Weather.cloud.rawValue
             : Symbol.Weather.cloudNight.rawValue
         default: return Symbol.Other.noSign.rawValue
+        }
+    }
+    
+    func getBackgroundColor(
+        _ weatherID: Int,
+        dayTime: DayTime
+    ) -> BackgroundType {
+        
+        enum Weather {
+            case clear
+            case cloudy
+        }
+        
+        var weather: Weather
+        
+        switch weatherID {
+        case 200...232: weather = .cloudy
+        case 300...321: weather = .cloudy
+        case 500...531: weather = .cloudy
+        case 600...622: weather = .cloudy
+        case 700...781: weather = .cloudy
+        case 800: weather = .clear
+        case 801...804: weather = .cloudy
+        default: weather = .clear
+        }
+        
+        switch weather {
+        case .clear:
+            switch dayTime {
+            case .morning:
+                return .morningClear
+            case .day:
+                return .dayClear
+            case .evening:
+                return .eveningClear
+            case .night:
+                return .nightClear
+            }
+        case .cloudy:
+            switch dayTime {
+            case .morning:
+                return .morningClouds
+            case .day:
+                return .dayClouds
+            case .evening:
+                return .eveningClouds
+            case .night:
+                return .nightClouds
+            }
         }
     }
 }

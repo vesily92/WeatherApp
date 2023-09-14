@@ -15,80 +15,90 @@ protocol IScrollDelegate: AnyObject {
     func scrollViewDidScroll(scrollView: UIScrollView)
 }
 
-/// A type that receives the index path of the selected cell.
-protocol ITouchesDelegate: AnyObject {
-    
-    /// Receives the index path of the selected cell.
-    /// - Parameter indexPath: Index path of the cell.
-    func cellSelected(at indexPath: IndexPath)
-}
-
-/// A type that provides configured sections to ``CollectionViewAdapter``.
+/// A type that provides content for collection view.
 protocol ICollectionViewAdapterDelegate: AnyObject {
     
     /// Provides configured sections.
-    /// - Returns: An array of sections.
-    func sectionsForCollectionView() -> [Section]
+    /// - Returns: Array of sections.
+    func getSections() -> [Section]
+    
+    /// Provides items for section.
+    /// - Parameter section: Section that requires items.
+    /// - Returns: Array of items.
+    func getItemsFor(section: Section) -> [AnyHashable]
 }
 
-// MARK: - CollectionViewAdapter
 final class CollectionViewAdapter: NSObject {
     
-    // MARK: - Properties
-    private weak var delegate: ICollectionViewAdapterDelegate?
+    // MARK: - Private Properties
+    
     private weak var collectionView: UICollectionView?
+    private weak var delegate: ICollectionViewAdapterDelegate?
     private weak var scrollDelegate: IScrollDelegate?
-    private weak var touchesDelegate: ITouchesDelegate?
     
     private lazy var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable> = {
         guard let collectionView = collectionView else { fatalError() }
         
         return UICollectionViewDiffableDataSource(
-            collectionView: collectionView,
-            cellProvider: cell
-        )
+            collectionView: collectionView
+        ) { [weak self] collectionView, indexPath, itemIdentifier in
+            self?.cell(for: collectionView, at: indexPath, with: itemIdentifier)
+        }
     }()
     
     // MARK: - Initialisers
-    init(delegate: ICollectionViewAdapterDelegate,
-         collectionView: UICollectionView,
-         scrollDelegate: IScrollDelegate? = nil,
-         touchesDelegate: ITouchesDelegate? = nil) {
-        self.delegate = delegate
+    
+    init(collectionView: UICollectionView,
+         delegate: ICollectionViewAdapterDelegate,
+         scrollDelegate: IScrollDelegate? = nil
+    ) {
         self.collectionView = collectionView
+        self.delegate = delegate
         self.scrollDelegate = scrollDelegate
-        self.touchesDelegate = touchesDelegate
         super.init()
         
         collectionView.register(view: SectionHeader.self)
+        
         collectionView.collectionViewLayout = collectionViewLayout()
         collectionView.delegate = self
-        dataSource.supplementaryViewProvider = supplementaryView
+        
+        dataSource
+            .supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
+                self?.supplementaryView(
+                    for: collectionView,
+                    with: kind,
+                    at: indexPath
+                )
+            }
     }
     
     // MARK: - Internal Methods
+    
     /// Creates and applies snapshot for collection view's data source.
     /// - Parameters:
     ///   - animated: Flag for the system to animate the updates to the collection view or not.
     ///   - completion: Closure to execute when the animations are complete.
     func makeSnapshot(animated: Bool, completion: (() -> Void)? = nil) {
         guard let delegate = delegate,
-              let collectionView = collectionView else { return }
+              let collectionView = collectionView else {
+            return
+        }
         
         var snapshot = NSDiffableDataSourceSnapshot<Section, AnyHashable>()
         
-        for section in delegate.sectionsForCollectionView() {
+        for section in delegate.getSections() {
             section.section.register(for: collectionView)
             snapshot.appendSections([section])
             
-            let items = section.section.itemsForSection()
+            let items = delegate.getItemsFor(section: section)
             snapshot.appendItems(items)
         }
-
+        
         dataSource.apply(snapshot)
     }
     
     // MARK: - Private Methods
+    
     /// Provides configured cell for collection view.
     /// - Parameters:
     ///   - collectionView: Collection view object.
@@ -110,6 +120,7 @@ final class CollectionViewAdapter: NSObject {
             .section
         
         let cell = section.cell(for: item, at: indexPath, in: collectionView)
+        
         return cell
     }
     
@@ -153,7 +164,11 @@ final class CollectionViewAdapter: NSObject {
             .snapshot()
             .sectionIdentifiers[sectionIndex]
             .section
-        return section.layout(environment: environment, collectionView: collectionView!)
+        
+        return section.layout(
+            environment: environment,
+            collectionView: collectionView!
+        )
     }
     
     /// Creates layout for collection view.
@@ -176,19 +191,8 @@ final class CollectionViewAdapter: NSObject {
 }
 
 //MARK: - CollectionViewAdapter + UICollectionViewDelegate
+
 extension CollectionViewAdapter: UICollectionViewDelegate {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        didSelectItemAt indexPath: IndexPath
-    ) {
-        let section = dataSource
-            .snapshot()
-            .sectionIdentifiers[indexPath.section]
-            .section
-        section.didSelect(at: indexPath)
-        
-        touchesDelegate?.cellSelected(at: indexPath)
-    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         scrollDelegate?.scrollViewDidScroll(scrollView: scrollView)

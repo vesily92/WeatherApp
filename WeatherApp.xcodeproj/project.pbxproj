@@ -280,6 +280,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		59F063C62AB3AADB002DA377 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				7B7A61C72A42CB7A001A0DC2 /* Indicators */,
+				7B7A61D32A42CB7B001A0DC2 /* BlurView */,
+				7B7A61D62A42CB7B001A0DC2 /* GradientLayer */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		7B7A61872A42CA8A001A0DC2 = {
 			isa = PBXGroup;
 			children = (
@@ -353,12 +363,10 @@
 				7B7A61D52A42CB7B001A0DC2 /* BaseCell.swift */,
 				7B7A61CF2A42CB7A001A0DC2 /* BaseSectionConfigurator.swift */,
 				7B7A61CC2A42CB7A001A0DC2 /* BaseIndicatorView.swift */,
-				7B7A61C72A42CB7A001A0DC2 /* Indicators */,
+				59F063C62AB3AADB002DA377 /* UI */,
 				7B7A61CD2A42CB7A001A0DC2 /* Formatters */,
 				7B7A61D02A42CB7A001A0DC2 /* Adapters */,
 				7B7A61D22A42CB7A001A0DC2 /* WindIndicatorViewOLD.swift */,
-				7B7A61D32A42CB7B001A0DC2 /* BlurView */,
-				7B7A61D62A42CB7B001A0DC2 /* GradientLayer */,
 				7B7A61D82A42CB7B001A0DC2 /* DependencyContainer */,
 			);
 			path = Base;

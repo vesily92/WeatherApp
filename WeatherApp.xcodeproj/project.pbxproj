@@ -146,6 +146,7 @@
 		59F063CB2AB3AFCA002DA377 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		59F063CD2AB3B098002DA377 /* SectionConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionConfigurator.swift; sourceTree = "<group>"; };
 		59F063D42AB3B3CD002DA377 /* TransitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransitionManager.swift; path = WeatherApp/Managers/TransitionManager/TransitionManager.swift; sourceTree = SOURCE_ROOT; };
+		59F063DB2AB3B474002DA377 /* MappingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MappingManager.swift; path = WeatherApp/Managers/MappingManager/MappingManager.swift; sourceTree = SOURCE_ROOT; };
 		7B7A61902A42CA8A001A0DC2 /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B7A619C2A42CA8C001A0DC2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7B7A619F2A42CA8C001A0DC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -303,6 +304,15 @@
 			);
 			name = TransitionManager;
 			path = "../../../../../../Downloads/WeatherApp-main-5/WeatherApp/Managers/TransitionManager";
+			sourceTree = "<group>";
+		};
+		59F063D62AB3B41B002DA377 /* MappingManager */ = {
+			isa = PBXGroup;
+			children = (
+				59F063DB2AB3B474002DA377 /* MappingManager.swift */,
+			);
+			name = MappingManager;
+			path = "../../../../../../Downloads/WeatherApp-main-5/WeatherApp/Managers/MappingManager";
 			sourceTree = "<group>";
 		};
 		7B7A61872A42CA8A001A0DC2 = {
@@ -521,6 +531,7 @@
 				7B7A62172A42CBB9001A0DC2 /* CoreDataManager */,
 				7B7A62DA2A42CE2F001A0DC2 /* LocationManager */,
 				7B7A62122A42CBB9001A0DC2 /* NetworkManagers */,
+				59F063D62AB3B41B002DA377 /* MappingManager */,
 				7B7A620E2A42CBB9001A0DC2 /* SectionManager */,
 				59F063CF2AB3B355002DA377 /* TransitionManager */,
 			);

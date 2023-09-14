@@ -10,34 +10,39 @@ import UIKit
 final class SearchScreenAssembly {
     
     private let navigationController: UINavigationController
-    private let data: [WeatherModel.Data]
-    private let delegate: ISearchScreenDelegate
+    private let coreDataManger: ICoreDataLocationManager
+    private let mappingManager: IMappingManager
+    private let viewModels: [WeatherModel.ViewModel]
     
     init(navigationController: UINavigationController,
-         data: [WeatherModel.Data],
-         delegate: ISearchScreenDelegate) {
+         coreDataManger: ICoreDataLocationManager,
+         mappingManager: IMappingManager,
+         viewModels: [WeatherModel.ViewModel]) {
         self.navigationController = navigationController
-        self.data = data
-        self.delegate = delegate
+        self.coreDataManger = coreDataManger
+        self.mappingManager = mappingManager
+        self.viewModels = viewModels
     }
 }
 
 extension SearchScreenAssembly: IAssembly {
     func assembly(viewController: UIViewController) {
-        guard let viewController = viewController as? SearchViewController else {
+        guard let viewController = viewController as? SearchScreenViewController else {
             return
         }
         
         let router = SearchScreenRouter(
             navigationController: navigationController
         )
-        let manager = DependencyContainer().makeSearchScreenManager()
+        let searchScreenManager = DependencyContainer().makeSearchScreenManager(
+            coreDataManager: coreDataManger,
+            mappingManager: mappingManager
+        )
         
         let presenter = SearchScreenPresenter(
             router: router,
-            manager: manager,
-            data: data,
-            delegate: delegate
+            searchScreenManager: searchScreenManager,
+            viewModels: viewModels
         )
         
         let resultsViewController = ResultsViewController()

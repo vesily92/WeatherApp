@@ -7,10 +7,17 @@
 
 import UIKit
 
+protocol ISearchScreenRouter {
+    func route(to target: SearchScreenTarget)
+}
+
 enum SearchScreenTarget {
-    case weatherScreen
+    case weatherScreen(
+        viewModels: [WeatherModel.ViewModel],
+        index: Int
+    )
     case newLocationScreen(
-        location: Location,
+        viewModel: WeatherModel.ViewModel,
         isNew: Bool,
         delegate: INewLocationDelegate
     )
@@ -27,15 +34,30 @@ final class SearchScreenRouter {
 extension SearchScreenRouter: ISearchScreenRouter {
     func route(to target: SearchScreenTarget) {
         switch target {
-        case .weatherScreen:
-            navigationController.popViewController(animated: true)
+        case .weatherScreen(let viewModels, let index):
+            let weatherScreenViewController = WeatherScreenPageViewController()
+            let transitionManager = TransitionManager()
+            
+            WeatherScreenAssembly(
+                navigationController: navigationController,
+                viewModels: viewModels,
+                index: index
+            ).assembly(viewController: weatherScreenViewController)
+            
+            navigationController.delegate = transitionManager
+            navigationController.pushViewController(
+                weatherScreenViewController,
+                animated: true
+            )
+            navigationController.setNavigationBarHidden(true, animated: false)
             navigationController.setToolbarHidden(false, animated: true)
-
-        case let .newLocationScreen(location, isNew, delegate):
+            
+        case .newLocationScreen(let viewModel, let isNew, let delegate):
             let newLocationViewController = NewLocationViewController()
+            
             NewLocationAssembly(
                 navigationController: navigationController,
-                location: location,
+                viewModel: viewModel,
                 isNew: isNew,
                 delegate: delegate
             ).assembly(viewController: newLocationViewController)

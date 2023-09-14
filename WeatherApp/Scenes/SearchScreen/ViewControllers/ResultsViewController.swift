@@ -8,13 +8,14 @@
 import UIKit
 
 protocol IResultsViewController: AnyObject {
+    
     func showResults(with locations: [Location], and query: String)
 }
 
 final class ResultsViewController: UIViewController {
-        
+    
     var presenter: IResultsViewPresenter!
-        
+    
     private lazy var tableView = UITableView()
     private lazy var noResultsView = NoResultsView()
     
@@ -53,20 +54,22 @@ final class ResultsViewController: UIViewController {
 }
 
 extension ResultsViewController: IResultsViewController {
+    
     func showResults(with locations: [Location], and query: String) {
-            if locations.isEmpty {
-                noResultsView.configure(with: query)
-                tableView.isHidden = true
-                noResultsView.isHidden = false
-            } else {
-                tableView.isHidden = false
-                noResultsView.isHidden = true
-            }
-            tableView.reloadData()
+        if locations.isEmpty {
+            noResultsView.configure(with: query)
+            tableView.isHidden = true
+            noResultsView.isHidden = false
+        } else {
+            tableView.isHidden = false
+            noResultsView.isHidden = true
+        }
+        tableView.reloadData()
     }
 }
 
 extension ResultsViewController: UITableViewDataSource {
+    
     func tableView(
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
@@ -97,6 +100,7 @@ extension ResultsViewController: UITableViewDataSource {
 }
 
 extension ResultsViewController: UITableViewDelegate {
+    
     func tableView(
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath

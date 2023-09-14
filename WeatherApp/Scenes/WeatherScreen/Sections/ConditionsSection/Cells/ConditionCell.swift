@@ -5,6 +5,8 @@
 //  Created by Василий Пронин on 19.04.2023.
 //
 
+import UIKit
+
 final class ConditionCell: BaseCell {
     
     // MARK: - Private Properties

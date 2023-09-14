@@ -13,6 +13,6 @@ protocol IManagersFactory {
     func makeSearchScreenManager(
         coreDataManager: ICoreDataLocationManager,
         mappingManager: IMappingManager
-    ) -> ISearchScreenManager
+    ) -> ISearchScreenManagersWrapper
 }
 

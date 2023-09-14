@@ -20,7 +20,7 @@ extension DependencyContainer: IManagersFactory {
     func makeSearchScreenManager(
         coreDataManager: ICoreDataLocationManager,
         mappingManager: IMappingManager
-    ) -> ISearchScreenManager {
+    ) -> ISearchScreenManagersWrapper {
         SearchScreenManager(
             coreDataManager: coreDataManager,
             mappingManager: mappingManager,

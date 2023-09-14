@@ -21,7 +21,7 @@ extension DependencyContainer: IManagersFactory {
         coreDataManager: ICoreDataLocationManager,
         mappingManager: IMappingManager
     ) -> ISearchScreenManagersWrapper {
-        SearchScreenManager(
+        SearchScreenManagersWrapper(
             coreDataManager: coreDataManager,
             mappingManager: mappingManager,
             weatherManager: weatherManager,

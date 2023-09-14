@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5956CE6E2AB3C19F00D1223F /* SearchScreenMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5956CE6D2AB3C19F00D1223F /* SearchScreenMapper.swift */; };
+		5956CE732AB3C26D00D1223F /* MappingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5956CE722AB3C26D00D1223F /* MappingManager.swift */; };
 		59F063C82AB3AC31002DA377 /* BackgroundGradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F063C72AB3AC31002DA377 /* BackgroundGradientLayer.swift */; };
 		59F063CA2AB3AD98002DA377 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F063C92AB3AD98002DA377 /* Factory.swift */; };
 		59F063CC2AB3AFCA002DA377 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F063CB2AB3AFCA002DA377 /* APIKey.swift */; };
@@ -143,12 +145,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5956CE6D2AB3C19F00D1223F /* SearchScreenMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchScreenMapper.swift; sourceTree = "<group>"; };
+		5956CE722AB3C26D00D1223F /* MappingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MappingManager.swift; path = WeatherApp/Managers/MappingManager/MappingManager.swift; sourceTree = "<group>"; };
+		5956CE742AB3C27800D1223F /* MappingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MappingManager.swift; path = WeatherApp/Managers/MappingManager/MappingManager.swift; sourceTree = SOURCE_ROOT; };
 		59F063C72AB3AC31002DA377 /* BackgroundGradientLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundGradientLayer.swift; sourceTree = "<group>"; };
 		59F063C92AB3AD98002DA377 /* Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		59F063CB2AB3AFCA002DA377 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		59F063CD2AB3B098002DA377 /* SectionConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionConfigurator.swift; sourceTree = "<group>"; };
 		59F063D42AB3B3CD002DA377 /* TransitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransitionManager.swift; path = WeatherApp/Managers/TransitionManager/TransitionManager.swift; sourceTree = SOURCE_ROOT; };
-		59F063DB2AB3B474002DA377 /* MappingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MappingManager.swift; path = WeatherApp/Managers/MappingManager/MappingManager.swift; sourceTree = SOURCE_ROOT; };
 		59F063DD2AB3B576002DA377 /* WeatherScreenPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherScreenPageViewController.swift; sourceTree = "<group>"; };
 		59F063DF2AB3B584002DA377 /* WeatherScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherScreenViewController.swift; sourceTree = "<group>"; };
 		59F063E32AB3B668002DA377 /* EmptyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyCell.swift; sourceTree = "<group>"; };
@@ -291,6 +295,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5956CE6C2AB3C19F00D1223F /* Mappers */ = {
+			isa = PBXGroup;
+			children = (
+				5956CE6D2AB3C19F00D1223F /* SearchScreenMapper.swift */,
+			);
+			path = Mappers;
+			sourceTree = "<group>";
+		};
+		5956CE6F2AB3C21600D1223F /* MappingManager */ = {
+			isa = PBXGroup;
+			children = (
+				5956CE742AB3C27800D1223F /* MappingManager.swift */,
+			);
+			name = MappingManager;
+			path = "../../../../../../Downloads/WeatherApp-main-5/WeatherApp/Managers/MappingManager";
+			sourceTree = "<group>";
+		};
 		59F063C62AB3AADB002DA377 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -308,15 +329,6 @@
 			);
 			name = TransitionManager;
 			path = "../../../../../../Downloads/WeatherApp-main-5/WeatherApp/Managers/TransitionManager";
-			sourceTree = "<group>";
-		};
-		59F063D62AB3B41B002DA377 /* MappingManager */ = {
-			isa = PBXGroup;
-			children = (
-				59F063DB2AB3B474002DA377 /* MappingManager.swift */,
-			);
-			name = MappingManager;
-			path = "../../../../../../Downloads/WeatherApp-main-5/WeatherApp/Managers/MappingManager";
 			sourceTree = "<group>";
 		};
 		59F063DC2AB3B4DE002DA377 /* Scenes */ = {
@@ -375,6 +387,7 @@
 		7B7A61872A42CA8A001A0DC2 = {
 			isa = PBXGroup;
 			children = (
+				5956CE722AB3C26D00D1223F /* MappingManager.swift */,
 				7B7A61922A42CA8A001A0DC2 /* WeatherApp */,
 				7B7A61A92A42CA8C001A0DC2 /* WeatherAppTests */,
 				7B7A61B32A42CA8D001A0DC2 /* WeatherAppUITests */,
@@ -585,8 +598,8 @@
 				7B7A62112A42CBB9001A0DC2 /* ManagersWrapper.swift */,
 				7B7A62172A42CBB9001A0DC2 /* CoreDataManager */,
 				7B7A62DA2A42CE2F001A0DC2 /* LocationManager */,
+				5956CE6F2AB3C21600D1223F /* MappingManager */,
 				7B7A62122A42CBB9001A0DC2 /* NetworkManagers */,
-				59F063D62AB3B41B002DA377 /* MappingManager */,
 				7B7A620E2A42CBB9001A0DC2 /* SectionManager */,
 				59F063CF2AB3B355002DA377 /* TransitionManager */,
 			);
@@ -847,6 +860,7 @@
 				7B7A62A02A42CBD6001A0DC2 /* ViewControllers */,
 				7B7A62A32A42CBD6001A0DC2 /* Views */,
 				59F063EA2AB3BB51002DA377 /* Cells */,
+				5956CE6C2AB3C19F00D1223F /* Mappers */,
 				7B7A629C2A42CBD6001A0DC2 /* Assembly */,
 				7B7A629E2A42CBD6001A0DC2 /* Presenter */,
 				7B7A62A52A42CBD6001A0DC2 /* Router */,
@@ -1109,6 +1123,7 @@
 				7B7A61F22A42CB7B001A0DC2 /* Assembly.swift in Sources */,
 				7B7A62AB2A42CBD6001A0DC2 /* SearchScreenAssembly.swift in Sources */,
 				7B7A61EB2A42CB7B001A0DC2 /* BlurView.swift in Sources */,
+				5956CE6E2AB3C19F00D1223F /* SearchScreenMapper.swift in Sources */,
 				59F063D52AB3B3CD002DA377 /* TransitionManager.swift in Sources */,
 				7B7A628C2A42CBC8001A0DC2 /* WeatherScreenAssembly.swift in Sources */,
 				7B7A62842A42CBC8001A0DC2 /* PrecipitationDataMapper.swift in Sources */,
@@ -1185,6 +1200,7 @@
 				7B7A62892A42CBC8001A0DC2 /* DailyCollectionMapper.swift in Sources */,
 				7B7A627B2A42CBC8001A0DC2 /* FooterSectionConfigurator.swift in Sources */,
 				7B7A62712A42CBC8001A0DC2 /* HumidityView.swift in Sources */,
+				5956CE732AB3C26D00D1223F /* MappingManager.swift in Sources */,
 				7B7A61E72A42CB7B001A0DC2 /* WeatherFormatter.swift in Sources */,
 				7B7A62832A42CBC8001A0DC2 /* PressureDataMapper.swift in Sources */,
 				7B7A62742A42CBC8001A0DC2 /* WindView.swift in Sources */,

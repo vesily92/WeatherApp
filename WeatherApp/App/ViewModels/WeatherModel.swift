@@ -9,24 +9,31 @@ import Foundation
 
 enum WeatherModel {
     
-    struct Data {
-        let location: Location
-        let weather: WeatherData?
+    struct Response {
+        
+        let weather: WeatherData
     }
     
-    enum ViewModel {
-        struct WeatherScreen {
-            let current: Current
-            let sections: [Section]?
-        }
+    struct ViewModel: Hashable {
         
-        struct ListScreen {
-            let sections: [Section]
-        }
+        let location: Location
+        let list: Components.Current
+        let current: Components.Current
+        let hourly: [Components.Hourly]
+        let daily: [Components.DailyCollection]
+        let conditions: [Components.Conditions]
+        let alert: [Components.Alert]?
+        
+        let sections: [Section]?
+    }
+    
+    enum Components {
         
         struct Current: Hashable {
+            
             let id = UUID()
             
+            let backgroundColor: BackgroundType
             let cityName: String?
             let fullName: String?
             let description: String?
@@ -44,6 +51,7 @@ enum WeatherModel {
         }
         
         struct Alert: Hashable {
+            
             let id = UUID()
             
             let sender: String?
@@ -52,6 +60,7 @@ enum WeatherModel {
         }
         
         struct Hourly: Hashable {
+            
             
             enum CellType {
                 case hourly
@@ -71,6 +80,7 @@ enum WeatherModel {
         }
         
         struct Daily: Hashable {
+            
             let id = UUID()
             
             let time: String
@@ -82,6 +92,7 @@ enum WeatherModel {
         }
         
         struct IndicatorViewModel: Hashable {
+            
             let id = UUID()
             
             let startPoint: CGFloat
@@ -92,11 +103,13 @@ enum WeatherModel {
         }
         
         struct DailyCollection: Hashable {
+            
             let id = UUID()
             let items: [Daily]
         }
         
         struct Conditions: Hashable {
+            
             enum MetricsType {
                 case uvIndex
                 case sunrise
@@ -144,6 +157,7 @@ enum WeatherModel {
         }
         
         struct UVIndex: Hashable {
+            
             let id = UUID()
             
             let index: String
@@ -153,6 +167,7 @@ enum WeatherModel {
         }
         
         struct SunState: Hashable {
+            
             let id = UUID()
             
             let time: String
@@ -162,6 +177,7 @@ enum WeatherModel {
         }
         
         struct Wind: Hashable {
+            
             let id = UUID()
             
             let speed: String
@@ -169,6 +185,7 @@ enum WeatherModel {
         }
         
         struct Precipitation: Hashable {
+            
             let id = UUID()
             
             let pop: String
@@ -177,6 +194,7 @@ enum WeatherModel {
         }
         
         struct FeelsLike: Hashable {
+            
             let id = UUID()
             
             let temperature: String
@@ -184,6 +202,7 @@ enum WeatherModel {
         }
         
         struct Humidity: Hashable {
+            
             let id = UUID()
             
             let humidity: String
@@ -191,6 +210,7 @@ enum WeatherModel {
         }
         
         struct Visibility: Hashable {
+            
             let id = UUID()
             
             let distance: String
@@ -198,6 +218,7 @@ enum WeatherModel {
         }
         
         struct Pressure: Hashable {
+            
             enum State {
                 case rising
                 case falling
@@ -213,7 +234,8 @@ enum WeatherModel {
     }
 }
 
-extension WeatherModel.ViewModel.Conditions.MetricsType {
+extension WeatherModel.Components.Conditions.MetricsType {
+    
     var title: String {
         switch self {
         case .uvIndex: return "UV INDEX"

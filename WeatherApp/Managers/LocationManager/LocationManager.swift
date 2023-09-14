@@ -16,14 +16,17 @@ protocol ILocationManager {
 }
 
 // MARK: - LocationManager
+
 /// Manager that fetches user location.
 final class LocationManager: NSObject, CLLocationManagerDelegate {
     
-    // MARK: - Properties
+    // MARK: - Private Properties
+    
     private let manager = CLLocationManager()
     private var completion: ((Double, Double) -> Void)?
     
     // MARK: - Internal methods
+    
     func locationManager(_ manager: CLLocationManager,
                          didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
@@ -40,7 +43,9 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
 }
 
 // MARK: - LocationManager + ILocationManager
+
 extension LocationManager: ILocationManager {
+    
     func getUserLocation(completion: @escaping ((Double, Double) -> Void)) {
         self.completion = completion
         manager.requestWhenInUseAuthorization()

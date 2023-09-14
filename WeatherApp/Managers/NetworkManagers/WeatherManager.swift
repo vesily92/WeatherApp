@@ -10,17 +10,18 @@ import Foundation
 /// A type that provides weather data from network calls wrapped into view model.
 protocol IWeatherManager {
     
-    /// Provides ``WeatherModel.Data`` object.
+    /// Provides ``WeatherModel.Response`` object.
     /// - Parameters:
     ///   - location: ``Location`` object that specifies the network call destination.
-    ///   - completion: Returns ``WeatherModel.Data`` object on completion.
+    ///   - completion: Returns ``WeatherModel.Response`` object on completion.
     func fetchWeatherFor(
         _ location: Location,
-        completion: @escaping (WeatherModel.Data) -> Void
+        completion: @escaping (WeatherModel.Response) -> Void
     )
 }
 
 // MARK: - WeatherManager
+
 /// Manager that provides weather data from network calls wrapped into view model.
 final class WeatherManager {
     
@@ -32,14 +33,15 @@ final class WeatherManager {
 }
 
 // MARK: - WeatherManager + IWeatherManager
+
 extension WeatherManager: IWeatherManager {
+    
     func fetchWeatherFor(
         _ location: Location,
-        completion: @escaping (WeatherModel.Data) -> Void
+        completion: @escaping (WeatherModel.Response) -> Void
     ) {
         weatherService.fetchWeather(for: location) { weather in
-            let response = WeatherModel.Data(
-                location: location,
+            let response = WeatherModel.Response(
                 weather: weather
             )
             

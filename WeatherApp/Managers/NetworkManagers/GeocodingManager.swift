@@ -14,11 +14,14 @@ protocol IGeocodingManager {
     /// - Parameters:
     ///   - request: Type of request (location name or coordinates).
     ///   - completion: Returns an array of ``Location`` objects on completion.
-    func fetchLocation(with request: GeocodingManager.RequestType,
-                       completion: @escaping ([Location]) -> Void)
+    func fetchLocation(
+        with request: GeocodingManager.RequestType,
+        completion: @escaping ([Location]
+        ) -> Void)
 }
 
 // MARK: - GeocodingManager
+
 /// Manager that provides geocoding information.
 final class GeocodingManager {
     
@@ -36,17 +39,25 @@ final class GeocodingManager {
 }
 
 // MARK: - GeocodingManager + IGeocodingManager
+
 extension GeocodingManager: IGeocodingManager {
-    func fetchLocation(with request: GeocodingManager.RequestType,
-                       completion: @escaping ([Location]) -> Void) {
+    
+    func fetchLocation(
+        with request: GeocodingManager.RequestType,
+        completion: @escaping ([Location]
+        ) -> Void) {
         switch request {
         case .cityName(let cityName):
-            geocodingService.getDirectGeocoding(withQuery: cityName) { locations in
+            geocodingService.getDirectGeocoding(
+                withQuery: cityName
+            ) { locations in
                 completion(locations)
             }
         case .coordinates(let latitude, let longitude):
-            geocodingService.getReverseGeocoding(withLatitude: latitude,
-                                                 andLongitude: longitude) { locations in
+            geocodingService.getReverseGeocoding(
+                withLatitude: latitude,
+                andLongitude: longitude
+            ) { locations in
                 completion(locations)
             }
         }

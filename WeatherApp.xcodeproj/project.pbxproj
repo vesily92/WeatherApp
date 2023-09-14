@@ -322,7 +322,8 @@
 				7B7A62932A42CBD6001A0DC2 /* SearchScreen */,
 				7B7A62B12A42CBE2001A0DC2 /* NewLocationScreen */,
 			);
-			path = Scenes;
+			name = Scenes;
+			path = ../Scenes;
 			sourceTree = "<group>";
 		};
 		7B7A61872A42CA8A001A0DC2 = {
@@ -354,7 +355,6 @@
 				7B7A61F42A42CBA8001A0DC2 /* Services */,
 				7B7A620D2A42CBB9001A0DC2 /* Managers */,
 				7B7A61C32A42CB44001A0DC2 /* App */,
-				59F063DC2AB3B4DE002DA377 /* Scenes */,
 			);
 			path = WeatherApp;
 			sourceTree = "<group>";
@@ -385,6 +385,7 @@
 				7B7A61C62A42CB7A001A0DC2 /* Base */,
 				7B7A61DD2A42CB7B001A0DC2 /* Protocols */,
 				7B7A61DF2A42CB7B001A0DC2 /* ViewModels */,
+				59F063DC2AB3B4DE002DA377 /* Scenes */,
 			);
 			path = App;
 			sourceTree = "<group>";

@@ -18,8 +18,8 @@ final class DailyMapper {
         self.weatherFormatter = weatherFormatter
     }
     
-    func map(_ model: WeatherData) -> [WeatherModel.ViewModel.Daily] {
-        var dailyViewModels: [WeatherModel.ViewModel.Daily] = []
+    func map(_ model: WeatherData) -> [WeatherModel.Components.Daily] {
+        var dailyViewModels: [WeatherModel.Components.Daily] = []
         
         let weeklyExtremums = findExtremums(for: model)
         
@@ -69,15 +69,15 @@ final class DailyMapper {
             let currentPoint = calculateCurrentTemperaturePoint(
                 with: currentTemperature, and: weeklyExtremums
             )
-            let indicatorViewModel = WeatherModel.ViewModel.IndicatorViewModel(
+            let indicatorViewModel = WeatherModel.Components.IndicatorViewModel(
                 startPoint: startPoint,
                 endPoint: endPoint,
                 currentPoint: currentPoint,
                 minTemperature: Int(daily.temperature.min.roundDecimal()),
                 maxTemperature: Int(daily.temperature.max.roundDecimal())
             )
-                        
-            let dailyViewModel = WeatherModel.ViewModel.Daily(
+            
+            let dailyViewModel = WeatherModel.Components.Daily(
                 time: time,
                 minTemperature: minTemperature,
                 maxTemperature: maxTemperature,
@@ -117,7 +117,7 @@ final class DailyMapper {
         let maxTemp = extremums.max
         
         let totalRange = maxTemp - minTemp
-     
+        
         let start = abs(minTemp - model.temperature.min)
         let end = abs((model.temperature.max - model.temperature.min) + start)
         
@@ -138,8 +138,7 @@ final class DailyMapper {
         
         let totalRange = maxTemp - minTemp
         let start = abs(currentTemperature - minTemp)
-
+        
         return CGFloat(start / totalRange)
     }
 }
-

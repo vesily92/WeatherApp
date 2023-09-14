@@ -21,7 +21,7 @@ final class UVIndexDataMapper {
         self.weatherData = weatherData
     }
     
-    func mapUVIndexData() -> WeatherModel.ViewModel.Conditions {
+    func mapUVIndexData() -> WeatherModel.Components.Conditions {
         let currentUVI = weatherData.current.uvi.roundDecimal()
         let index = weatherFormatter.displayUVI(weatherData.current.uvi)
         let description = weatherFormatter.displayUVIDescription(currentUVI)
@@ -30,14 +30,14 @@ final class UVIndexDataMapper {
         
         let recommendation = "Fix this"
         
-        let uvi = WeatherModel.ViewModel.UVIndex(
+        let uvi = WeatherModel.Components.UVIndex(
             index: index,
             description: description,
             currentPoint: currentPoint,
             recommendation: recommendation
         )
         
-        return WeatherModel.ViewModel.Conditions(
+        return WeatherModel.Components.Conditions(
             type: .uvIndex,
             uvIndex: uvi
         )

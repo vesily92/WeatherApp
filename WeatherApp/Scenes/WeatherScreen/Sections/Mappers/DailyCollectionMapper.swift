@@ -17,17 +17,15 @@ final class DailyCollectionMapper {
         self.dateFormatter = dateFormatter
         self.weatherFormatter = weatherFormatter
     }
-
-    func map(_ model: WeatherData) -> [WeatherModel.ViewModel.DailyCollection] {        
+    
+    func map(_ model: WeatherData) -> [WeatherModel.Components.DailyCollection] {
         let items = DailyMapper(
             dateFormatter: dateFormatter,
             weatherFormatter: weatherFormatter
         ).map(model)
-//        let dailySectionConfigurator = DailySectionConfigurator(type: .daily, items: items)
-//        let section = Section(section: dailySectionConfigurator)
-//        let dailyCollectionViewModel = WeatherModel.ViewModel.DailyCollection(section: section)
-        let dailyCollectionViewModel = WeatherModel.ViewModel.DailyCollection(items: items)
+        let dailyCollectionViewModel = WeatherModel.Components.DailyCollection(
+            items: items
+        )
         return [dailyCollectionViewModel]
     }
 }
-

@@ -21,12 +21,11 @@ final class WindDataMapper {
         self.weatherData = weatherData
     }
     
-    func mapWindData() -> WeatherModel.ViewModel.Conditions {
+    func mapWindData() -> WeatherModel.Components.Conditions {
         let speed = weatherFormatter.displayUVI(weatherData.current.windSpeed)
         let degrees = weatherData.current.windDeg
+        let wind = WeatherModel.Components.Wind(speed: speed, degrees: degrees)
         
-        let wind = WeatherModel.ViewModel.Wind(speed: speed, degrees: degrees)
-        
-        return WeatherModel.ViewModel.Conditions(type: .wind, wind: wind)
+        return WeatherModel.Components.Conditions(type: .wind, wind: wind)
     }
 }

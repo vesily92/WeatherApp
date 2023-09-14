@@ -21,7 +21,7 @@ final class PressureDataMapper {
         self.weatherData = weatherData
     }
     
-    func mapPressureData() -> WeatherModel.ViewModel.Conditions {
+    func mapPressureData() -> WeatherModel.Components.Conditions {
         let currentPressure = weatherData.current.pressure
         let current = Double(currentPressure) / 1.33322387415
         
@@ -37,7 +37,7 @@ final class PressureDataMapper {
             averagePressure /= i
         }
         
-        var state: WeatherModel.ViewModel.Pressure.State = .stable
+        var state: WeatherModel.Components.Pressure.State = .stable
         
         if averagePressure > currentPressure {
             state = .rising
@@ -49,13 +49,13 @@ final class PressureDataMapper {
             weatherData.current.pressure
         )
         
-        let pressure = WeatherModel.ViewModel.Pressure(
+        let pressure = WeatherModel.Components.Pressure(
             state: state,
             pressure: pressureString,
             rotationDegrees: degrees
         )
         
-        return WeatherModel.ViewModel.Conditions(
+        return WeatherModel.Components.Conditions(
             type: .pressure,
             pressure: pressure
         )

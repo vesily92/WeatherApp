@@ -21,18 +21,18 @@ final class HumidityDataMapper {
         self.weatherData = weatherData
     }
     
-    func mapHumidityData() -> WeatherModel.ViewModel.Conditions {
+    func mapHumidityData() -> WeatherModel.Components.Conditions {
         let dewPoint = weatherFormatter.displayTemperature(weatherData.current.dewPoint)
         
         let humidityPercent = "\(weatherData.current.humidity) %"
         let description = "The dew point is \(dewPoint) right now"
         
-        let humidity = WeatherModel.ViewModel.Humidity(
+        let humidity = WeatherModel.Components.Humidity(
             humidity: humidityPercent,
             description: description
         )
         
-        return WeatherModel.ViewModel.Conditions(
+        return WeatherModel.Components.Conditions(
             type: .humidity,
             humidity: humidity
         )

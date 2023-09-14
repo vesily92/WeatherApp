@@ -21,7 +21,7 @@ final class FeelsLikeDataMapper {
         self.weatherData = weatherData
     }
     
-    func mapFeelsLikeData() -> WeatherModel.ViewModel.Conditions {
+    func mapFeelsLikeData() -> WeatherModel.Components.Conditions {
         let temperature = weatherFormatter.displayTemperature(weatherData.current.feelsLike)
         
         let feelsLikeTemperature = weatherData.current.feelsLike
@@ -38,12 +38,12 @@ final class FeelsLikeDataMapper {
         }
         
         
-        let feelsLike = WeatherModel.ViewModel.FeelsLike(
+        let feelsLike = WeatherModel.Components.FeelsLike(
             temperature: temperature,
             description: description
         )
         
-        return WeatherModel.ViewModel.Conditions(
+        return WeatherModel.Components.Conditions(
             type: .feelsLike,
             feelsLike: feelsLike
         )

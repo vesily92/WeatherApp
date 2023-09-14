@@ -18,10 +18,11 @@ final class CurrentMapper {
         self.weatherFormatter = weatherFormatter
     }
     
-    func map(_ model: WeatherData? = nil, location: Location) -> WeatherModel.ViewModel.Current {
+    func map(_ model: WeatherData? = nil, location: Location) -> WeatherModel.Components.Current {
         
         guard let model = model else {
-            return WeatherModel.ViewModel.Current(
+            return WeatherModel.Components.Current(
+                backgroundColor: .dayClear,
                 cityName: location.city ?? "",
                 fullName: location.fullName,
                 description: nil,
@@ -32,6 +33,22 @@ final class CurrentMapper {
         }
         
         guard let today = model.daily.first else { fatalError() }
+        
+        let dayTime = dateFormatter.format(
+            model.current.dt,
+            with: model.timezoneOffset
+        )
+        
+        let backgroundColor = weatherFormatter.getBackgroundColor(
+            model.current.weather.first!.id,
+            dayTime: dayTime
+        )
+        
+        let time = dateFormatter.format(
+            model.current.dt,
+            to: .time,
+            with: model.timezoneOffset
+        )
         
         let description = weatherFormatter.displayDescription(
             model.current.weather.first!.description
@@ -46,13 +63,9 @@ final class CurrentMapper {
             today.temperature.max
         )
         let temperatureRange = "H:\(maxTemperature) L:\(minTemperature)"
-        let time = dateFormatter.format(
-            model.current.dt,
-            to: .time,
-            with: model.timezoneOffset
-        )
         
-        return WeatherModel.ViewModel.Current(
+        return WeatherModel.Components.Current(
+            backgroundColor: backgroundColor,
             cityName: location.city,
             fullName: location.fullName,
             description: description,

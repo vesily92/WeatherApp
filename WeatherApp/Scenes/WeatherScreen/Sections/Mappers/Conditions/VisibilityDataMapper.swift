@@ -21,18 +21,18 @@ final class VisibilityDataMapper {
         self.weatherData = weatherData
     }
     
-    func mapVisibilityData() -> WeatherModel.ViewModel.Conditions {
+    func mapVisibilityData() -> WeatherModel.Components.Conditions {
         let visibilityKM = weatherData.current.visibility / 1000
         
         let distance = "\(visibilityKM) km"
         let description = "It's perfectly clear right now."
         
-        let visibility = WeatherModel.ViewModel.Visibility(
+        let visibility = WeatherModel.Components.Visibility(
             distance: distance,
             description: description
         )
         
-        return WeatherModel.ViewModel.Conditions(
+        return WeatherModel.Components.Conditions(
             type: .visibility,
             visibility: visibility
         )

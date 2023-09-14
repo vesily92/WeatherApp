@@ -18,9 +18,9 @@ final class ConditionsMapper {
         self.weatherFormatter = weatherFormatter
     }
     
-    func map(_ model: WeatherData) -> [WeatherModel.ViewModel.Conditions] {
-        var conditionsViewModels: [WeatherModel.ViewModel.Conditions] = []
-                
+    func map(_ model: WeatherData) -> [WeatherModel.Components.Conditions] {
+        var conditionsViewModels: [WeatherModel.Components.Conditions] = []
+        
         conditionsViewModels.append(mapUVIndexData(model))
         conditionsViewModels.append(mapSunStateData(model))
         conditionsViewModels.append(mapWindData(model))
@@ -33,7 +33,7 @@ final class ConditionsMapper {
         return conditionsViewModels
     }
     
-    private func mapUVIndexData(_ model: WeatherData) -> WeatherModel.ViewModel.Conditions {
+    private func mapUVIndexData(_ model: WeatherData) -> WeatherModel.Components.Conditions {
         return UVIndexDataMapper(
             dateFormatter: dateFormatter,
             weatherFormatter: weatherFormatter,
@@ -41,7 +41,7 @@ final class ConditionsMapper {
         ).mapUVIndexData()
     }
     
-    private func mapSunStateData(_ model: WeatherData) -> WeatherModel.ViewModel.Conditions {
+    private func mapSunStateData(_ model: WeatherData) -> WeatherModel.Components.Conditions {
         return SunStateDataMapper(
             dateFormatter: dateFormatter,
             weatherFormatter: weatherFormatter,
@@ -49,7 +49,7 @@ final class ConditionsMapper {
         ).mapSunStateData()
     }
     
-    private func mapWindData(_ model: WeatherData) -> WeatherModel.ViewModel.Conditions {
+    private func mapWindData(_ model: WeatherData) -> WeatherModel.Components.Conditions {
         return WindDataMapper(
             dateFormatter: dateFormatter,
             weatherFormatter: weatherFormatter,
@@ -57,7 +57,7 @@ final class ConditionsMapper {
         ).mapWindData()
     }
     
-    private func mapPrecipitationData(_ model: WeatherData) -> WeatherModel.ViewModel.Conditions {
+    private func mapPrecipitationData(_ model: WeatherData) -> WeatherModel.Components.Conditions {
         return PrecipitationDataMapper(
             dateFormatter: dateFormatter,
             weatherFormatter: weatherFormatter,
@@ -65,7 +65,7 @@ final class ConditionsMapper {
         ).mapPrecipitationData()
     }
     
-    private func mapFeelsLikeData(_ model: WeatherData) -> WeatherModel.ViewModel.Conditions {
+    private func mapFeelsLikeData(_ model: WeatherData) -> WeatherModel.Components.Conditions {
         return FeelsLikeDataMapper(
             dateFormatter: dateFormatter,
             weatherFormatter: weatherFormatter,
@@ -73,7 +73,7 @@ final class ConditionsMapper {
         ).mapFeelsLikeData()
     }
     
-    private func mapHumidityData(_ model: WeatherData) -> WeatherModel.ViewModel.Conditions {
+    private func mapHumidityData(_ model: WeatherData) -> WeatherModel.Components.Conditions {
         return HumidityDataMapper(
             dateFormatter: dateFormatter,
             weatherFormatter: weatherFormatter,
@@ -81,7 +81,7 @@ final class ConditionsMapper {
         ).mapHumidityData()
     }
     
-    private func mapVisibilityData(_ model: WeatherData) -> WeatherModel.ViewModel.Conditions {
+    private func mapVisibilityData(_ model: WeatherData) -> WeatherModel.Components.Conditions {
         return VisibilityDataMapper(
             dateFormatter: dateFormatter,
             weatherFormatter: weatherFormatter,
@@ -89,7 +89,7 @@ final class ConditionsMapper {
         ).mapVisibilityData()
     }
     
-    private func mapPressureData(_ model: WeatherData) -> WeatherModel.ViewModel.Conditions {
+    private func mapPressureData(_ model: WeatherData) -> WeatherModel.Components.Conditions {
         return PressureDataMapper(
             dateFormatter: dateFormatter,
             weatherFormatter: weatherFormatter,

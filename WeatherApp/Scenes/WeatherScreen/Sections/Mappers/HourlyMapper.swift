@@ -17,8 +17,8 @@ final class HourlyMapper {
         self.dateFormatter = dateFormatter
         self.weatherFormatter = weatherFormatter
     }
-        
-    func map(_ model: WeatherData) -> [WeatherModel.ViewModel.Hourly] {
+    
+    func map(_ model: WeatherData) -> [WeatherModel.Components.Hourly] {
         let hourlyMapped = mapHourlyData(model)
         let sunriseMapped = mapSunriseData(model)
         let sunsetMapped = mapSunsetData(model)
@@ -26,9 +26,9 @@ final class HourlyMapper {
         return getSortedViewModels(hourlyMapped, sunriseMapped, sunsetMapped)
     }
     
-    private func mapHourlyData(_ model: WeatherData) -> [WeatherModel.ViewModel.Hourly] {
-        var hourlyViewModels = [WeatherModel.ViewModel.Hourly]()
-
+    private func mapHourlyData(_ model: WeatherData) -> [WeatherModel.Components.Hourly] {
+        var hourlyViewModels = [WeatherModel.Components.Hourly]()
+        
         model.hourly.enumerated().forEach { (index, hourly) in
             guard let weather = hourly.weather.first else { return }
             
@@ -54,7 +54,7 @@ final class HourlyMapper {
                 time = "Now"
             }
             
-            let hourlyViewModel = WeatherModel.ViewModel.Hourly(
+            let hourlyViewModel = WeatherModel.Components.Hourly(
                 cellType: .hourly,
                 unixTime: hourly.dt,
                 time: time,
@@ -70,8 +70,8 @@ final class HourlyMapper {
         return hourlyViewModels
     }
     
-    private func mapSunriseData(_ model: WeatherData) -> [WeatherModel.ViewModel.Hourly] {
-        var hourlyViewModels = [WeatherModel.ViewModel.Hourly]()
+    private func mapSunriseData(_ model: WeatherData) -> [WeatherModel.Components.Hourly] {
+        var hourlyViewModels = [WeatherModel.Components.Hourly]()
         
         model.daily.forEach { daily in
             let time = dateFormatter.format(
@@ -82,7 +82,7 @@ final class HourlyMapper {
             let event = "Sunrise"
             let symbolName = "sunrise.fill"
             
-            let hourlyViewModel = WeatherModel.ViewModel.Hourly(
+            let hourlyViewModel = WeatherModel.Components.Hourly(
                 cellType: .daily,
                 unixTime: daily.sunrise,
                 time: time,
@@ -98,8 +98,8 @@ final class HourlyMapper {
         return hourlyViewModels
     }
     
-    private func mapSunsetData(_ model: WeatherData) -> [WeatherModel.ViewModel.Hourly] {
-        var hourlyViewModels = [WeatherModel.ViewModel.Hourly]()
+    private func mapSunsetData(_ model: WeatherData) -> [WeatherModel.Components.Hourly] {
+        var hourlyViewModels = [WeatherModel.Components.Hourly]()
         
         model.daily.forEach { daily in
             let time = dateFormatter.format(
@@ -110,7 +110,7 @@ final class HourlyMapper {
             let event = "Sunset"
             let symbolName = "sunset.fill"
             
-            let hourlyViewModel = WeatherModel.ViewModel.Hourly(
+            let hourlyViewModel = WeatherModel.Components.Hourly(
                 cellType: .daily,
                 unixTime: daily.sunset,
                 time: time,
@@ -126,7 +126,7 @@ final class HourlyMapper {
         return hourlyViewModels
     }
     
-    private func getSortedViewModels(_ arrays: [WeatherModel.ViewModel.Hourly]...) -> [WeatherModel.ViewModel.Hourly] {
+    private func getSortedViewModels(_ arrays: [WeatherModel.Components.Hourly]...) -> [WeatherModel.Components.Hourly] {
         var array = arrays.flatMap { $0 }.sorted { $0.unixTime < $1.unixTime }
         
         guard let firstElement = array.first else { return [] }
@@ -134,13 +134,13 @@ final class HourlyMapper {
         if firstElement.cellType == .daily {
             array.removeFirst()
         }
-
+        
         let unixHour = 3600
         let pairs = zip(array, array.dropFirst())
         let filteredArray = pairs
             .filter { $1.unixTime - $0.unixTime <= unixHour }
             .compactMap { $0.0 }
-
+        
         return filteredArray
     }
 }

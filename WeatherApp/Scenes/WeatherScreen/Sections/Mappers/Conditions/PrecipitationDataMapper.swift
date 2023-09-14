@@ -21,7 +21,7 @@ final class PrecipitationDataMapper {
         self.weatherData = weatherData
     }
     
-    func mapPrecipitationData() -> WeatherModel.ViewModel.Conditions {
+    func mapPrecipitationData() -> WeatherModel.Components.Conditions {
         let currentPrecipitation = weatherData.current.rain?.oneHour ?? 0
         let dailyPrecipitation = weatherData.daily.first?.rain ?? 0
         
@@ -47,13 +47,13 @@ final class PrecipitationDataMapper {
         let expectation = "\(expectedPrecipitation) \(expectedDay)"
         let isRainfall = currentPrecipitation > 0
         
-        let precipitation = WeatherModel.ViewModel.Precipitation(
+        let precipitation = WeatherModel.Components.Precipitation(
             pop: todayPrecipitation,
             expectation: expectation,
             isRainfall: isRainfall
         )
         
-        return WeatherModel.ViewModel.Conditions(
+        return WeatherModel.Components.Conditions(
             type: isRainfall ? .rainfall : .precipitation,
             precipitation: precipitation
         )

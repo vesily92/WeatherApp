@@ -21,25 +21,16 @@ final class SunStateDataMapper {
         self.weatherData = weatherData
     }
     
-    func mapSunStateData() -> WeatherModel.ViewModel.Conditions {
-        // START
-        //        let current = model.current.dt - 36000 - 650
-        // SUNRISE
-        //        let current = model.current.dt - 3600 - 3600 - 3600 - 3600 - 2280
-        // SUNSET
-        //        let current = model.current.dt + 36000 + 660
-        // END
-        //        let current = model.current.dt + 36000 + 3600 + 3600 + 3600 + 2936
-        
+    func mapSunStateData() -> WeatherModel.Components.Conditions {
         let current = weatherData.current.dt
-        
+        let timezoneOffset = weatherData.timezoneOffset
         let now = Date(
             timeIntervalSince1970: TimeInterval(current)
         )
         let progress = calculateCoordinates(
             current: now.timeIntervalSince1970,
-            dayStart: now.startOfDay.timeIntervalSince1970,
-            dayEnd: now.endOfDay.timeIntervalSince1970
+            dayStart: now.startOfDay(offset: timezoneOffset).timeIntervalSince1970,
+            dayEnd: now.endOfDay(offset: timezoneOffset).timeIntervalSince1970
         )
         
         var sunriseTime = ""
@@ -49,22 +40,46 @@ final class SunStateDataMapper {
         var nextEvent = ""
         
         if current < weatherData.current.sunrise {
-            sunriseTime = dateFormatter.format(weatherData.current.sunrise, to: .time, with: weatherData.timezoneOffset)
-            sunsetTime = dateFormatter.format(weatherData.current.sunset, to: .time, with: weatherData.timezoneOffset)
+            sunriseTime = dateFormatter.format(
+                weatherData.current.sunrise,
+                to: .time,
+                with: weatherData.timezoneOffset
+            )
+            sunsetTime = dateFormatter.format(
+                weatherData.current.sunset,
+                to: .time,
+                with: weatherData.timezoneOffset
+            )
             
             time = sunriseTime
             nextEvent = "Sunset: \(sunsetTime)"
             
         } else if current >= weatherData.current.sunrise && current < weatherData.current.sunset {
-            sunriseTime = dateFormatter.format(weatherData.daily[1].sunrise, to: .time, with: weatherData.timezoneOffset)
-            sunsetTime = dateFormatter.format(weatherData.current.sunset, to: .time, with: weatherData.timezoneOffset)
+            sunriseTime = dateFormatter.format(
+                weatherData.daily[1].sunrise,
+                to: .time,
+                with: weatherData.timezoneOffset
+            )
+            sunsetTime = dateFormatter.format(
+                weatherData.current.sunset,
+                to: .time,
+                with: weatherData.timezoneOffset
+            )
             
             time = sunsetTime
             nextEvent = "Sunrise: \(sunriseTime)"
             
         } else {
-            sunriseTime = dateFormatter.format(weatherData.daily[1].sunrise, to: .time, with: weatherData.timezoneOffset)
-            sunsetTime = dateFormatter.format(weatherData.daily[1].sunset, to: .time, with: weatherData.timezoneOffset)
+            sunriseTime = dateFormatter.format(
+                weatherData.daily[1].sunrise,
+                to: .time,
+                with: weatherData.timezoneOffset
+            )
+            sunsetTime = dateFormatter.format(
+                weatherData.daily[1].sunset,
+                to: .time,
+                with: weatherData.timezoneOffset
+            )
             
             time = sunriseTime
             nextEvent = "Sunset: \(sunsetTime)"
@@ -74,14 +89,14 @@ final class SunStateDataMapper {
             weatherData.current.weather.first!.icon
         )
         
-        let sunState = WeatherModel.ViewModel.SunState(
+        let sunState = WeatherModel.Components.SunState(
             time: time,
             nextEvent: nextEvent,
             progress: progress,
             isSunrise: isSunrise
         )
         
-        return WeatherModel.ViewModel.Conditions(
+        return WeatherModel.Components.Conditions(
             type: isSunrise ? .sunrise : .sunset,
             sunState: sunState
         )
@@ -100,4 +115,3 @@ final class SunStateDataMapper {
         return secondsFromStart / secondsRange
     }
 }
-

@@ -9,18 +9,18 @@ import Foundation
 
 final class AlertMapper {
     
-    func map(_ model: WeatherData) -> [WeatherModel.ViewModel.Alert] {
+    func map(_ model: WeatherData) -> [WeatherModel.Components.Alert] {
         guard let alerts = model.alerts,
               let alert = alerts.first else { return [] }
         
         let description = "\(alert.senderName): \(alert.event)"
         
-        let alertViewModel = WeatherModel.ViewModel.Alert(
+        let alertViewModel = WeatherModel.Components.Alert(
             sender: alert.senderName,
             event: alert.event,
             description: description
         )
-                
+        
         return [alertViewModel]
     }
 }

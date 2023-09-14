@@ -710,13 +710,13 @@
 		7B7A62372A42CBC8001A0DC2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				7B7A62382A42CBC8001A0DC2 /* HumidityView.swift */,
 				7B7A62392A42CBC8001A0DC2 /* UVIndexView.swift */,
 				7B7A623A2A42CBC8001A0DC2 /* SunStateView.swift */,
 				7B7A623B2A42CBC8001A0DC2 /* WindView.swift */,
 				7B7A623C2A42CBC8001A0DC2 /* PrecipitationView.swift */,
-				7B7A623D2A42CBC8001A0DC2 /* VisibilityView.swift */,
 				7B7A623E2A42CBC8001A0DC2 /* FeelsLikeView.swift */,
+				7B7A62382A42CBC8001A0DC2 /* HumidityView.swift */,
+				7B7A623D2A42CBC8001A0DC2 /* VisibilityView.swift */,
 				7B7A623F2A42CBC8001A0DC2 /* PressureView.swift */,
 			);
 			path = Views;
@@ -742,13 +742,13 @@
 		7B7A62452A42CBC8001A0DC2 /* Mappers */ = {
 			isa = PBXGroup;
 			children = (
-				7B7A62462A42CBC8001A0DC2 /* ConditionsMapper.swift */,
 				7B7A62472A42CBC8001A0DC2 /* AlertMapper.swift */,
 				7B7A62482A42CBC8001A0DC2 /* CurrentMapper.swift */,
 				7B7A62492A42CBC8001A0DC2 /* HourlyMapper.swift */,
 				7B7A624A2A42CBC8001A0DC2 /* DailyMapper.swift */,
-				7B7A624B2A42CBC8001A0DC2 /* Conditions */,
 				7B7A62542A42CBC8001A0DC2 /* DailyCollectionMapper.swift */,
+				7B7A62462A42CBC8001A0DC2 /* ConditionsMapper.swift */,
+				7B7A624B2A42CBC8001A0DC2 /* Conditions */,
 			);
 			path = Mappers;
 			sourceTree = "<group>";
@@ -756,14 +756,14 @@
 		7B7A624B2A42CBC8001A0DC2 /* Conditions */ = {
 			isa = PBXGroup;
 			children = (
-				7B7A624C2A42CBC8001A0DC2 /* FeelsLikeDataMapper.swift */,
 				7B7A624D2A42CBC8001A0DC2 /* UVIndexDataMapper.swift */,
-				7B7A624E2A42CBC8001A0DC2 /* PressureDataMapper.swift */,
-				7B7A624F2A42CBC8001A0DC2 /* PrecipitationDataMapper.swift */,
-				7B7A62502A42CBC8001A0DC2 /* VisibilityDataMapper.swift */,
 				7B7A62512A42CBC8001A0DC2 /* SunStateDataMapper.swift */,
 				7B7A62522A42CBC8001A0DC2 /* WindDataMapper.swift */,
+				7B7A624F2A42CBC8001A0DC2 /* PrecipitationDataMapper.swift */,
+				7B7A624C2A42CBC8001A0DC2 /* FeelsLikeDataMapper.swift */,
 				7B7A62532A42CBC8001A0DC2 /* HumidityDataMapper.swift */,
+				7B7A62502A42CBC8001A0DC2 /* VisibilityDataMapper.swift */,
+				7B7A624E2A42CBC8001A0DC2 /* PressureDataMapper.swift */,
 			);
 			path = Conditions;
 			sourceTree = "<group>";

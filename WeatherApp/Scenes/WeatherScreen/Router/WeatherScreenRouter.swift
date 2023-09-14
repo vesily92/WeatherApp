@@ -7,14 +7,17 @@
 
 import UIKit
 
+protocol IWeatherScreenRouter {
+    
+    func route(to target: WeatherScreenTarget)
+}
+
 enum WeatherScreenTarget {
-    case searchScreen(
-        data: [WeatherModel.Data],
-        delegate: ISearchScreenDelegate
-    )
+    case searchScreen(pageIndex: Int)
 }
 
 final class WeatherScreenRouter {
+    
     private let navigationController: UINavigationController
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -22,24 +25,19 @@ final class WeatherScreenRouter {
 }
 
 extension WeatherScreenRouter: IWeatherScreenRouter {
+    
     func route(to target: WeatherScreenTarget) {
         switch target {
-        case let .searchScreen(data, delegate):
+        case .searchScreen(let pageIndex):
+            // FIX ME
+            let animated = pageIndex <= 5
+            
+            let transitionManager = TransitionManager(pageIndex: pageIndex)
+            navigationController.delegate = transitionManager
+            
             navigationController.setNavigationBarHidden(false, animated: false)
-            navigationController.setToolbarHidden(true, animated: true)
-            
-            let searchViewController = SearchViewController()
-            
-            SearchScreenAssembly(
-                navigationController: navigationController,
-                data: data,
-                delegate: delegate
-            ).assembly(viewController: searchViewController)
-            
-            navigationController.pushViewController(
-                searchViewController,
-                animated: true
-            )
+            navigationController.setToolbarHidden(true, animated: animated)
+            navigationController.popViewController(animated: animated)
         }
     }
 }

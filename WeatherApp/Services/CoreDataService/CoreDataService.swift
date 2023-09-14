@@ -15,11 +15,18 @@ protocol ICoreDataService {
         completion: (Result<[T], Error>) -> Void
     )
     
-    func delete(_ currentObject: NSManagedObject, context: NSManagedObjectContext)
+    func delete(
+        _ currentObject: NSManagedObject,
+        context: NSManagedObjectContext
+    )
 }
 
 protocol ICoreDataLocationService: ICoreDataService {
-    func save(_ model: LocationCoreDataModel, context: NSManagedObjectContext)
+    
+    func save(
+        _ model: LocationCoreDataModel,
+        context: NSManagedObjectContext
+    )
 }
 
 final class CoreDataService {
@@ -27,7 +34,9 @@ final class CoreDataService {
     static let shared = CoreDataService()
     
     private lazy var container: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "WeatherForecastAppDataModel")
+        let container = NSPersistentContainer(
+            name: "WeatherForecastAppDataModel"
+        )
         container.loadPersistentStores { description, error in
             //
         }
@@ -69,7 +78,9 @@ extension CoreDataService: ICoreDataService {
         _ managedObject: T.Type,
         completion: (Result<[T], Error>) -> Void
     ) where T : NSManagedObject {
-        let fetchRequest = NSFetchRequest<T>(entityName: String(describing: T.self))
+        let fetchRequest = NSFetchRequest<T>(
+            entityName: String(describing: T.self)
+        )
         
         do {
             let dbObject = try readContext.fetch(fetchRequest)
@@ -89,8 +100,11 @@ extension CoreDataService: ICoreDataService {
 extension CoreDataService: ICoreDataLocationService {
     func save(_ model: LocationCoreDataModel, context: NSManagedObjectContext) {
         let dbLocation = DBLocation(context: context)
+        dbLocation.id = model.id
         dbLocation.cityName = model.cityName
         dbLocation.latitude = model.latitude
         dbLocation.longitude = model.longitude
+        dbLocation.country = model.country
+        dbLocation.state = model.state
     }
 }

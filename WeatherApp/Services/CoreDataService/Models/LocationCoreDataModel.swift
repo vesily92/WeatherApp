@@ -6,7 +6,11 @@
 //
 
 struct LocationCoreDataModel {
+    
+    let id: String
     let cityName: String
     let latitude: Double
     let longitude: Double
+    let country: String?
+    let state: String?
 }

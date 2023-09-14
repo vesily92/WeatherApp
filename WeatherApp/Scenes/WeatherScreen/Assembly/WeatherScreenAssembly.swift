@@ -8,31 +8,38 @@
 import UIKit
 
 final class WeatherScreenAssembly {
+    
     private let navigationController: UINavigationController
-    private let data: [WeatherModel.Data]
-        
+    private let viewModels: [WeatherModel.ViewModel]
+    private let index: Int
+    
     init(navigationController: UINavigationController,
-         data: [WeatherModel.Data]) {
+         viewModels: [WeatherModel.ViewModel],
+         index: Int = 0
+    ) {
         self.navigationController = navigationController
-        self.data = data
+        self.viewModels = viewModels
+        self.index = index
     }
 }
 
 extension WeatherScreenAssembly: IAssembly {
+    
     func assembly(viewController: UIViewController) {
-        guard let viewController = viewController as? WeatherViewController else {
+        guard let viewController = viewController as? WeatherScreenPageViewController else {
             return
         }
+        
         let router = WeatherScreenRouter(
             navigationController: navigationController
         )
-        let manager = DependencyContainer().makeWeatherScreenManager()
         
-        let presenter = WeatherPresenter(
+        let presenter = WeatherScreenPresenter(
             router: router,
-            manager: manager,
-            data: data
+            viewModels: viewModels,
+            index: index
         )
+        
         presenter.view = viewController
         viewController.presenter = presenter
     }

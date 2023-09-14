@@ -16,14 +16,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
         
-        let coreDataManager = ManagerAssembly().coreDataLocationManager
         let navigationController = UINavigationController()
+        let coreDataManager = ManagerAssembly().coreDataLocationManager
+        let mappingManager = ManagerAssembly().mappingManager
         
         AppCoordinator(
             navigationController: navigationController,
-            coreDataManager: coreDataManager
+            coreDataManager: coreDataManager,
+            mappingManager: mappingManager
         ).start()
-                
+        
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
         self.window = window

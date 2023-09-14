@@ -14,88 +14,144 @@ protocol ICoordinator {
 
 /// A type that can receive data updates.
 protocol IUpdatableWithData {
-    /// Updates data on receive.
-    /// - Parameter data: The data received from network call.
-    func updateWith(_ data: [WeatherModel.Data])
+    
+    /// Updates view models on receive.
+    /// - Parameter data: Updated view models .
+    func updateWith(viewModels: [WeatherModel.ViewModel])
 }
 
 /// Application coordinator.
 final class AppCoordinator: ICoordinator {
-    // MARK: - Properties
+    
+    // MARK: - Private Properties
+    
+    private var locations: [Location] = []
+    
     private let navigationController: UINavigationController
     private let coreDataManager: ICoreDataLocationManager
+    private let mappingManager: IMappingManager
     
-    private var data: [WeatherModel.Data] = [] {
-        didSet { updateInterfaces() }
+    private var viewModels: [WeatherModel.ViewModel] = [] {
+        didSet {
+            updateInterfaces() }
     }
     
     // MARK: - Initialisers
+    
     init(navigationController: UINavigationController,
-         coreDataManager: ICoreDataLocationManager) {
+         coreDataManager: ICoreDataLocationManager,
+         mappingManager: IMappingManager
+    ) {
         self.navigationController = navigationController
         self.coreDataManager = coreDataManager
-        
-        getInitialData()
+        self.mappingManager = mappingManager
     }
     
     // MARK: - Internal Methods
+    
     /// Launches main application flow.
     func start() {
-        showWeatherScreen()
+        startMainFlow()
     }
     
     // MARK: - Private Methods
-    /// Prepares initial data.
-    private func getInitialData() {
-        data = [
-            WeatherModel.Data(
-                location: Location(city: nil, latitude: nil, longitude: nil, country: nil, state: nil),
-                weather: nil
-            ),
-            WeatherModel.Data(
-                location: Location(city: "City of Westminster", latitude: 51.50998, longitude: -0.1337, country: "Great Britain", state: "London"),
-                weather: nil
-            ),
-            WeatherModel.Data(
-                location: Location(city: "New York", latitude: 39.31, longitude: -74.5, country: "USA", state: nil),
-                weather: nil
-            ),
-            WeatherModel.Data(
-                location: Location(city: "Berlin", latitude: 52.52, longitude: 13.40, country: "Germany", state: nil),
-                weather: nil
-            )
-        ]
+    
+    private func startMainFlow() {
+        
+        let blancLocation = Location(
+            city: nil,
+            latitude: nil,
+            longitude: nil,
+            country: nil,
+            state: nil
+        )
+        locations.append(blancLocation)
+        
+        fetchCoreData()
+        createViewModels()
+        setViewControllers()
     }
     
-    /// Shows main screen.
-    private func showWeatherScreen() {
-        let weatherScreenViewController = WeatherViewController()
+    private func fetchCoreData() {
+        coreDataManager.fetch { [weak self] result in
+            switch result {
+            case .success(let locations):
+                var fetchedLocations: [Location] = []
+                
+                locations.forEach { location in
+                    let fetchedLocation = Location(
+                        city: location.cityName,
+                        latitude: location.latitude,
+                        longitude: location.longitude,
+                        country: location.country,
+                        state: location.state
+                    )
+                    
+                    fetchedLocations.append(fetchedLocation)
+                }
+                
+                self?.locations.append(contentsOf: fetchedLocations)
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func createViewModels() {
+        locations.enumerated().forEach { (index, location) in
+            let viewModel = mappingManager.map(
+                .initial(location: location, index: index)
+            )
+            viewModels.append(viewModel)
+        }
+    }
+    
+    private func setViewControllers() {
+        let searchScreenViewController = SearchScreenViewController()
+        searchScreenViewController.coordinator = self
         
-        weatherScreenViewController.coordinator = self
+        SearchScreenAssembly(
+            navigationController: navigationController,
+            coreDataManger: coreDataManager,
+            mappingManager: mappingManager,
+            viewModels: viewModels
+        ).assembly(
+            viewController: searchScreenViewController
+        )
+        searchScreenViewController
+            .onViewModelsDidChange = { [weak self] viewModels in
+                self?.viewModels = viewModels
+            }
+        
+        let weatherScreenViewController = WeatherScreenPageViewController()
+        
         WeatherScreenAssembly(
             navigationController: navigationController,
-            data: data
-        ).assembly(viewController: weatherScreenViewController)
+            viewModels: viewModels
+        ).assembly(
+            viewController: weatherScreenViewController
+        )
         
-        weatherScreenViewController.onWeatherDataChange = { [weak self] data in
-            self?.data = data
-        }
-
         navigationController.setNavigationBarHidden(true, animated: false)
         navigationController.setToolbarHidden(false, animated: true)
         navigationController.setViewControllers(
-            [weatherScreenViewController],
+            [searchScreenViewController, weatherScreenViewController],
             animated: false
         )
     }
 }
 
 // MARK: - Extensions
+
 extension AppCoordinator {
+    
     /// Calls update method in every IUpdatableWithData ViewController.
     private func updateInterfaces() {
-        navigationController.viewControllers.forEach {
-            ($0 as? IUpdatableWithData)?.updateWith(data)
+        DispatchQueue.main.async {
+            self.navigationController.viewControllers.forEach {
+                ($0 as? IUpdatableWithData)?.updateWith(viewModels: self.viewModels)
+            }
         }
     }
 }

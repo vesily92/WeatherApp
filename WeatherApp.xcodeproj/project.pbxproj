@@ -43,7 +43,6 @@
 		7B7A620A2A42CBA8001A0DC2 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62002A42CBA8001A0DC2 /* NetworkService.swift */; };
 		7B7A620B2A42CBA8001A0DC2 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62022A42CBA8001A0DC2 /* Section.swift */; };
 		7B7A620C2A42CBA8001A0DC2 /* SectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62032A42CBA8001A0DC2 /* SectionService.swift */; };
-		7B7A62192A42CBB9001A0DC2 /* SearchScreenSectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A620F2A42CBB9001A0DC2 /* SearchScreenSectionManager.swift */; };
 		7B7A621A2A42CBB9001A0DC2 /* WeatherScreenSectionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62102A42CBB9001A0DC2 /* WeatherScreenSectionsManager.swift */; };
 		7B7A621B2A42CBB9001A0DC2 /* ManagersWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62112A42CBB9001A0DC2 /* ManagersWrapper.swift */; };
 		7B7A621C2A42CBB9001A0DC2 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62132A42CBB9001A0DC2 /* WeatherManager.swift */; };
@@ -181,7 +180,6 @@
 		7B7A62002A42CBA8001A0DC2 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		7B7A62022A42CBA8001A0DC2 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		7B7A62032A42CBA8001A0DC2 /* SectionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionService.swift; sourceTree = "<group>"; };
-		7B7A620F2A42CBB9001A0DC2 /* SearchScreenSectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchScreenSectionManager.swift; sourceTree = "<group>"; };
 		7B7A62102A42CBB9001A0DC2 /* WeatherScreenSectionsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherScreenSectionsManager.swift; sourceTree = "<group>"; };
 		7B7A62112A42CBB9001A0DC2 /* ManagersWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagersWrapper.swift; sourceTree = "<group>"; };
 		7B7A62132A42CBB9001A0DC2 /* WeatherManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
@@ -512,18 +510,17 @@
 				7B7A62172A42CBB9001A0DC2 /* CoreDataManager */,
 				7B7A62DA2A42CE2F001A0DC2 /* LocationManager */,
 				7B7A62122A42CBB9001A0DC2 /* NetworkManagers */,
-				7B7A620E2A42CBB9001A0DC2 /* SectionsManager */,
+				7B7A620E2A42CBB9001A0DC2 /* SectionManager */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
 		};
-		7B7A620E2A42CBB9001A0DC2 /* SectionsManager */ = {
+		7B7A620E2A42CBB9001A0DC2 /* SectionManager */ = {
 			isa = PBXGroup;
 			children = (
-				7B7A620F2A42CBB9001A0DC2 /* SearchScreenSectionManager.swift */,
 				7B7A62102A42CBB9001A0DC2 /* WeatherScreenSectionsManager.swift */,
 			);
-			path = SectionsManager;
+			path = SectionManager;
 			sourceTree = "<group>";
 		};
 		7B7A62122A42CBB9001A0DC2 /* NetworkManagers */ = {
@@ -1144,7 +1141,6 @@
 				7B7A62D92A42CCAF001A0DC2 /* UILabel + ConvenienceInit.swift in Sources */,
 				7B7A621B2A42CBB9001A0DC2 /* ManagersWrapper.swift in Sources */,
 				7B7A62A92A42CBD6001A0DC2 /* ListMapper.swift in Sources */,
-				7B7A62192A42CBB9001A0DC2 /* SearchScreenSectionManager.swift in Sources */,
 				7B7A627C2A42CBC8001A0DC2 /* ConditionsMapper.swift in Sources */,
 				7B7A61EE2A42CB7B001A0DC2 /* DependencyContainer.swift in Sources */,
 				7B7A62D72A42CCAF001A0DC2 /* Notification.Name + Extension.swift in Sources */,

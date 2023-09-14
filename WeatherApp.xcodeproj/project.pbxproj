@@ -509,7 +509,7 @@
 			children = (
 				7B7A62162A42CBB9001A0DC2 /* ManagerAssembly.swift */,
 				7B7A62112A42CBB9001A0DC2 /* ManagersWrapper.swift */,
-				7B7A62172A42CBB9001A0DC2 /* CoreDataManagers */,
+				7B7A62172A42CBB9001A0DC2 /* CoreDataManager */,
 				7B7A62DA2A42CE2F001A0DC2 /* LocationManager */,
 				7B7A62122A42CBB9001A0DC2 /* NetworkManagers */,
 				7B7A620E2A42CBB9001A0DC2 /* SectionsManager */,
@@ -535,12 +535,12 @@
 			path = NetworkManagers;
 			sourceTree = "<group>";
 		};
-		7B7A62172A42CBB9001A0DC2 /* CoreDataManagers */ = {
+		7B7A62172A42CBB9001A0DC2 /* CoreDataManager */ = {
 			isa = PBXGroup;
 			children = (
 				7B7A62182A42CBB9001A0DC2 /* CoreDataLocationManager.swift */,
 			);
-			path = CoreDataManagers;
+			path = CoreDataManager;
 			sourceTree = "<group>";
 		};
 		7B7A62212A42CBC7001A0DC2 /* WeatherScreen */ = {

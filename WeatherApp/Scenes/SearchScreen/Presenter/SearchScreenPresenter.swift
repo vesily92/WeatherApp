@@ -7,26 +7,19 @@
 
 import Foundation
 
-protocol ISearchScreenDelegate: AnyObject {
-    func didSelectLocation(with pageIndex: Int)
-    func didAddLocation(with data: WeatherModel.Data)
-    func didRemoveLocation(by index: Int)
-}
-
-protocol ISearchScreenRouter {
-    func route(to target: SearchScreenTarget)
-}
-
-protocol ISearchViewPresenter {
-    func renderSearchView()
-    func updateWith(_ data: [WeatherModel.Data])
+protocol ISearchScreenPresenter {
+    
+    func render()
+    func updateWith(viewModels: [WeatherModel.ViewModel])
     func search(with query: String)
+    func getViewModel(by index: Int) -> WeatherModel.Components.Current
     func handleCellSelection(at index: Int)
     func handleCellRemoval(at index: Int)
-    
+    func handleCellReorder(_ viewModels: [WeatherModel.ViewModel])
 }
 
 protocol IResultsViewPresenter {
+    
     func numberOfResults() -> Int
     func result(at index: Int) -> String
     func showLocation(by index: Int)
@@ -34,46 +27,119 @@ protocol IResultsViewPresenter {
 
 final class SearchScreenPresenter {
     
-    weak var searchView: ISearchViewController?
+    weak var searchView: ISearchScreenViewController?
     weak var resultsView: IResultsViewController?
     
-    weak var delegate: ISearchScreenDelegate?
-    
-    var data: [WeatherModel.Data] = [] {
-        didSet { renderSearchView() }
+    var viewModels: [WeatherModel.ViewModel] = [] {
+        didSet {
+            render()
+        }
     }
     
-    private let router: ISearchScreenRouter
-    private let manager: ISearchScreenManager
-    
+    private var storedLocations: [Location] = []
     private var foundLocations: [Location] = []
     
+    private let router: ISearchScreenRouter
+    private let searchScreenManager: ISearchScreenManagersWrapper
+    
     init(router: ISearchScreenRouter,
-         manager: ISearchScreenManager,
-         data: [WeatherModel.Data],
-         delegate: ISearchScreenDelegate) {
+         searchScreenManager: ISearchScreenManagersWrapper,
+         viewModels: [WeatherModel.ViewModel]) {
         
         self.router = router
-        self.manager = manager
-        self.data = data
-        self.delegate = delegate
+        self.searchScreenManager = searchScreenManager
+        self.viewModels = viewModels
+        
+        viewModels.forEach { viewModel in
+            storedLocations.append(viewModel.location)
+        }
+        
+        searchView?.render(with: viewModels)
+        
+        self.searchScreenManager.getUserLocation { [weak self] latitude, longitude in
+            self?.fetchData(latitude: latitude, longitude: longitude)
+        }
+        
+        NotificationCenter.default.addObserver(
+            forName: .updateView,
+            object: nil,
+            queue: .main
+        ) { [weak self] notification in
+            guard let object = notification
+                .object as? [NotificationKey: WeatherModel.ViewModel],
+                  let viewModel = object[NotificationKey.viewModel] else {
+                return
+            }
+            if let index = self?.viewModels.firstIndex(where: {
+                $0.location.city == viewModel.location.city
+            }) {
+                self?.viewModels[index] = viewModel
+            }
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    private func fetchData(latitude: Double, longitude: Double) {
+        guard let location = storedLocations.first else { return }
+        
+        if location.latitude == latitude && location.longitude == longitude {
+            storedLocations.enumerated().forEach { (index, location) in
+                fetchWeather(for: location, by: index)
+            }
+            
+        } else {
+            searchScreenManager.fetchLocation(
+                with: .coordinates(latitude: latitude, longitude: longitude)
+            ) { [weak self] locations in
+                guard let location = locations.first,
+                      let self = self else {
+                    return
+                }
+                
+                self.storedLocations[0] = location
+                self.storedLocations.enumerated().forEach{ (index, location) in
+                    self.fetchWeather(for: location, by: index)
+                }
+            }
+        }
+    }
+    
+    private func fetchWeather(for location: Location, by index: Int) {
+        searchScreenManager.fetchWeatherFor(location) { [weak self] response in
+            guard let self = self else { return }
+            let viewModel = self.searchScreenManager.map(
+                .complete(
+                    location: location,
+                    weather: response.weather,
+                    index: index
+                )
+            )
+            
+            if index >= 0 && index < self.viewModels.count {
+                self.viewModels[index] = viewModel
+                self.searchView?.send(viewModels: self.viewModels)
+            }
+        }
     }
 }
 
-extension SearchScreenPresenter: ISearchViewPresenter {
+// MARK: - SearchScreenPresenter + ISearchScreenPresenter
+
+extension SearchScreenPresenter: ISearchScreenPresenter {
     
-    func renderSearchView() {
-        guard let searchView = searchView else { return }
-        let sections = manager.createSections(
-            with: data,
-            delegate: searchView
-        )
-        let viewModel = WeatherModel.ViewModel.ListScreen(sections: sections)
-        searchView.render(with: viewModel)
+    func removeLocation(at index: Int) {
+        viewModels.remove(at: index)
+    }
+    
+    func render() {
+        searchView?.render(with: viewModels)
     }
     
     func search(with query: String) {
-        manager.fetchLocation(
+        searchScreenManager.fetchLocation(
             with: .cityName(cityName: query)
         ) { [weak self] locations in
             self?.foundLocations = locations
@@ -84,19 +150,41 @@ extension SearchScreenPresenter: ISearchViewPresenter {
         }
     }
     
-    func updateWith(_ data: [WeatherModel.Data]) {
-        self.data = data
+    func updateWith(viewModels: [WeatherModel.ViewModel]) {
+        self.viewModels = viewModels
     }
-
+    
+    func getViewModel(by index: Int) -> WeatherModel.Components.Current {
+        return viewModels[index].list
+    }
+    
     func handleCellSelection(at index: Int) {
-        delegate?.didSelectLocation(with: index)
-        router.route(to: .weatherScreen)
+        router.route(
+            to: .weatherScreen(
+                viewModels: viewModels,
+                index: index
+            )
+        )
     }
     
     func handleCellRemoval(at index: Int) {
-        delegate?.didRemoveLocation(by: index)
+        searchScreenManager.delete(viewModels[index].location)
+        storedLocations.remove(at: index)
+        viewModels.remove(at: index)
+    }
+    
+    func handleCellReorder(_ viewModels: [WeatherModel.ViewModel]) {
+        self.viewModels = viewModels
+        
+        var locations: [Location] = []
+        viewModels.dropFirst().forEach { viewModel in
+            locations.append(viewModel.location)
+        }
+        searchScreenManager.reorder(locations)
     }
 }
+
+// MARK: - SearchScreenPresenter + IResultsViewPresenter
 
 extension SearchScreenPresenter: IResultsViewPresenter {
     func numberOfResults() -> Int {
@@ -108,30 +196,70 @@ extension SearchScreenPresenter: IResultsViewPresenter {
     }
     
     func showLocation(by index: Int) {
+        let newIndex = storedLocations.count + 1
         let location = foundLocations[index]
-        var locations: [Location] = []
-        data.forEach { model in
-            locations.append(model.location)
-        }
-        let isNew = !locations
+        
+        let isNew = !storedLocations
             .dropFirst()
             .contains {
-                $0.latitude == location.latitude && $0.longitude == location.longitude
+                $0.latitude == location.latitude &&
+                $0.longitude == location.longitude
             }
         
-        router.route(
-            to: .newLocationScreen(
-                location: location,
-                isNew: isNew,
-                delegate: self
+        if storedLocations.contains(location) {
+            let index = storedLocations.firstIndex(of: location)!
+            let viewModel = viewModels[index]
+            
+            router.route(
+                to: .newLocationScreen(
+                    viewModel: viewModel,
+                    isNew: isNew,
+                    delegate: self
+                )
             )
-        )
+            
+        } else {
+            let viewModel = searchScreenManager.map(
+                .initial(location: location, index: newIndex)
+            )
+            
+            searchScreenManager.fetchWeatherFor(location) { [weak self] response in
+                let fetchedViewModel = self?.searchScreenManager.map(
+                    .complete(
+                        location: location,
+                        weather: response.weather,
+                        index: newIndex
+                    )
+                )
+                NotificationCenter.default.post(
+                    name: .updateView,
+                    object: [NotificationKey.viewModel: fetchedViewModel]
+                )
+            }
+            
+            router.route(
+                to: .newLocationScreen(
+                    viewModel: viewModel,
+                    isNew: isNew,
+                    delegate: self
+                )
+            )
+        }
     }
 }
 
+// MARK: - SearchScreenPresenter + INewLocationDelegate
+
 extension SearchScreenPresenter: INewLocationDelegate {
-    func didAddNewLocation(with data: WeatherModel.Data) {
-        self.data.append(data)
-        delegate?.didAddLocation(with: data)
+    func cancel() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    
+    func didAddNewLocation(with viewModel: WeatherModel.ViewModel) {
+        viewModels.append(viewModel)
+        storedLocations.append(viewModel.location)
+        searchView?.deactivateSearchController()
+        searchScreenManager.save(viewModel.location)
     }
 }

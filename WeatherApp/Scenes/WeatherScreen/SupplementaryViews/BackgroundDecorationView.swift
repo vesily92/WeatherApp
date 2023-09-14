@@ -9,6 +9,8 @@ import UIKit
 
 final class BackgroundDecorationView: UICollectionReusableView {
     
+    // MARK: - Private Properties
+    
     private lazy var blurView: BlurView = {
         let view = BlurView()
         view.layer.cornerRadius = Size.cornerRadius
@@ -16,6 +18,8 @@ final class BackgroundDecorationView: UICollectionReusableView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    // MARK: - Initialisers
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,6 +30,8 @@ final class BackgroundDecorationView: UICollectionReusableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Private Methods
     
     private func setupConstraints() {
         addSubview(blurView)

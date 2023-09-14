@@ -9,14 +9,10 @@ import UIKit
 
 final class ForecastView: BaseView {
     
-    private let minHeight: CGFloat = 140
-    private let maxHeight: CGFloat = 350
-    private var animatedConstraint: NSLayoutConstraint?
-    private var offsetY: CGFloat = 0
+    // MARK: - Private Properties
     
-    private var sections: [Section]? {
-        didSet { adapter.makeSnapshot(animated: true) }
-    }
+    private var viewModel: WeatherModel.ViewModel!
+    private var collectionView: UICollectionView!
     
     private lazy var currentWeatherView: CurrentWeatherView = {
         let view = CurrentWeatherView()
@@ -24,30 +20,31 @@ final class ForecastView: BaseView {
         return view
     }()
     
-    private var collectionView: UICollectionView!
     private lazy var adapter = CollectionViewAdapter(
-        delegate: self,
         collectionView: collectionView,
+        delegate: self,
         scrollDelegate: self
     )
+    
+    // MARK: - Overriden Methods
     
     override func setupView() {
         setupCollectionView()
         setupConstraints()
     }
     
-    func configure(with viewModel: WeatherModel.ViewModel.WeatherScreen) {
+    // MARK: - Internal Methods
+    
+    func configure(
+        with viewModel: WeatherModel.ViewModel,
+        animated: Bool = true
+    ) {
+        self.viewModel = viewModel
         currentWeatherView.configure(with: viewModel.current)
-        sections = viewModel.sections
+        adapter.makeSnapshot(animated: animated)
     }
     
-//    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-//        let newFrame = collectionView.frame.insetBy(dx: -32, dy: -350)
-//        if newFrame.contains(point) {
-//            return collectionView
-//        }
-//        return super.hitTest(point, with: event)
-//    }
+    // MARK: - Private Methods
     
     private func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
@@ -66,58 +63,51 @@ final class ForecastView: BaseView {
         addSubview(currentWeatherView)
         addSubview(collectionView)
         
-        animatedConstraint = currentWeatherView.heightAnchor.constraint(equalToConstant: maxHeight)
-        
         NSLayoutConstraint.activate([
             currentWeatherView.leadingAnchor.constraint(equalTo: leadingAnchor),
             currentWeatherView.trailingAnchor.constraint(equalTo: trailingAnchor),
             currentWeatherView.topAnchor.constraint(equalTo: topAnchor),
-            animatedConstraint!
+            currentWeatherView.heightAnchor.constraint(equalToConstant: Size.currentWeatherViewMaxHeight)
         ])
         
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.Padding.double),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.Padding.double),
-            collectionView.topAnchor.constraint(equalTo: currentWeatherView.bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: topAnchor, constant: Size.currentWeatherViewMinHeight),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
-    
 }
 
-extension ForecastView: ICollectionViewAdapterDelegate {
-    func sectionsForCollectionView() -> [Section] {
-        guard let sections = sections else { return [] }
-        return sections
+// MARK: - ForecastView + IScrollDelegate
+
+extension ForecastView: IScrollDelegate {
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        currentWeatherView.updateLayout(with: scrollView)
     }
 }
 
-extension ForecastView: IScrollDelegate {
-    func scrollViewDidScroll(scrollView: UIScrollView) {        
-        let currentOffsetY = scrollView.contentOffset.y
-        let scrollDelta = currentOffsetY - offsetY
-        let bounceBorder = -scrollView.contentInset.top
-        
-        let scrollsUp = scrollDelta > 0 && currentOffsetY > bounceBorder
-        let scrollsDown = scrollDelta < 0 && currentOffsetY < bounceBorder
-        
-        let currentConstraintHeight = animatedConstraint!.constant
-        var newConstraintHeight = currentConstraintHeight
-        
-        if scrollsUp {
-            newConstraintHeight = max(currentConstraintHeight - scrollDelta, minHeight)
-        } else if scrollsDown {
-            newConstraintHeight = min(currentConstraintHeight - scrollDelta, maxHeight)
-        }
+// MARK: - ForecastView + ICollectionViewAdapterDelegate
 
-        if newConstraintHeight != currentConstraintHeight {
-            animatedConstraint?.constant = newConstraintHeight
-            currentWeatherView.setLayout(with: currentOffsetY)
-            scrollView.contentOffset.y = offsetY
+extension ForecastView: ICollectionViewAdapterDelegate {
+    func getSections() -> [Section] {
+        return viewModel.sections ?? []
+    }
+    
+    func getItemsFor(section: Section) -> [AnyHashable] {
+        switch section.type {
+        case .spacer:
+            return [1]
+        case .alert:
+            return viewModel.alert ?? []
+        case .hourly:
+            return viewModel.hourly
+        case .daily:
+            return viewModel.daily
+        case .conditions:
+            return viewModel.conditions
+        case .footer:
+            return [viewModel.current]
         }
-//        let completionPercentage = (maxHeight - currentConstraintHeight) / (maxHeight - minHeight)
-//        print(completionPercentage)
-        offsetY = scrollView.contentOffset.y
-        
     }
 }

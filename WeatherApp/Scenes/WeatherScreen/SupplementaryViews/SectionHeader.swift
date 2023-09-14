@@ -9,6 +9,13 @@ import UIKit
 
 final class SectionHeader: UICollectionReusableView {
     
+    // MARK: - Internal Properties
+    
+    var containerView: UIView!
+    var animatedConstraint: NSLayoutConstraint!
+    
+    // MARK: - Private Properties
+    
     private lazy var titleLabel = UILabel(
         font: Font.semibold.of(size: .header3),
         color: Color.translucent50.white
@@ -23,40 +30,39 @@ final class SectionHeader: UICollectionReusableView {
         return imageView
     }()
     
-    var contentView: UIView!
-    var animatedConstraint: NSLayoutConstraint!
+    // MARK: - Overriden Methods
     
-    var offset: CGFloat = 0 {
-        didSet {
-            animatedConstraint.constant = offset
-        }
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        return nil
     }
+    
+    // MARK: - Initialisers
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView = UIView(frame: frame)
         
-        contentView.addSubview(symbolView)
-        contentView.addSubview(titleLabel)
-        
-        addSubview(contentView)
+        containerView = UIView(frame: frame)
+        containerView.addSubview(symbolView)
+        containerView.addSubview(titleLabel)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(containerView)
         
         NSLayoutConstraint.activate([
-            symbolView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            symbolView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            symbolView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            symbolView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+            //            symbolView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            symbolView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8),
+            symbolView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8),
             
             titleLabel.leadingAnchor.constraint(equalTo: symbolView.trailingAnchor, constant: 4),
             titleLabel.centerYAnchor.constraint(equalTo: symbolView.centerYAnchor)
         ])
         
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        animatedConstraint = contentView.topAnchor.constraint(equalTo: self.topAnchor)
+        animatedConstraint = containerView.topAnchor.constraint(equalTo: topAnchor)
         
         NSLayoutConstraint.activate([
-            contentView.widthAnchor.constraint(equalTo: self.widthAnchor),
-            contentView.heightAnchor.constraint(equalTo: self.heightAnchor),
-            contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            containerView.widthAnchor.constraint(equalTo: widthAnchor),
+            containerView.heightAnchor.constraint(equalTo: heightAnchor),
+            containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
             animatedConstraint
         ])
     }
@@ -64,6 +70,8 @@ final class SectionHeader: UICollectionReusableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Internal Methods
     
     func configure(with type: SectionType.WeatherScreen) {
         let symbolFont = Font.semibold.of(size: .header3)
@@ -76,11 +84,10 @@ final class SectionHeader: UICollectionReusableView {
     }
     
     func setAlphaForHeader(with offset: CGFloat) {
-        contentView.alpha = offset
+        containerView.alpha = offset
     }
     
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        return nil
+    func setConstraint(with offset: CGFloat) {
+        animatedConstraint.constant = offset
     }
 }
-

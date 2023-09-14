@@ -111,14 +111,12 @@
 		7B7A62C32A42CCA6001A0DC2 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62BF2A42CCA6001A0DC2 /* Fonts.swift */; };
 		7B7A62C42A42CCA6001A0DC2 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62C02A42CCA6001A0DC2 /* Colors.swift */; };
 		7B7A62D02A42CCAF001A0DC2 /* Double + RoundDecimal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62C62A42CCAF001A0DC2 /* Double + RoundDecimal.swift */; };
-		7B7A62D12A42CCAF001A0DC2 /* Bundle + Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62C72A42CCAF001A0DC2 /* Bundle + Decodable.swift */; };
 		7B7A62D22A42CCAF001A0DC2 /* DateFormatter + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62C82A42CCAF001A0DC2 /* DateFormatter + Extension.swift */; };
 		7B7A62D32A42CCAF001A0DC2 /* UICollectionReusableView + ReuseIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62C92A42CCAF001A0DC2 /* UICollectionReusableView + ReuseIdentifier.swift */; };
-		7B7A62D42A42CCAF001A0DC2 /* UICollectionView + Registration, Dequeuing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62CA2A42CCAF001A0DC2 /* UICollectionView + Registration, Dequeuing.swift */; };
+		7B7A62D42A42CCAF001A0DC2 /* UICollectionView + Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62CA2A42CCAF001A0DC2 /* UICollectionView + Registration.swift */; };
 		7B7A62D52A42CCAF001A0DC2 /* CGPoint + CoordinatesOnTheCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62CB2A42CCAF001A0DC2 /* CGPoint + CoordinatesOnTheCircle.swift */; };
 		7B7A62D62A42CCAF001A0DC2 /* Date + StartOfDay, EndOfDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62CC2A42CCAF001A0DC2 /* Date + StartOfDay, EndOfDay.swift */; };
 		7B7A62D72A42CCAF001A0DC2 /* Notification.Name + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62CD2A42CCAF001A0DC2 /* Notification.Name + Extension.swift */; };
-		7B7A62D82A42CCAF001A0DC2 /* NSDirectionalEdgeInsets + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62CE2A42CCAF001A0DC2 /* NSDirectionalEdgeInsets + Extension.swift */; };
 		7B7A62D92A42CCAF001A0DC2 /* UILabel + ConvenienceInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62CF2A42CCAF001A0DC2 /* UILabel + ConvenienceInit.swift */; };
 /* End PBXBuildFile section */
 
@@ -248,14 +246,12 @@
 		7B7A62BF2A42CCA6001A0DC2 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		7B7A62C02A42CCA6001A0DC2 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		7B7A62C62A42CCAF001A0DC2 /* Double + RoundDecimal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double + RoundDecimal.swift"; sourceTree = "<group>"; };
-		7B7A62C72A42CCAF001A0DC2 /* Bundle + Decodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle + Decodable.swift"; sourceTree = "<group>"; };
 		7B7A62C82A42CCAF001A0DC2 /* DateFormatter + Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter + Extension.swift"; sourceTree = "<group>"; };
 		7B7A62C92A42CCAF001A0DC2 /* UICollectionReusableView + ReuseIdentifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionReusableView + ReuseIdentifier.swift"; sourceTree = "<group>"; };
-		7B7A62CA2A42CCAF001A0DC2 /* UICollectionView + Registration, Dequeuing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView + Registration, Dequeuing.swift"; sourceTree = "<group>"; };
+		7B7A62CA2A42CCAF001A0DC2 /* UICollectionView + Registration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView + Registration.swift"; sourceTree = "<group>"; };
 		7B7A62CB2A42CCAF001A0DC2 /* CGPoint + CoordinatesOnTheCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint + CoordinatesOnTheCircle.swift"; sourceTree = "<group>"; };
 		7B7A62CC2A42CCAF001A0DC2 /* Date + StartOfDay, EndOfDay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date + StartOfDay, EndOfDay.swift"; sourceTree = "<group>"; };
 		7B7A62CD2A42CCAF001A0DC2 /* Notification.Name + Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Notification.Name + Extension.swift"; sourceTree = "<group>"; };
-		7B7A62CE2A42CCAF001A0DC2 /* NSDirectionalEdgeInsets + Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDirectionalEdgeInsets + Extension.swift"; sourceTree = "<group>"; };
 		7B7A62CF2A42CCAF001A0DC2 /* UILabel + ConvenienceInit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel + ConvenienceInit.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -898,14 +894,12 @@
 			isa = PBXGroup;
 			children = (
 				7B7A62C62A42CCAF001A0DC2 /* Double + RoundDecimal.swift */,
-				7B7A62C72A42CCAF001A0DC2 /* Bundle + Decodable.swift */,
 				7B7A62C82A42CCAF001A0DC2 /* DateFormatter + Extension.swift */,
 				7B7A62C92A42CCAF001A0DC2 /* UICollectionReusableView + ReuseIdentifier.swift */,
-				7B7A62CA2A42CCAF001A0DC2 /* UICollectionView + Registration, Dequeuing.swift */,
+				7B7A62CA2A42CCAF001A0DC2 /* UICollectionView + Registration.swift */,
 				7B7A62CB2A42CCAF001A0DC2 /* CGPoint + CoordinatesOnTheCircle.swift */,
 				7B7A62CC2A42CCAF001A0DC2 /* Date + StartOfDay, EndOfDay.swift */,
 				7B7A62CD2A42CCAF001A0DC2 /* Notification.Name + Extension.swift */,
-				7B7A62CE2A42CCAF001A0DC2 /* NSDirectionalEdgeInsets + Extension.swift */,
 				7B7A62CF2A42CCAF001A0DC2 /* UILabel + ConvenienceInit.swift */,
 			);
 			path = Extensions;
@@ -1139,10 +1133,8 @@
 				7B7A62732A42CBC8001A0DC2 /* SunStateView.swift in Sources */,
 				7B7A62AA2A42CBD6001A0DC2 /* ListSectionConfigurator.swift in Sources */,
 				7B7A628E2A42CBC8001A0DC2 /* WeatherViewController.swift in Sources */,
-				7B7A62D82A42CCAF001A0DC2 /* NSDirectionalEdgeInsets + Extension.swift in Sources */,
 				7B7A62852A42CBC8001A0DC2 /* VisibilityDataMapper.swift in Sources */,
-				7B7A62D12A42CCAF001A0DC2 /* Bundle + Decodable.swift in Sources */,
-				7B7A62D42A42CCAF001A0DC2 /* UICollectionView + Registration, Dequeuing.swift in Sources */,
+				7B7A62D42A42CCAF001A0DC2 /* UICollectionView + Registration.swift in Sources */,
 				7B7A62782A42CBC8001A0DC2 /* PressureView.swift in Sources */,
 				7B7A62092A42CBA8001A0DC2 /* LocationData.swift in Sources */,
 				7B7A62C12A42CCA6001A0DC2 /* Sizes.swift in Sources */,

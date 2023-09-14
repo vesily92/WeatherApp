@@ -8,12 +8,9 @@
 import Foundation
 
 enum NotificationKey {
-    case cellIndex
-    case pageIndex
+    case viewModel
 }
 
 extension Notification.Name {
-    static let removeCell = Notification.Name("removeCell")
-    static let scrollToPage = Notification.Name("scrollToPage")
+    static let updateView = Notification.Name("updateView")
 }
-

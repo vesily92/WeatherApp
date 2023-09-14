@@ -8,9 +8,14 @@
 import Foundation
 
 extension CGPoint {
-    func coordinates(at angle: CGFloat, distance: CGFloat) -> CGPoint {
-        return CGPoint(x: x + distance * cos(angle), y: y + distance * sin(angle))
+    
+    func coordinates(
+        at angle: CGFloat,
+        distance: CGFloat
+    ) -> CGPoint {
+        return CGPoint(
+            x: x + distance * cos(angle),
+            y: y + distance * sin(angle)
+        )
     }
-    
-    
 }

@@ -79,7 +79,7 @@ final class PressureView: BaseView {
             minRangeLabel.trailingAnchor.constraint(equalTo: centerXAnchor, constant: -Size.Padding.double),
             minRangeLabel.topAnchor.constraint(greaterThanOrEqualTo: metricsLabel.bottomAnchor),
             minRangeLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Size.Padding.double),
-
+            
             maxRangeLabel.leadingAnchor.constraint(equalTo: centerXAnchor, constant: Size.Padding.double),
             maxRangeLabel.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -Size.Padding.double),
             maxRangeLabel.topAnchor.constraint(greaterThanOrEqualTo: metricsLabel.bottomAnchor),
@@ -87,7 +87,7 @@ final class PressureView: BaseView {
         ])
     }
     
-    func configure(with model: WeatherModel.ViewModel.Pressure) {
+    func configure(with model: WeatherModel.Components.Pressure) {
         let symbolFont = Font.bold.of(size: .medium)
         let symbolConfig = UIImage.SymbolConfiguration(font: symbolFont)
         
@@ -96,15 +96,15 @@ final class PressureView: BaseView {
         switch model.state {
         case .rising:
             pressureStateSymbolView.image = UIImage(
-                systemName: "arrow.up"
+                systemName: Symbol.Other.arrowUp.rawValue
             )?.withConfiguration(symbolConfig)
         case .falling:
             pressureStateSymbolView.image = UIImage(
-                systemName: "arrow.down"
+                systemName: Symbol.Other.arrowDown.rawValue
             )?.withConfiguration(symbolConfig)
         case .stable:
             pressureStateSymbolView.image = UIImage(
-                systemName: "equal"
+                systemName: Symbol.Other.equal.rawValue
             )?.withConfiguration(symbolConfig)
         }
         

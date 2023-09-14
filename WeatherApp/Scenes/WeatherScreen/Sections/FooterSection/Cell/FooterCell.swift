@@ -37,18 +37,18 @@ final class FooterCell: BaseCell {
             separator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Size.Padding.normal),
             separator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Size.Padding.normal),
             
-            titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: contentView.leadingAnchor, constant: Size.Padding.largeDouble),
-            titleLabel.trailingAnchor.constraint(greaterThanOrEqualTo: contentView.trailingAnchor, constant: -Size.Padding.largeDouble),
-            titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Size.Padding.largeDouble),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Size.Padding.largeDouble),
             titleLabel.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: Size.Padding.largeDouble),
             
-            subtitleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            subtitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Size.Padding.largeDouble),
+            subtitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Size.Padding.largeDouble),
             subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
-            subtitleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Size.Padding.largeDouble)
+            subtitleLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -Size.Padding.largeDouble)
         ])
     }
     
-    func configure(with model: WeatherModel.ViewModel.Current) {
+    func configure(with model: WeatherModel.Components.Current) {
         guard let name = model.fullName else { return }
         titleLabel.text = "Weather for \(name)"
     }

@@ -33,7 +33,7 @@ final class UVIndexView: BaseView {
         setupConstraints()
     }
     
-    func configure(with model: WeatherModel.ViewModel.UVIndex) {
+    func configure(with model: WeatherModel.Components.UVIndex) {
         indexLabel.text = model.index
         descriptionLabel.text = model.description
         recommendationLabel.text = model.recommendation
@@ -48,20 +48,19 @@ final class UVIndexView: BaseView {
         addSubview(descriptionLabel)
         addSubview(lineIndicatorView)
         addSubview(recommendationLabel)
-
+        
         NSLayoutConstraint.activate([
             indexLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.Padding.double),
             indexLabel.topAnchor.constraint(equalTo: topAnchor, constant: Size.headerHeight),
-//            indexLabel.topAnchor.constraint(equalTo: topAnchor, constant: Size.Padding.double),
-
+            
             descriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.Padding.double),
             descriptionLabel.topAnchor.constraint(equalTo: indexLabel.bottomAnchor),
-
+            
             lineIndicatorView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.Padding.double),
             lineIndicatorView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.Padding.double),
             lineIndicatorView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: Size.Padding.normal),
             lineIndicatorView.heightAnchor.constraint(equalToConstant: Size.curveWidth),
-
+            
             recommendationLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.Padding.double),
             recommendationLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.Padding.double),
             recommendationLabel.topAnchor.constraint(greaterThanOrEqualTo: lineIndicatorView.bottomAnchor, constant: Size.Padding.half),

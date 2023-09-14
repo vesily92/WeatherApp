@@ -22,7 +22,7 @@ final class HumidityView: BaseView {
         setupConstraints()
     }
     
-    func configure(with model: WeatherModel.ViewModel.Humidity) {
+    func configure(with model: WeatherModel.Components.Humidity) {
         humidityLabel.text = model.humidity
         descriptionLabel.text = model.description
     }

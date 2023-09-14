@@ -8,16 +8,6 @@
 import UIKit
 
 final class DailySectionConfigurator: BaseSectionConfigurator, ISectionConfigurator {
-    var onCellSelected: ((IndexPath) -> Void)?
-    
-    var type: SectionType.WeatherScreen
-    
-    private var items: [AnyHashable]
-    
-    init(type: SectionType.WeatherScreen, items: [AnyHashable]) {
-        self.type = type
-        self.items = items
-    }
     
     func register(for collectionView: UICollectionView) {
         collectionView.register(cell: DailyCollectionCell.self)
@@ -28,7 +18,7 @@ final class DailySectionConfigurator: BaseSectionConfigurator, ISectionConfigura
         at indexPath: IndexPath,
         in collectionView: UICollectionView
     ) -> UICollectionViewCell? {
-        guard let item = item as? WeatherModel.ViewModel.DailyCollection else {
+        guard let item = item as? WeatherModel.Components.DailyCollection else {
             return nil
         }
         
@@ -56,7 +46,7 @@ final class DailySectionConfigurator: BaseSectionConfigurator, ISectionConfigura
             return nil
         }
         
-        sectionHeader.configure(with: type)
+        sectionHeader.configure(with: .daily)
         
         return sectionHeader
     }
@@ -108,8 +98,4 @@ final class DailySectionConfigurator: BaseSectionConfigurator, ISectionConfigura
     }
     
     func didSelect(at indexPath: IndexPath) {}
-    
-    func itemsForSection() -> [AnyHashable] { items }
-    
-    func itemForCell(at indexPath: IndexPath) -> AnyHashable? { nil }
 }

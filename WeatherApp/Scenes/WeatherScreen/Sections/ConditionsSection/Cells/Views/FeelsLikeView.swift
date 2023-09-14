@@ -23,7 +23,7 @@ final class FeelsLikeView: BaseView {
         setupConstraints()
     }
     
-    func configure(with model: WeatherModel.ViewModel.FeelsLike) {
+    func configure(with model: WeatherModel.Components.FeelsLike) {
         feelsLikeLabel.text = model.temperature
         descriptionLabel.text = model.description
     }

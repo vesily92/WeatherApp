@@ -22,7 +22,7 @@ final class VisibilityView: BaseView {
         setupConstraints()
     }
     
-    func configure(with model: WeatherModel.ViewModel.Visibility) {
+    func configure(with model: WeatherModel.Components.Visibility) {
         visibilityLabel.text = model.distance
         descriptionLabel.text = model.description
     }

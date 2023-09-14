@@ -34,7 +34,7 @@ final class HourlyView: BaseView {
         setupConstraints()
     }
     
-    func configure(with model: WeatherModel.ViewModel.Hourly) {
+    func configure(with model: WeatherModel.Components.Hourly) {
         timeLabel.text = model.time
         temperatureLabel.text = model.temperature
         popLabel.text = model.pop
@@ -50,7 +50,7 @@ final class HourlyView: BaseView {
         ])
         iconPopStackView.axis = .vertical
         iconPopStackView.translatesAutoresizingMaskIntoConstraints = false
-
+        
         let stackView = UIStackView(arrangedSubviews: [
             timeLabel,
             iconPopStackView,
@@ -60,9 +60,9 @@ final class HourlyView: BaseView {
         stackView.alignment = .center
         stackView.distribution = .equalCentering
         stackView.translatesAutoresizingMaskIntoConstraints = false
-
+        
         addSubview(stackView)
-
+        
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),

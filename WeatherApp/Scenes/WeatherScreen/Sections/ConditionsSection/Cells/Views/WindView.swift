@@ -52,7 +52,7 @@ final class WindView: BaseView {
         ])
     }
     
-    func configure(with model: WeatherModel.ViewModel.Wind) {
+    func configure(with model: WeatherModel.Components.Wind) {
         speedLabel.text = model.speed
         
         view.configure(with: model)

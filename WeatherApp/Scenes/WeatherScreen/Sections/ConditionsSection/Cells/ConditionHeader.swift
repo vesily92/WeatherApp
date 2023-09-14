@@ -37,7 +37,7 @@ final class ConditionHeader: UIView {
         addSubview(symbolView)
         addSubview(titleLabel)
         insertSubview(blurView, at: 0)
-
+        
         NSLayoutConstraint.activate([
             blurView.leadingAnchor.constraint(equalTo: leadingAnchor),
             blurView.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -59,7 +59,7 @@ final class ConditionHeader: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with type: WeatherModel.ViewModel.Conditions.MetricsType) {
+    func configure(with type: WeatherModel.Components.Conditions.MetricsType) {
         let symbolFont = Font.semibold.of(size: .header3)
         let symbolConfig = UIImage.SymbolConfiguration(font: symbolFont)
         
@@ -81,18 +81,6 @@ final class ConditionHeader: UIView {
     func addBlur() {
         blurView.alpha = 1
     }
-    
-    func setBackground(with offset: CGFloat) {
-//        backgroundColor = .systemGray
-    }
-    
-    //    func setHeaderOffset(with offset: CGFloat) {
-    //        animatedConstraint!.constant = offset
-    //    }
-    //
-    //    func setInitialOffset() {
-    //        animatedConstraint!.constant = 0
-    //    }
     
     func setAlphaForHeader(with offset: CGFloat) {
         titleLabel.alpha = offset

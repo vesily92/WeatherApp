@@ -9,24 +9,6 @@ import UIKit
 
 final class AlertSectionConfigurator: BaseSectionConfigurator, ISectionConfigurator {
     
-    var onCellSelected: ((IndexPath) -> Void)?
-    
-    
-//    private lazy var cellRegister = UICollectionView.CellRegistration<AlertCell, WeatherModel.ViewModel.Alert> { cell, indexPath, model in
-//        cell.configure(with: model)
-//    }
-    
-    
-    
-    var type: SectionType.WeatherScreen
-    
-    private var items: [AnyHashable]
-    
-    init(type: SectionType.WeatherScreen, items: [AnyHashable]) {
-        self.type = type
-        self.items = items
-    }
-    
     func register(for collectionView: UICollectionView) {
         collectionView.register(cell: AlertCell.self)
     }
@@ -36,7 +18,7 @@ final class AlertSectionConfigurator: BaseSectionConfigurator, ISectionConfigura
         at indexPath: IndexPath,
         in collectionView: UICollectionView
     ) -> UICollectionViewCell? {
-        guard let item = item as? WeatherModel.ViewModel.Alert else {
+        guard let item = item as? WeatherModel.Components.Alert else {
             return nil
         }
         
@@ -44,15 +26,9 @@ final class AlertSectionConfigurator: BaseSectionConfigurator, ISectionConfigura
             withReuseIdentifier: AlertCell.reuseIdentifier,
             for: indexPath
         ) as? AlertCell else { return nil }
-
+        
         cell.configure(with: item)
         return cell
-        
-//        return collectionView.dequeueConfiguredReusableCell(
-//            using: cellRegister,
-//            for: indexPath,
-//            item: item
-//        )
     }
     
     func supplementaryView(
@@ -70,7 +46,7 @@ final class AlertSectionConfigurator: BaseSectionConfigurator, ISectionConfigura
             return nil
         }
         
-        sectionHeader.configure(with: type)
+        sectionHeader.configure(with: .alert)
         
         return sectionHeader
     }
@@ -117,13 +93,8 @@ final class AlertSectionConfigurator: BaseSectionConfigurator, ISectionConfigura
                 )
             }
         }
-        
         return section
     }
     
     func didSelect(at indexPath: IndexPath) {}
-    
-    func itemsForSection() -> [AnyHashable] { items }
-    
-    func itemForCell(at indexPath: IndexPath) -> AnyHashable? { nil }
 }

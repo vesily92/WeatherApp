@@ -12,7 +12,7 @@ final class HourlyCell: BaseCell {
     private lazy var hourlyView = HourlyView()
     private lazy var sunView = SunView()
     
-    func configure(with model: WeatherModel.ViewModel.Hourly) {
+    func configure(with model: WeatherModel.Components.Hourly) {
         switch model.cellType {
         case .hourly:
             sunView.removeFromSuperview()
@@ -37,4 +37,3 @@ final class HourlyCell: BaseCell {
         ])
     }
 }
-

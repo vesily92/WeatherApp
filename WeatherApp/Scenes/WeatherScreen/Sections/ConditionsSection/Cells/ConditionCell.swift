@@ -5,9 +5,9 @@
 //  Created by Василий Пронин on 19.04.2023.
 //
 
-import UIKit
-
 final class ConditionCell: BaseCell {
+    
+    // MARK: - Private Properties
     
     private lazy var blurView: BlurView = {
         let view = BlurView()
@@ -38,8 +38,6 @@ final class ConditionCell: BaseCell {
         return view
     }()
     
-    private var animatedConstraint: NSLayoutConstraint?
-    
     private lazy var conditionView: ConditionView = {
         let view = ConditionView()
         view.layer.cornerRadius = Size.cornerRadius
@@ -47,11 +45,22 @@ final class ConditionCell: BaseCell {
         return view
     }()
     
+    private var animatedConstraint: NSLayoutConstraint?
+    
+    private var leadingBlurViewConstraint: NSLayoutConstraint!
+    private var trailingBlurViewConstraint: NSLayoutConstraint!
+    private var topBlurViewConstraint: NSLayoutConstraint!
+    private var bottomBlurViewConstraint: NSLayoutConstraint!
+    
+    // MARK: - Overriden Methods
+    
     override func setupCell() {
         setupConstraints()
     }
-        
-    func configure(with model: WeatherModel.ViewModel.Conditions) {
+    
+    // MARK: - Internal Methods
+    
+    func configure(with model: WeatherModel.Components.Conditions) {
         headerView.configure(with: model.type)
         conditionView.configure(with: model)
     }
@@ -66,7 +75,12 @@ final class ConditionCell: BaseCell {
     
     func setHeaderMask(with offset: CGFloat) {
         contentView.mask = headerMask
-        headerMask.frame = CGRect(x: 0, y: offset, width: contentView.frame.width, height: contentView.frame.height)
+        headerMask.frame = CGRect(
+            x: 0,
+            y: offset,
+            width: contentView.frame.width,
+            height: contentView.frame.height
+        )
     }
     
     func setAlphaForHeader(with offset: CGFloat) {
@@ -80,6 +94,7 @@ final class ConditionCell: BaseCell {
     
     func setBlur() {
         headerView.removeBlur()
+        blurView.removeFromSuperview()
         contentView.insertSubview(blurView, at: 0)
         
         NSLayoutConstraint.activate([
@@ -89,14 +104,16 @@ final class ConditionCell: BaseCell {
             blurView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
-            
+    
+    // MARK: - Private Methods
+    
     private func setupConstraints() {
         
         contentView.addSubview(conditionView)
         contentView.addSubview(headerView)
         contentView.insertSubview(blurView, at: 0)
         
-        animatedConstraint = headerView.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: 0)
+        animatedConstraint = headerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0)
         
         NSLayoutConstraint.activate([
             headerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -120,4 +137,3 @@ final class ConditionCell: BaseCell {
         ])
     }
 }
-

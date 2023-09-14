@@ -29,7 +29,7 @@ final class SunStateView: BaseView {
         setupConstraints()
     }
     
-    func configure(with model: WeatherModel.ViewModel.SunState) {
+    func configure(with model: WeatherModel.Components.SunState) {
         timeLabel.text = model.time
         nextEventLabel.text = model.nextEvent
         sunIndicatorView.configure(with: model.progress)
@@ -47,7 +47,7 @@ final class SunStateView: BaseView {
             sunIndicatorView.leadingAnchor.constraint(equalTo: leadingAnchor),
             sunIndicatorView.trailingAnchor.constraint(equalTo: trailingAnchor),
             sunIndicatorView.topAnchor.constraint(equalTo: timeLabel.bottomAnchor),
-            sunIndicatorView.heightAnchor.constraint(greaterThanOrEqualToConstant: 40),
+            sunIndicatorView.heightAnchor.constraint(equalToConstant: 40),
             
             nextEventLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.Padding.double),
             nextEventLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.Padding.double),

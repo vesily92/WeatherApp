@@ -28,7 +28,7 @@ final class PrecipitationView: BaseView {
         setupConstraints()
     }
     
-    func configure(with model: WeatherModel.ViewModel.Precipitation) {
+    func configure(with model: WeatherModel.Components.Precipitation) {
         precipitationLabel.text = model.pop
         timeFrameLabel.text = "in last 24h"
         forecastLabel.text = model.expectation
@@ -38,14 +38,14 @@ final class PrecipitationView: BaseView {
         addSubview(precipitationLabel)
         addSubview(timeFrameLabel)
         addSubview(forecastLabel)
-
+        
         NSLayoutConstraint.activate([
             precipitationLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.Padding.double),
             precipitationLabel.topAnchor.constraint(equalTo: topAnchor, constant: Size.headerHeight),
-
+            
             timeFrameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.Padding.double),
             timeFrameLabel.topAnchor.constraint(equalTo: precipitationLabel.bottomAnchor),
-
+            
             forecastLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Size.Padding.double),
             forecastLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Size.Padding.double),
             forecastLabel.topAnchor.constraint(greaterThanOrEqualTo: timeFrameLabel.bottomAnchor),

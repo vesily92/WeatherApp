@@ -1,16 +1,16 @@
 //
-//  FooterSectionConfigurator.swift
+//  SpacerSectionConfigurator.swift
 //  WeatherApp
 //
-//  Created by Василий Пронин on 02.06.2023.
+//  Created by Василий Пронин on 10.07.2023.
 //
 
 import UIKit
 
-final class FooterSectionConfigurator: ISectionConfigurator {
+final class SpacerSectionConfigurator: ISectionConfigurator {
     
     func register(for collectionView: UICollectionView) {
-        collectionView.register(cell: FooterCell.self)
+        collectionView.register(cell: EmptyCell.self)
     }
     
     func cell(
@@ -18,16 +18,12 @@ final class FooterSectionConfigurator: ISectionConfigurator {
         at indexPath: IndexPath,
         in collectionView: UICollectionView
     ) -> UICollectionViewCell? {
-        guard let item = item as? WeatherModel.Components.Current else {
-            return nil
-        }
         
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: FooterCell.reuseIdentifier,
+            withReuseIdentifier: EmptyCell.reuseIdentifier,
             for: indexPath
-        ) as? FooterCell else { return nil }
+        ) as? EmptyCell else { return nil }
         
-        cell.configure(with: item)
         return cell
     }
     
@@ -36,9 +32,7 @@ final class FooterSectionConfigurator: ISectionConfigurator {
         for item: AnyHashable?,
         at indexPath: IndexPath,
         in collectionView: UICollectionView
-    ) -> UICollectionReusableView? {
-        nil
-    }
+    ) -> UICollectionReusableView? { nil }
     
     func layout(
         environment: NSCollectionLayoutEnvironment,
@@ -46,7 +40,9 @@ final class FooterSectionConfigurator: ISectionConfigurator {
     ) -> NSCollectionLayoutSection? {
         let layoutSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(100)
+            heightDimension: .absolute(
+                Size.currentWeatherViewMaxHeight - Size.currentWeatherViewMinHeight
+            )
         )
         let item = NSCollectionLayoutItem(layoutSize: layoutSize)
         
@@ -62,4 +58,8 @@ final class FooterSectionConfigurator: ISectionConfigurator {
     }
     
     func didSelect(at indexPath: IndexPath) {}
+    
+    func didReorder(items: [AnyHashable]) {}
+    
+    func itemForCell(at indexPath: IndexPath) -> AnyHashable? { nil }
 }

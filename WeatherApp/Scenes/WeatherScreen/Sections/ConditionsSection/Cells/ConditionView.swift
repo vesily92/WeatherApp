@@ -9,6 +9,8 @@ import UIKit
 
 final class ConditionView: BaseView {
     
+    // MARK: - Private Properties
+    
     private lazy var uvIndexView = UVIndexView()
     private lazy var sunStateView = SunStateView()
     private lazy var windView = WindView()
@@ -18,8 +20,10 @@ final class ConditionView: BaseView {
     private lazy var visibilityView = VisibilityView()
     private lazy var pressureView = PressureView()
     
-    func configure(with model: WeatherModel.ViewModel.Conditions) {        
-        subviews.forEach { subview in
+    // MARK: - Internal Methods
+    
+    func configure(with model: WeatherModel.Components.Conditions) {
+        self.subviews.forEach { subview in
             subview.removeFromSuperview()
         }
         switch model.type {
@@ -75,6 +79,8 @@ final class ConditionView: BaseView {
         }
     }
     
+    // MARK: - Private Methods
+    
     private func setupConstraints(_ view: UIView) {
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
@@ -88,7 +94,10 @@ final class ConditionView: BaseView {
     }
 }
 
+// MARK: - ConditionView + Extension
+
 extension ConditionView {
+    
     func makeMask(for margin: CGFloat) {
         layer.mask = setAlphaMask(with: margin / frame.size.height)
         layer.masksToBounds = true

@@ -8,21 +8,6 @@
 import UIKit
 
 final class HourlySectionConfigurator: BaseSectionConfigurator, ISectionConfigurator {
-    var onCellSelected: ((IndexPath) -> Void)?
-    
-    var type: SectionType.WeatherScreen
-    
-//    private lazy var cellRegister = UICollectionView.CellRegistration<HourlyCell, WeatherModel.ViewModel.Hourly> { cell, indexPath, model in
-//
-//        cell.configure(with: model)
-//    }
-    
-    private var items: [AnyHashable]
-    
-    init(type: SectionType.WeatherScreen, items: [AnyHashable]) {
-        self.type = type
-        self.items = items
-    }
     
     func register(for collectionView: UICollectionView) {
         collectionView.register(cell: HourlyCell.self)
@@ -34,24 +19,14 @@ final class HourlySectionConfigurator: BaseSectionConfigurator, ISectionConfigur
         in collectionView: UICollectionView
     ) -> UICollectionViewCell? {
         
-        guard let item = item as? WeatherModel.ViewModel.Hourly,
+        guard let item = item as? WeatherModel.Components.Hourly,
               let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: HourlyCell.reuseIdentifier,
-            for: indexPath
-        ) as? HourlyCell else { return nil }
+                withReuseIdentifier: HourlyCell.reuseIdentifier,
+                for: indexPath
+              ) as? HourlyCell else { return nil }
         
         cell.configure(with: item)
         return cell
-        
-//        guard let item = item as? WeatherModel.ViewModel.Hourly else {
-//            return nil
-//        }
-//
-//        return collectionView.dequeueConfiguredReusableCell(
-//            using: cellRegister,
-//            for: indexPath,
-//            item: item
-//        )
     }
     
     func supplementaryView(
@@ -69,7 +44,7 @@ final class HourlySectionConfigurator: BaseSectionConfigurator, ISectionConfigur
             return nil
         }
         
-        sectionHeader.configure(with: type)
+        sectionHeader.configure(with: .hourly)
         
         return sectionHeader
     }
@@ -98,7 +73,7 @@ final class HourlySectionConfigurator: BaseSectionConfigurator, ISectionConfigur
         
         section.boundarySupplementaryItems = [sectionHeader()]
         section.decorationItems = [decorationView()]
-                
+        
         section.visibleItemsInvalidationHandler = { [weak self] items, offset, env in
             items.forEach { item in
                 guard let cell = collectionView.cellForItem(
@@ -106,12 +81,6 @@ final class HourlySectionConfigurator: BaseSectionConfigurator, ISectionConfigur
                 ) as? BaseCell else {
                     return
                 }
-//                self?.maskCells(
-//                    item: item,
-//                    offset: offset,
-//                    collectionView: collectionView,
-//                    cell: cell
-//                )
                 
                 let offsetY = collectionView.contentOffset.y
                 let headerHeight = CGFloat(Size.headerHeight)
@@ -134,13 +103,8 @@ final class HourlySectionConfigurator: BaseSectionConfigurator, ISectionConfigur
                 )
             }
         }
-        
         return section
     }
-        
+    
     func didSelect(at indexPath: IndexPath) {}
-    
-    func itemsForSection() -> [AnyHashable] { items }
-    
-    func itemForCell(at indexPath: IndexPath) -> AnyHashable? { nil }
 }

@@ -89,7 +89,7 @@ final class DailyCell: BaseCell {
         ])
     }
     
-    func configure(with model: WeatherModel.ViewModel.Daily) {
+    func configure(with model: WeatherModel.Components.Daily) {
         weekdayLabel.text = model.time
         maxTemperatureLabel.text = model.maxTemperature
         minTemperatureLabel.text = model.minTemperature
@@ -103,4 +103,3 @@ final class DailyCell: BaseCell {
         )
     }
 }
-

@@ -25,7 +25,7 @@ final class SunView: BaseView {
         setupConstraints()
     }
     
-    func configure(with model: WeatherModel.ViewModel.Hourly) {
+    func configure(with model: WeatherModel.Components.Hourly) {
         timeLabel.text = model.time
         eventLabel.text = model.event
         symbolView.image = UIImage(
@@ -54,4 +54,3 @@ final class SunView: BaseView {
         ])
     }
 }
-

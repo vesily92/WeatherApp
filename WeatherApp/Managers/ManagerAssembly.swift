@@ -9,9 +9,10 @@ import Foundation
 
 /// Manager assembly object.
 final class ManagerAssembly {
+    
     private let service = ServiceAssembly()
     
-    /// CoreData manager.
+    /// CoreData location service
     lazy var coreDataLocationManager: ICoreDataLocationManager = {
         return CoreDataLocationManager(
             coreDataService: service.coreDataLocationService
@@ -40,10 +41,8 @@ final class ManagerAssembly {
         )
     }()
     
-    /// Section configuration manager for `SearchScreen`.
-    lazy var searchScreenSectionManager: ISearchScreenSectionManager = {
-        return SearchScreenSectionManager(
-            sectionService: service.searchScreenSectionService
-        )
+    /// Mapping manager.
+    lazy var mappingManager: IMappingManager = {
+        return MappingManager()
     }()
 }

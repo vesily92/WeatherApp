@@ -45,7 +45,7 @@
 		7B7A620C2A42CBA8001A0DC2 /* SectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62032A42CBA8001A0DC2 /* SectionService.swift */; };
 		7B7A62192A42CBB9001A0DC2 /* SearchScreenSectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A620F2A42CBB9001A0DC2 /* SearchScreenSectionManager.swift */; };
 		7B7A621A2A42CBB9001A0DC2 /* WeatherScreenSectionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62102A42CBB9001A0DC2 /* WeatherScreenSectionsManager.swift */; };
-		7B7A621B2A42CBB9001A0DC2 /* Managers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62112A42CBB9001A0DC2 /* Managers.swift */; };
+		7B7A621B2A42CBB9001A0DC2 /* ManagersWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62112A42CBB9001A0DC2 /* ManagersWrapper.swift */; };
 		7B7A621C2A42CBB9001A0DC2 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62132A42CBB9001A0DC2 /* WeatherManager.swift */; };
 		7B7A621D2A42CBB9001A0DC2 /* GeocodingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62142A42CBB9001A0DC2 /* GeocodingManager.swift */; };
 		7B7A621E2A42CBB9001A0DC2 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62152A42CBB9001A0DC2 /* LocationManager.swift */; };
@@ -183,7 +183,7 @@
 		7B7A62032A42CBA8001A0DC2 /* SectionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionService.swift; sourceTree = "<group>"; };
 		7B7A620F2A42CBB9001A0DC2 /* SearchScreenSectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchScreenSectionManager.swift; sourceTree = "<group>"; };
 		7B7A62102A42CBB9001A0DC2 /* WeatherScreenSectionsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherScreenSectionsManager.swift; sourceTree = "<group>"; };
-		7B7A62112A42CBB9001A0DC2 /* Managers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Managers.swift; sourceTree = "<group>"; };
+		7B7A62112A42CBB9001A0DC2 /* ManagersWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagersWrapper.swift; sourceTree = "<group>"; };
 		7B7A62132A42CBB9001A0DC2 /* WeatherManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
 		7B7A62142A42CBB9001A0DC2 /* GeocodingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeocodingManager.swift; sourceTree = "<group>"; };
 		7B7A62152A42CBB9001A0DC2 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -508,7 +508,7 @@
 			isa = PBXGroup;
 			children = (
 				7B7A62162A42CBB9001A0DC2 /* ManagerAssembly.swift */,
-				7B7A62112A42CBB9001A0DC2 /* Managers.swift */,
+				7B7A62112A42CBB9001A0DC2 /* ManagersWrapper.swift */,
 				7B7A62172A42CBB9001A0DC2 /* CoreDataManagers */,
 				7B7A62DA2A42CE2F001A0DC2 /* LocationManager */,
 				7B7A62122A42CBB9001A0DC2 /* NetworkManagers */,
@@ -1142,7 +1142,7 @@
 				7B7A627E2A42CBC8001A0DC2 /* CurrentMapper.swift in Sources */,
 				7B7A62752A42CBC8001A0DC2 /* PrecipitationView.swift in Sources */,
 				7B7A62D92A42CCAF001A0DC2 /* UILabel + ConvenienceInit.swift in Sources */,
-				7B7A621B2A42CBB9001A0DC2 /* Managers.swift in Sources */,
+				7B7A621B2A42CBB9001A0DC2 /* ManagersWrapper.swift in Sources */,
 				7B7A62A92A42CBD6001A0DC2 /* ListMapper.swift in Sources */,
 				7B7A62192A42CBB9001A0DC2 /* SearchScreenSectionManager.swift in Sources */,
 				7B7A627C2A42CBC8001A0DC2 /* ConditionsMapper.swift in Sources */,

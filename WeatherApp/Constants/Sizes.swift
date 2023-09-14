@@ -23,12 +23,11 @@ enum Size {
         static let largeDouble: CGFloat = 20
     }
     
-//    enum Element {
-//        static let headerHeight: CGFloat = 36
-//        static let curveWidth: CGFloat = 4
-//    }
-    
     static let cornerRadius: CGFloat = 16
     static let headerHeight: CGFloat = 36
     static let curveWidth: CGFloat = 4
+    
+    static let currentWeatherViewMaxHeight: CGFloat = 350
+    static let currentWeatherViewMinHeight: CGFloat = 140
 }
+

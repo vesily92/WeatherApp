@@ -1,5 +1,5 @@
 //
-//  ListCell.swift
+//  SearchScreenCell.swift
 //  WeatherApp
 //
 //  Created by Василий Пронин on 04.04.2023.
@@ -7,18 +7,19 @@
 
 import UIKit
 
-final class ListCell: UICollectionViewListCell {    
+final class SearchScreenCell: UICollectionViewListCell {
     
-    private lazy var cardView: ListCardView = {
-        let cardView = ListCardView()
+    private(set) lazy var cardView: LocationCardView = {
+        let cardView = LocationCardView()
         cardView.translatesAutoresizingMaskIntoConstraints = false
         return cardView
     }()
-        
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         contentView.addSubview(cardView)
+        
         let heightConstraint = cardView.heightAnchor.constraint(equalToConstant: 100)
         heightConstraint.priority = .defaultHigh
         
@@ -36,12 +37,8 @@ final class ListCell: UICollectionViewListCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with model: WeatherModel.ViewModel.Current) {
+    func configure(with model: WeatherModel.Components.Current) {
         cardView.configure(with: model)
-    }
-    
-    func getView() -> ListCardView {
-        return cardView
     }
 }
 

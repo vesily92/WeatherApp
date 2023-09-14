@@ -17,6 +17,8 @@
 		59F063E52AB3B669002DA377 /* EmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F063E32AB3B668002DA377 /* EmptyCell.swift */; };
 		59F063E62AB3B669002DA377 /* SpacerSectionConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F063E42AB3B668002DA377 /* SpacerSectionConfigurator.swift */; };
 		59F063E92AB3B696002DA377 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F063E82AB3B696002DA377 /* AlertView.swift */; };
+		59F063EE2AB3BB51002DA377 /* SearchScreenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F063EB2AB3BB51002DA377 /* SearchScreenCell.swift */; };
+		59F063EF2AB3BB51002DA377 /* LocationCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F063ED2AB3BB51002DA377 /* LocationCardView.swift */; };
 		7B7A619D2A42CA8C001A0DC2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B7A619C2A42CA8C001A0DC2 /* Assets.xcassets */; };
 		7B7A61A02A42CA8C001A0DC2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B7A619E2A42CA8C001A0DC2 /* LaunchScreen.storyboard */; };
 		7B7A61AB2A42CA8C001A0DC2 /* WeatherAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A61AA2A42CA8C001A0DC2 /* WeatherAppTests.swift */; };
@@ -100,10 +102,6 @@
 		7B7A62902A42CBC8001A0DC2 /* CurrentWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62612A42CBC8001A0DC2 /* CurrentWeatherView.swift */; };
 		7B7A62912A42CBC8001A0DC2 /* ForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62622A42CBC8001A0DC2 /* ForecastView.swift */; };
 		7B7A62922A42CBC8001A0DC2 /* WeatherScreenRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62642A42CBC8001A0DC2 /* WeatherScreenRouter.swift */; };
-		7B7A62A72A42CBD6001A0DC2 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62962A42CBD6001A0DC2 /* ListCell.swift */; };
-		7B7A62A82A42CBD6001A0DC2 /* ListCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62982A42CBD6001A0DC2 /* ListCardView.swift */; };
-		7B7A62A92A42CBD6001A0DC2 /* ListMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A629A2A42CBD6001A0DC2 /* ListMapper.swift */; };
-		7B7A62AA2A42CBD6001A0DC2 /* ListSectionConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A629B2A42CBD6001A0DC2 /* ListSectionConfigurator.swift */; };
 		7B7A62AB2A42CBD6001A0DC2 /* SearchScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A629D2A42CBD6001A0DC2 /* SearchScreenAssembly.swift */; };
 		7B7A62AC2A42CBD6001A0DC2 /* SearchScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A629F2A42CBD6001A0DC2 /* SearchScreenPresenter.swift */; };
 		7B7A62AD2A42CBD6001A0DC2 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A62A12A42CBD6001A0DC2 /* SearchViewController.swift */; };
@@ -156,6 +154,8 @@
 		59F063E32AB3B668002DA377 /* EmptyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyCell.swift; sourceTree = "<group>"; };
 		59F063E42AB3B668002DA377 /* SpacerSectionConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpacerSectionConfigurator.swift; sourceTree = "<group>"; };
 		59F063E82AB3B696002DA377 /* AlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
+		59F063EB2AB3BB51002DA377 /* SearchScreenCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchScreenCell.swift; sourceTree = "<group>"; };
+		59F063ED2AB3BB51002DA377 /* LocationCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationCardView.swift; sourceTree = "<group>"; };
 		7B7A61902A42CA8A001A0DC2 /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B7A619C2A42CA8C001A0DC2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7B7A619F2A42CA8C001A0DC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -243,10 +243,6 @@
 		7B7A62612A42CBC8001A0DC2 /* CurrentWeatherView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentWeatherView.swift; sourceTree = "<group>"; };
 		7B7A62622A42CBC8001A0DC2 /* ForecastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastView.swift; sourceTree = "<group>"; };
 		7B7A62642A42CBC8001A0DC2 /* WeatherScreenRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherScreenRouter.swift; sourceTree = "<group>"; };
-		7B7A62962A42CBD6001A0DC2 /* ListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
-		7B7A62982A42CBD6001A0DC2 /* ListCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListCardView.swift; sourceTree = "<group>"; };
-		7B7A629A2A42CBD6001A0DC2 /* ListMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListMapper.swift; sourceTree = "<group>"; };
-		7B7A629B2A42CBD6001A0DC2 /* ListSectionConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListSectionConfigurator.swift; sourceTree = "<group>"; };
 		7B7A629D2A42CBD6001A0DC2 /* SearchScreenAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchScreenAssembly.swift; sourceTree = "<group>"; };
 		7B7A629F2A42CBD6001A0DC2 /* SearchScreenPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchScreenPresenter.swift; sourceTree = "<group>"; };
 		7B7A62A12A42CBD6001A0DC2 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -355,6 +351,23 @@
 			isa = PBXGroup;
 			children = (
 				59F063E82AB3B696002DA377 /* AlertView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		59F063EA2AB3BB51002DA377 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				59F063EB2AB3BB51002DA377 /* SearchScreenCell.swift */,
+				59F063EC2AB3BB51002DA377 /* Views */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		59F063EC2AB3BB51002DA377 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				59F063ED2AB3BB51002DA377 /* LocationCardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -833,47 +846,12 @@
 			children = (
 				7B7A62A02A42CBD6001A0DC2 /* ViewControllers */,
 				7B7A62A32A42CBD6001A0DC2 /* Views */,
-				7B7A62942A42CBD6001A0DC2 /* Sections */,
+				59F063EA2AB3BB51002DA377 /* Cells */,
 				7B7A629C2A42CBD6001A0DC2 /* Assembly */,
 				7B7A629E2A42CBD6001A0DC2 /* Presenter */,
 				7B7A62A52A42CBD6001A0DC2 /* Router */,
 			);
 			path = SearchScreen;
-			sourceTree = "<group>";
-		};
-		7B7A62942A42CBD6001A0DC2 /* Sections */ = {
-			isa = PBXGroup;
-			children = (
-				7B7A62952A42CBD6001A0DC2 /* Cells */,
-				7B7A62992A42CBD6001A0DC2 /* Mappers */,
-				7B7A629B2A42CBD6001A0DC2 /* ListSectionConfigurator.swift */,
-			);
-			path = Sections;
-			sourceTree = "<group>";
-		};
-		7B7A62952A42CBD6001A0DC2 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				7B7A62962A42CBD6001A0DC2 /* ListCell.swift */,
-				7B7A62972A42CBD6001A0DC2 /* Views */,
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
-		7B7A62972A42CBD6001A0DC2 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				7B7A62982A42CBD6001A0DC2 /* ListCardView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		7B7A62992A42CBD6001A0DC2 /* Mappers */ = {
-			isa = PBXGroup;
-			children = (
-				7B7A629A2A42CBD6001A0DC2 /* ListMapper.swift */,
-			);
-			path = Mappers;
 			sourceTree = "<group>";
 		};
 		7B7A629C2A42CBD6001A0DC2 /* Assembly */ = {
@@ -1159,6 +1137,7 @@
 				7B7A62C32A42CCA6001A0DC2 /* Fonts.swift in Sources */,
 				7B7A61E62A42CB7B001A0DC2 /* BaseIndicatorView.swift in Sources */,
 				7B7A626E2A42CBC8001A0DC2 /* ConditionCell.swift in Sources */,
+				59F063EF2AB3BB51002DA377 /* LocationCardView.swift in Sources */,
 				7B7A62652A42CBC8001A0DC2 /* BackgroundDecorationView.swift in Sources */,
 				7B7A626F2A42CBC8001A0DC2 /* ConditionView.swift in Sources */,
 				59F063CC2AB3AFCA002DA377 /* APIKey.swift in Sources */,
@@ -1186,12 +1165,12 @@
 				7B7A62672A42CBC8001A0DC2 /* DailyCell.swift in Sources */,
 				7B7A61F32A42CB7B001A0DC2 /* WeatherModel.swift in Sources */,
 				7B7A62B82A42CBE2001A0DC2 /* NewLocationAssembly.swift in Sources */,
-				7B7A62A72A42CBD6001A0DC2 /* ListCell.swift in Sources */,
 				7B7A61E92A42CB7B001A0DC2 /* CollectionViewAdapter.swift in Sources */,
 				7B7A62812A42CBC8001A0DC2 /* FeelsLikeDataMapper.swift in Sources */,
 				7B7A620B2A42CBA8001A0DC2 /* Section.swift in Sources */,
 				7B7A62D22A42CCAF001A0DC2 /* DateFormatter + Extension.swift in Sources */,
 				7B7A61ED2A42CB7B001A0DC2 /* GradientLayer.swift in Sources */,
+				59F063EE2AB3BB51002DA377 /* SearchScreenCell.swift in Sources */,
 				7B7A626C2A42CBC8001A0DC2 /* HourlyView.swift in Sources */,
 				7B7A62912A42CBC8001A0DC2 /* ForecastView.swift in Sources */,
 				7B7A62D52A42CCAF001A0DC2 /* CGPoint + CoordinatesOnTheCircle.swift in Sources */,
@@ -1213,13 +1192,11 @@
 				7B7A62752A42CBC8001A0DC2 /* PrecipitationView.swift in Sources */,
 				7B7A62D92A42CCAF001A0DC2 /* UILabel + ConvenienceInit.swift in Sources */,
 				7B7A621B2A42CBB9001A0DC2 /* ManagersWrapper.swift in Sources */,
-				7B7A62A92A42CBD6001A0DC2 /* ListMapper.swift in Sources */,
 				7B7A627C2A42CBC8001A0DC2 /* ConditionsMapper.swift in Sources */,
 				7B7A61EE2A42CB7B001A0DC2 /* DependencyContainer.swift in Sources */,
 				7B7A62D72A42CCAF001A0DC2 /* Notification.Name + Extension.swift in Sources */,
 				7B7A61F12A42CB7B001A0DC2 /* SceneDelegate.swift in Sources */,
 				7B7A62732A42CBC8001A0DC2 /* SunStateView.swift in Sources */,
-				7B7A62AA2A42CBD6001A0DC2 /* ListSectionConfigurator.swift in Sources */,
 				7B7A62852A42CBC8001A0DC2 /* VisibilityDataMapper.swift in Sources */,
 				7B7A62D42A42CCAF001A0DC2 /* UICollectionView + Registration.swift in Sources */,
 				7B7A62782A42CBC8001A0DC2 /* PressureView.swift in Sources */,
@@ -1232,7 +1209,6 @@
 				59F063E92AB3B696002DA377 /* AlertView.swift in Sources */,
 				7B7A61EC2A42CB7B001A0DC2 /* BaseCell.swift in Sources */,
 				7B7A62822A42CBC8001A0DC2 /* UVIndexDataMapper.swift in Sources */,
-				7B7A62A82A42CBD6001A0DC2 /* ListCardView.swift in Sources */,
 				7B7A62062A42CBA8001A0DC2 /* LocationCoreDataModel.swift in Sources */,
 				7B7A62AF2A42CBD6001A0DC2 /* NoResultsView.swift in Sources */,
 				7B7A627D2A42CBC8001A0DC2 /* AlertMapper.swift in Sources */,

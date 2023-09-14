@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		59F063C82AB3AC31002DA377 /* BackgroundGradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F063C72AB3AC31002DA377 /* BackgroundGradientLayer.swift */; };
 		7B7A619D2A42CA8C001A0DC2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B7A619C2A42CA8C001A0DC2 /* Assets.xcassets */; };
 		7B7A61A02A42CA8C001A0DC2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B7A619E2A42CA8C001A0DC2 /* LaunchScreen.storyboard */; };
 		7B7A61AB2A42CA8C001A0DC2 /* WeatherAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A61AA2A42CA8C001A0DC2 /* WeatherAppTests.swift */; };
@@ -138,6 +139,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		59F063C72AB3AC31002DA377 /* BackgroundGradientLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundGradientLayer.swift; sourceTree = "<group>"; };
 		7B7A61902A42CA8A001A0DC2 /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B7A619C2A42CA8C001A0DC2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7B7A619F2A42CA8C001A0DC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -411,6 +413,7 @@
 			isa = PBXGroup;
 			children = (
 				7B7A61D72A42CB7B001A0DC2 /* GradientLayer.swift */,
+				59F063C72AB3AC31002DA377 /* BackgroundGradientLayer.swift */,
 			);
 			path = GradientLayer;
 			sourceTree = "<group>";
@@ -1093,6 +1096,7 @@
 				7B7A627F2A42CBC8001A0DC2 /* HourlyMapper.swift in Sources */,
 				7B7A61E32A42CB7B001A0DC2 /* PressureIndicatorView.swift in Sources */,
 				7B7A62D02A42CCAF001A0DC2 /* Double + RoundDecimal.swift in Sources */,
+				59F063C82AB3AC31002DA377 /* BackgroundGradientLayer.swift in Sources */,
 				7B7A62922A42CBC8001A0DC2 /* WeatherScreenRouter.swift in Sources */,
 				7B7A62762A42CBC8001A0DC2 /* VisibilityView.swift in Sources */,
 				7B7A61E52A42CB7B001A0DC2 /* LineIndicatorView.swift in Sources */,

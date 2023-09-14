@@ -9,19 +9,24 @@ import UIKit
 
 final class WindIndicatorView: BaseIndicatorView {
     
+    // MARK: - Constants
+    
+    private let markupWidth = Size.curveWidth * 1.5
+    private let arrowWidth = Size.curveWidth / 2
+    private var degrees: Int = 0
+    
+    // MARK: - Private Properties
+    
     private lazy var markupView = UIView()
     private lazy var arrowView = UIView()
     private lazy var shadowView = UIView()
     
-    private let markupWidth = Size.curveWidth * 1.5
-    private let arrowWidth = Size.curveWidth / 2
-    
-    private var degrees: Int = 0
+    // MARK: - Overriden Methods
     
     override func configureLayers() {
-        configureViews()
+        setupViews()
         
-        configureMarkupLayer()
+        configureMarkupViewLayers()
         configureShadowLayer()
         configureArrowLayer()
         
@@ -35,7 +40,11 @@ final class WindIndicatorView: BaseIndicatorView {
         arrowView.transform = CGAffineTransform(rotationAngle: radians)
     }
     
-    func configure(with model: WeatherModel.ViewModel.Wind) {
+    // MARK: - Internal Methods
+    
+    /// Configures view
+    /// - Parameter model: view model
+    func configure(with model: WeatherModel.Components.Wind) {
         layoutIfNeeded()
         
         degrees = model.degrees
@@ -44,7 +53,9 @@ final class WindIndicatorView: BaseIndicatorView {
         setNeedsLayout()
     }
     
-    private func configureViews() {
+    // MARK: - Private Methods
+    
+    private func setupViews() {
         markupView.frame = bounds
         arrowView.frame = bounds
         let innerViewFrame = CGRect(
@@ -59,8 +70,8 @@ final class WindIndicatorView: BaseIndicatorView {
         addSubview(arrowView)
         addSubview(shadowView)
     }
-        
-    private func configureMarkupLayer() {
+    
+    private func configureMarkupViewLayers() {
         let tickLineWidth: CGFloat = 0.5
         let tickCount = 168
         
@@ -114,11 +125,47 @@ final class WindIndicatorView: BaseIndicatorView {
         markupView.layer.addSublayer(triangleMarkLayer)
     }
     
+    private func configureArrowLayer() {
+        arrowView.layer.sublayers?.removeAll()
+        
+        let lineWidth: CGFloat = 2
+        let color = Color.main.white.cgColor
+        
+        let center = CGPoint(
+            x: arrowView.bounds.width / 2,
+            y: arrowView.bounds.height / 2
+        )
+        
+        let startX = center.x
+        let startY = arrowView.bounds.minY + markupWidth - lineWidth / 2
+        let startPoint = CGPoint(x: startX, y: startY)
+        
+        let arrowHead = configureArrowHead(
+            lineWidth: lineWidth,
+            strokeColor: color,
+            startPoint: startPoint
+        )
+        let arrowBody = configureArrowBody(
+            lineWidth: lineWidth,
+            strokeColor: color,
+            startPoint: startPoint,
+            center: center
+        )
+        let arrowTail = configureArrowTail(
+            lineWidth: lineWidth,
+            strokeColor: color
+        )
+        
+        arrowView.layer.addSublayer(arrowHead)
+        arrowView.layer.addSublayer(arrowBody)
+        arrowView.layer.addSublayer(arrowTail)
+    }
+    
     private func configureArrowHead(
         lineWidth: CGFloat,
         strokeColor: CGColor,
         startPoint: CGPoint
-    ) {
+    ) -> CAShapeLayer {
         let arrowHeadLayer = CAShapeLayer()
         arrowHeadLayer.lineWidth = lineWidth
         arrowHeadLayer.strokeColor = strokeColor
@@ -128,7 +175,8 @@ final class WindIndicatorView: BaseIndicatorView {
         
         arrowHeadLayer.path = path.cgPath
         arrowHeadLayer.frame = arrowView.bounds
-        arrowView.layer.addSublayer(arrowHeadLayer)
+        
+        return arrowHeadLayer
     }
     
     private func configureArrowBody(
@@ -136,7 +184,7 @@ final class WindIndicatorView: BaseIndicatorView {
         strokeColor: CGColor,
         startPoint: CGPoint,
         center: CGPoint
-    ) {
+    )  -> CAShapeLayer {
         let x = center.x - (startPoint.x - center.x)
         let y = center.y - (startPoint.y - center.y)
         let endPoint = CGPoint(x: x, y: y)
@@ -154,13 +202,14 @@ final class WindIndicatorView: BaseIndicatorView {
         
         arrowBodyLayer.path = path.cgPath
         arrowBodyLayer.frame = arrowView.bounds
-        arrowView.layer.addSublayer(arrowBodyLayer)
+        
+        return arrowBodyLayer
     }
     
     private func configureArrowTail(
         lineWidth: CGFloat,
         strokeColor: CGColor
-    ) {
+    ) -> CAShapeLayer {
         let arrowTailLayer = CAShapeLayer()
         arrowTailLayer.lineWidth = lineWidth
         arrowTailLayer.strokeColor = strokeColor
@@ -179,39 +228,10 @@ final class WindIndicatorView: BaseIndicatorView {
         )
         arrowTailLayer.path = path.cgPath
         arrowTailLayer.frame = arrowView.bounds
-        arrowView.layer.addSublayer(arrowTailLayer)
+        
+        return arrowTailLayer
     }
     
-    private func configureArrowLayer() {
-        let lineWidth: CGFloat = 2
-        let color = Color.main.white.cgColor
-        
-        let center = CGPoint(
-            x: arrowView.bounds.width / 2,
-            y: arrowView.bounds.height / 2
-        )
-
-        let startX = center.x
-        let startY = arrowView.bounds.minY + markupWidth - lineWidth / 2
-        let startPoint = CGPoint(x: startX, y: startY)
-        
-        configureArrowHead(
-            lineWidth: lineWidth,
-            strokeColor: color,
-            startPoint: startPoint
-        )
-        configureArrowBody(
-            lineWidth: lineWidth,
-            strokeColor: color,
-            startPoint: startPoint,
-            center: center
-        )
-        configureArrowTail(
-            lineWidth: lineWidth,
-            strokeColor: color
-        )
-    }
-        
     private func configureShadowLayer() {
         let path =  UIBezierPath(
             arcCenter: CGPoint(
@@ -223,7 +243,7 @@ final class WindIndicatorView: BaseIndicatorView {
             endAngle: 2 * .pi,
             clockwise: true
         )
-
+        
         let shadowPath = UIBezierPath(
             ovalIn: shadowView.bounds.insetBy(dx: -20, dy: -20)
         )
@@ -246,7 +266,10 @@ final class WindIndicatorView: BaseIndicatorView {
     }
 }
 
+// MARK: - WindIndicatorView + Extension
+
 extension WindIndicatorView {
+    
     private func locateLabelsInCircle(
         on view: UIView,
         content: [String],

@@ -7,21 +7,27 @@
 
 import UIKit
 
-enum LineContentType {
-    case temperature(_ model: WeatherModel.ViewModel.IndicatorViewModel)
-    case uvIndex(currentPoint: CGFloat)
-}
-
 final class LineIndicatorView: BaseIndicatorView {
+    
+    // MARK: - Constants
+    
+    enum LineContentType {
+        case temperature(_ model: WeatherModel.Components.IndicatorViewModel)
+        case uvIndex(currentPoint: CGFloat)
+    }
+    
+    private var startPoint: CGFloat = 0
+    private var endPoint: CGFloat = 1
+    private var currentPoint: CGFloat?
+    
+    // MARK: - Private Properties
     
     private lazy var maskedView = UIView()
     private lazy var lineLayer = CAShapeLayer()
     private lazy var currentPointLayer = CAShapeLayer()
     private lazy var gradientLayer = GradientLayer()
     
-    private var startPoint: CGFloat = 0
-    private var endPoint: CGFloat = 1
-    private var currentPoint: CGFloat?
+    // MARK: - Overriden Methods
     
     override func configureLayers() {
         layer.cornerRadius = bounds.height / 2
@@ -33,6 +39,8 @@ final class LineIndicatorView: BaseIndicatorView {
             configurePoint()
         }
     }
+    
+    // MARK: - Internal Methods
     
     func configure(with type: LineContentType) {
         layoutIfNeeded()
@@ -59,6 +67,8 @@ final class LineIndicatorView: BaseIndicatorView {
         
         setNeedsLayout()
     }
+    
+    // MARK: - Private Methods
     
     private func configureMaskedView() {
         maskedView.frame = bounds
@@ -108,10 +118,10 @@ final class LineIndicatorView: BaseIndicatorView {
         currentPointLayer.path = path.cgPath
         layer.addSublayer(currentPointLayer)
     }
-        
+    
     private func updateMaskForCurrentPoint() {
         let updatedMask = CAShapeLayer()
-
+        
         let size = maskedView.bounds.height * 2
         let x = maskedView.bounds.width * currentPoint! - size / 4
         let y: CGFloat = -maskedView.bounds.height / 2

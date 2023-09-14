@@ -7,22 +7,28 @@
 
 import UIKit
 
-enum GradientType {
-    case temperature(min: Int, max: Int)
-    case uvIndex
-    case sunCurve
-    case pressureRising
-    case pressureFalling
-    case pressureStable
-}
-
 final class GradientLayer: CAGradientLayer {
+    
+    // MARK: - Constants
+    
+    enum GradientType {
+        case temperature(min: Int, max: Int)
+        case uvIndex
+        case sunCurve
+        case pressureRising
+        case pressureFalling
+        case pressureStable
+    }
+    
+    // MARK: - Overriden Methods
     
     override func layoutSublayers() {
         super.layoutSublayers()
         
         cornerRadius = bounds.height / 2
     }
+    
+    // MARK: - Internal Methods
     
     func configure(with gradientType: GradientType) {
         startPoint = CGPoint(x: 0, y: 0.5)
@@ -60,8 +66,8 @@ final class GradientLayer: CAGradientLayer {
             startPoint = CGPoint(x: 0.5, y: 0.5)
             endPoint = CGPoint(x: 0.5, y: 1.0)
             colors = [Color.main.white,
-                                    Color.translucent70.white,
-                                    UIColor.white.withAlphaComponent(0)].map { $0.cgColor }
+                      Color.translucent70.white,
+                      UIColor.white.withAlphaComponent(0)].map { $0.cgColor }
             locations = [0.5, 0.55, 0.6]
             
         case .pressureStable:
@@ -76,6 +82,8 @@ final class GradientLayer: CAGradientLayer {
             locations = [0.45, 0.49, 0.5, 0.51, 0.55]
         }
     }
+    
+    // MARK: - Private Methods
     
     private func colorsForTemperatureRange(min: Int, max: Int) -> [CGColor] {
         let temperatureArray = Array(min...max)
@@ -110,7 +118,7 @@ final class GradientLayer: CAGradientLayer {
         if colors.count < 2 {
             colors.append(color)
         }
-               
+        
         return colors.map { $0.cgColor }
     }
 }

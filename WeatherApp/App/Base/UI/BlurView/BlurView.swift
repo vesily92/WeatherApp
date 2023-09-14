@@ -8,7 +8,9 @@
 import UIKit
 
 /// Blur view object.
-final class BlurView: UIView {
+final class BlurView: BaseView {
+    
+    // MARK: - Private Properties
     
     private lazy var blurView: UIVisualEffectView = {
         let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
@@ -25,14 +27,13 @@ final class BlurView: UIView {
         return view
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    // MARK: - Overriden Methods
+    
+    override func setupView() {
         setupConstraints()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    // MARK: - Private Methods
     
     private func setupConstraints() {
         addSubview(backgroundView)

@@ -9,12 +9,18 @@ import UIKit
 
 final class PressureIndicatorView: BaseIndicatorView {
     
+    // MARK: - Constants
+    
+    private let markingWidth = Size.curveWidth * 3
+    private var state: WeatherModel.Components.Pressure.State = .stable
+    private var degrees: Double = 0
+    
+    // MARK: - Private Properties
+    
     private lazy var pressureView = UIView()
     private lazy var pointerView = UIView()
     
-    private let markingWidth = Size.curveWidth * 3
-    private var state: WeatherModel.ViewModel.Pressure.State = .stable
-    private var degrees: Double = 0
+    // MARK: - Overriden Methods
     
     override func configureLayers() {
         configureViews()
@@ -28,7 +34,9 @@ final class PressureIndicatorView: BaseIndicatorView {
         pointerView.transform = CGAffineTransform(rotationAngle: radians)
     }
     
-    func configure(with model: WeatherModel.ViewModel.Pressure) {
+    // MARK: - Internal Methods
+    
+    func configure(with model: WeatherModel.Components.Pressure) {
         layoutIfNeeded()
         
         state = model.state
@@ -37,6 +45,8 @@ final class PressureIndicatorView: BaseIndicatorView {
         backgroundColor = .clear
         setNeedsLayout()
     }
+    
+    // MARK: - Private Methods
     
     private func configureViews() {
         pressureView.frame = bounds
@@ -52,7 +62,7 @@ final class PressureIndicatorView: BaseIndicatorView {
         pressureLayer.lineWidth = lineWidth
         pressureLayer.strokeColor = Color.translucent20.white.cgColor
         pressureLayer.fillColor = nil
-
+        
         let path = createDashedPath(
             segmentCount: 42,
             segmentLength: markingWidth,
@@ -88,11 +98,11 @@ final class PressureIndicatorView: BaseIndicatorView {
         pointerLayer.path = path.cgPath
         pointerView.layer.addSublayer(pointerLayer)
     }
-            
-    private func configureGradient(with state: WeatherModel.ViewModel.Pressure.State) {
+    
+    private func configureGradient(with state: WeatherModel.Components.Pressure.State) {
         let gradientLayer = GradientLayer()
         gradientLayer.frame = pointerView.bounds
-
+        
         var startAngle: CGFloat = 0
         var endAngle: CGFloat = 0
         

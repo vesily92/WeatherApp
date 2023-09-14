@@ -9,10 +9,13 @@ import UIKit
 
 final class SunIndicatorView: BaseIndicatorView {
     
+    // MARK: - Constants
+    
+    private var percentage: Double!
+    
+    // MARK: - Private Properties
+    
     private lazy var daytimeView = UIView()
-    
-    private var percentage: Double! = 0.8
-    
     private lazy var curveStart: CGPoint = {
         let point = CGPoint(
             x: 0,
@@ -37,6 +40,8 @@ final class SunIndicatorView: BaseIndicatorView {
         return point
     }()
     
+    // MARK: - Overriden Methods
+    
     override func configureLayers() {
         configureCurve()
         configureDaytimeView()
@@ -46,6 +51,8 @@ final class SunIndicatorView: BaseIndicatorView {
         configureDayPoint()
     }
     
+    // MARK: - Internal Methods
+    
     func configure(with percentage: Double) {
         layoutIfNeeded()
         
@@ -54,6 +61,8 @@ final class SunIndicatorView: BaseIndicatorView {
         backgroundColor = .clear
         setNeedsLayout()
     }
+    
+    // MARK: - Private Methods
     
     private func configureCurve() {
         let curveLayer = CAShapeLayer()
@@ -78,7 +87,7 @@ final class SunIndicatorView: BaseIndicatorView {
         
         let sunriseLayer = CAShapeLayer()
         let path = createCurvePath()
-
+        
         sunriseLayer.lineWidth = Size.curveWidth
         sunriseLayer.fillColor = nil
         sunriseLayer.strokeColor = Color.main.white.cgColor
@@ -173,7 +182,7 @@ final class SunIndicatorView: BaseIndicatorView {
         var y: CGFloat = 0
         
         let t = percentage * 2
-                
+        
         if t <= 1 {
             x = bezierInterpolation(
                 t: t,
@@ -220,8 +229,17 @@ final class SunIndicatorView: BaseIndicatorView {
     }
 }
 
+// MARK: - SunIndicatorView + Extension
+
 extension SunIndicatorView {
-    func bezierInterpolation(t: CGFloat, p1: CGFloat, cp1: CGFloat, cp2: CGFloat, p2: CGFloat) -> CGFloat {
+    
+    func bezierInterpolation(
+        t: CGFloat,
+        p1: CGFloat,
+        cp1: CGFloat,
+        cp2: CGFloat,
+        p2: CGFloat
+    ) -> CGFloat {
         let t2: CGFloat = t * t;
         let t3: CGFloat = t2 * t;
         return p1 + (-p1 * 3 + t * (3 * p1 - p1 * t)) * t

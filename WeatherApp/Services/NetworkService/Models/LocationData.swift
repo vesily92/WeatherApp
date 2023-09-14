@@ -26,6 +26,15 @@ struct Location: Codable, Hashable {
         return fullName
     }
     
+    var id: String? {
+        guard let latitude = latitude,
+              let longitude = longitude else {
+            return nil
+        }
+        
+        return "\(latitude)\(longitude)"
+    }
+    
     enum CodingKeys: String, CodingKey {
         case city = "name"
         case latitude = "lat"

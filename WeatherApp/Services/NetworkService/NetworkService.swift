@@ -45,17 +45,19 @@ protocol IGeocodingService {
 }
 
 // MARK: - NetworkService
+
 /// The service object that provides networking operations.
 final class NetworkService {
     
     static let shared = NetworkService()
-    private let apiKey = "2cb8739a6fdb29443af4c5be8d24dd3d"
     
     private init() {}
 }
 
 // MARK: - NetworkService + IWeatherService
+
 extension NetworkService: IWeatherService {
+    
     func fetchWeather(
         for location: Location,
         completion: @escaping (WeatherData) -> Void
@@ -88,7 +90,9 @@ extension NetworkService: IWeatherService {
 }
 
 // MARK: - NetworkService + IGeocodingService
+
 extension NetworkService: IGeocodingService {
+    
     func getReverseGeocoding(
         withLatitude latitude: Double,
         andLongitude longitude: Double,
@@ -117,9 +121,9 @@ extension NetworkService: IGeocodingService {
         completion: @escaping ([Location]) -> Void
     ) {
         let urlString = "https://api.openweathermap.org/geo/1.0/direct?q=\(cityName)&limit=\(5)&appid=\(apiKey)"
-
+        
         guard let url = URL(string: urlString) else { return }
-
+        
         let session = URLSession(configuration: .default)
         let task = session.dataTask(with: url) { data, response, error in
             guard let data = data,

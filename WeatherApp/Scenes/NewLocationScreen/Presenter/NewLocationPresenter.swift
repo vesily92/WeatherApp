@@ -8,67 +8,60 @@
 import Foundation
 
 protocol INewLocationDelegate: AnyObject {
-    func didAddNewLocation(with response: WeatherModel.Data)
+    
+    func didAddNewLocation(with response: WeatherModel.ViewModel)
+    func cancel()
 }
 
 protocol INewLocationPresenter {
+    
     func setupView()
     func verifyLocations()
-    
+    func getViewModel() -> WeatherModel.ViewModel
     func handleAddButtonTap()
+    func handleCancelButtonTap()
 }
 
 final class NewLocationPresenter {
+    
     weak var view: INewLocationViewController?
     
     weak var delegate: INewLocationDelegate?
     
-    private let location: Location
+    private var viewModel: WeatherModel.ViewModel
     private let isNew: Bool
-    private let manager: INewLocationScreenManager
     
-    private var data: WeatherModel.Data
-    
-    init(location: Location,
+    init(viewModel: WeatherModel.ViewModel,
          isNew: Bool,
-         manager: INewLocationScreenManager,
          delegate: INewLocationDelegate) {
-        self.location = location
+        self.viewModel = viewModel
         self.isNew = isNew
-        self.manager = manager
         self.delegate = delegate
         
-        self.data = WeatherModel.Data(location: location, weather: nil)
-        
-        self.manager.fetchWeatherFor(location) { [weak self] data in
-            guard let self = self else { return }
-            let viewModel = self.map(data)
+        NotificationCenter.default.addObserver(
+            forName: .updateView,
+            object: nil,
+            queue: .main
+        ) { [weak self] notification in
+            guard let object = notification
+                .object as? [NotificationKey: WeatherModel.ViewModel],
+                  let viewModel = object[NotificationKey.viewModel] else {
+                return
+            }
             
-            self.view?.render(with: viewModel)
-            self.data = data
+            self?.viewModel = viewModel
+            self?.view?.render(with: viewModel)
         }
     }
     
-    private func map(
-        _ data: WeatherModel.Data
-    ) -> WeatherModel.ViewModel.WeatherScreen {
-        let current = manager.setupCurrentWith(data: data)
-        let sections = manager.createSectionsWith(data: data)
-        
-        return WeatherModel.ViewModel.WeatherScreen(
-            current: current,
-            sections: sections
-        )
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
 extension NewLocationPresenter: INewLocationPresenter {
+    
     func setupView() {
-        let current = manager.setupCurrentWith(data: data)
-        let viewModel = WeatherModel.ViewModel.WeatherScreen(
-            current: current,
-            sections: nil
-        )
         view?.render(with: viewModel)
     }
     
@@ -76,7 +69,15 @@ extension NewLocationPresenter: INewLocationPresenter {
         view?.setupNavigationBar(forNewLocation: isNew)
     }
     
+    func getViewModel() -> WeatherModel.ViewModel {
+        viewModel
+    }
+    
     func handleAddButtonTap() {
-        delegate?.didAddNewLocation(with: data)
+        delegate?.didAddNewLocation(with: viewModel)
+    }
+    
+    func handleCancelButtonTap() {
+        delegate?.cancel()
     }
 }

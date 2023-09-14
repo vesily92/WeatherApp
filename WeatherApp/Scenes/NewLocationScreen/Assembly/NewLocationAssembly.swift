@@ -8,44 +8,36 @@
 import UIKit
 
 final class NewLocationAssembly {
+    
     private let navigationController: UINavigationController
-    private let location: Location
+    private let viewModel: WeatherModel.ViewModel
     private let isNew: Bool
-//    private let locations: [Location]
     private let delegate: INewLocationDelegate
     
-    //    private let delegate: IWeatherPresenterDelegate
-    
     init(navigationController: UINavigationController,
-         location: Location,
+         viewModel: WeatherModel.ViewModel,
          isNew: Bool,
-//         locations: [Location],
          delegate: INewLocationDelegate
-         //         delegate: IWeatherPresenterDelegate
     ) {
         
         self.navigationController = navigationController
-        self.location = location
+        self.viewModel = viewModel
         self.isNew = isNew
-//        self.locations = locations
         self.delegate = delegate
-        
-        //        self.delegate = delegate
     }
 }
 
 extension NewLocationAssembly: IAssembly {
+    
     func assembly(viewController: UIViewController) {
         
         guard let viewController = viewController as? NewLocationViewController else {
             return
         }
-        let manager = DependencyContainer().makeNewLocationScreenManager()
         
         let presenter = NewLocationPresenter(
-            location: location,
+            viewModel: viewModel,
             isNew: isNew,
-            manager: manager,
             delegate: delegate
         )
         

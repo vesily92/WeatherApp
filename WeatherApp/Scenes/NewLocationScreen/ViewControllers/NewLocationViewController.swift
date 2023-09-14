@@ -8,7 +8,8 @@
 import UIKit
 
 protocol INewLocationViewController: AnyObject {
-    func render(with viewModel: WeatherModel.ViewModel.WeatherScreen)
+    
+    func render(with viewModel: WeatherModel.ViewModel)
     func setupNavigationBar(forNewLocation: Bool)
 }
 
@@ -16,11 +17,17 @@ final class NewLocationViewController: UIViewController {
     
     var presenter: INewLocationPresenter!
     private lazy var forecastView = ForecastView()
+    private lazy var backgroundGradient = BackgroundGradientLayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBlue
+        backgroundGradient.configure(
+            with: presenter.getViewModel().current.backgroundColor
+        )
+        backgroundGradient.frame = view.bounds
+        view.layer.insertSublayer(backgroundGradient, at: 0)
+        
         presenter.setupView()
         presenter.verifyLocations()
         setupConstraints()
@@ -44,14 +51,21 @@ final class NewLocationViewController: UIViewController {
     }
     
     @objc private func cancel() {
+        presenter.handleCancelButtonTap()
         dismiss(animated: true)
     }
 }
 
+// MARK: - NewLocationViewController + INewLocationViewController
+
 extension NewLocationViewController: INewLocationViewController {
-    func render(with viewModel: WeatherModel.ViewModel.WeatherScreen) {
+    
+    func render(with viewModel: WeatherModel.ViewModel) {
         DispatchQueue.main.async {
             self.forecastView.configure(with: viewModel)
+            self.backgroundGradient.configure(
+                with: viewModel.current.backgroundColor
+            )
         }
     }
     

@@ -39,7 +39,7 @@ final class HourlyMapper {
                 weather.id,
                 icon: weather.icon
             )
-            let pop = weatherFormatter.displayPop(
+            var pop = weatherFormatter.displayPop(
                 hourly.pop,
                 weatherID: weather.id
             )
@@ -52,6 +52,7 @@ final class HourlyMapper {
             
             if index == 0 {
                 time = "Now"
+                pop = nil
             }
             
             let hourlyViewModel = WeatherModel.Components.Hourly(

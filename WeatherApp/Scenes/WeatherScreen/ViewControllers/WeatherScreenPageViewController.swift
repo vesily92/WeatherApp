@@ -41,9 +41,7 @@ final class WeatherScreenPageViewController: UIPageViewController {
     
     private lazy var pages: [UIViewController] = []
     private lazy var backgroundGradient = BackgroundGradientLayer()
-    
-    private var viewModels: [WeatherModel.ViewModel] = []
-    
+        
     // MARK: - Initialisers
     
     init() {
@@ -65,16 +63,8 @@ final class WeatherScreenPageViewController: UIPageViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        backgroundGradient.configure(
-            with: presenter
-                .getViewModel(by: currentIndex)
-                .current
-                .backgroundColor
-        )
-        
+
         backgroundGradient.frame = view.bounds
-        view.layer.insertSublayer(backgroundGradient, at: 0)
     }
     
     override func viewDidLoad() {
@@ -85,6 +75,13 @@ final class WeatherScreenPageViewController: UIPageViewController {
         setupPageControl()
         setupNavigationBar()
         
+        view.layer.insertSublayer(backgroundGradient, at: 0)
+        backgroundGradient.configure(
+            with: presenter
+                .getViewModel(by: currentIndex)
+                .current
+                .backgroundColor
+        )
         presenter.render()
     }
     
@@ -208,11 +205,13 @@ extension WeatherScreenPageViewController: UIPageViewControllerDelegate {
             return
         }
         
-        
         if let pageIndex = pages.firstIndex(of: currentViewController) {
             pageControl.currentPage = pageIndex
             backgroundGradient.configure(
-                with: viewModels[pageIndex].current.backgroundColor
+                with: presenter
+                    .getViewModel(by: currentIndex)
+                    .current
+                    .backgroundColor
             )
         }
     }
@@ -226,7 +225,6 @@ extension WeatherScreenPageViewController: IWeatherScreenPageViewController {
         with viewModels: [WeatherModel.ViewModel],
         pageIndex: Int
     ) {
-        self.viewModels = viewModels
         viewModels.forEach { viewModel in
             let viewController = WeatherScreenViewController(
                 viewModel: viewModel
@@ -260,6 +258,9 @@ extension WeatherScreenPageViewController: IWeatherScreenPageViewController {
                 return
             }
             page.update(with: viewModel)
+            backgroundGradient.configure(
+                with: viewModel.current.backgroundColor
+            )
         }
     }
 }

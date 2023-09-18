@@ -19,11 +19,10 @@ enum BackgroundType {
 }
 
 final class BackgroundGradientLayer: CAGradientLayer {
-
+    
     // MARK: - Internal Methods
     
     func configure(with backgroundType: BackgroundType) {
-        
         switch backgroundType {
         case .morningClear:
             makeMorningClearGradient()
@@ -43,7 +42,7 @@ final class BackgroundGradientLayer: CAGradientLayer {
             makeNightCloudyGradient()
         }
     }
-    
+   
     // MARK: - Private Methods
     
     private func makeMorningClearGradient() {

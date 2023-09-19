@@ -64,7 +64,14 @@ final class WeatherScreenPageViewController: UIPageViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
+        backgroundGradient.configure(
+            with: presenter
+                .getViewModel(by: currentIndex)
+                .current
+                .backgroundColor
+        )
         backgroundGradient.frame = view.bounds
+        view.layer.insertSublayer(backgroundGradient, at: 0)
     }
     
     override func viewDidLoad() {
@@ -75,13 +82,6 @@ final class WeatherScreenPageViewController: UIPageViewController {
         setupPageControl()
         setupNavigationBar()
         
-        view.layer.insertSublayer(backgroundGradient, at: 0)
-        backgroundGradient.configure(
-            with: presenter
-                .getViewModel(by: currentIndex)
-                .current
-                .backgroundColor
-        )
         presenter.render()
     }
     

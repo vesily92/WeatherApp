@@ -63,7 +63,7 @@ final class WeatherScreenPageViewController: UIPageViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
+        
         backgroundGradient.configure(
             with: presenter
                 .getViewModel(by: currentIndex)
@@ -258,10 +258,10 @@ extension WeatherScreenPageViewController: IWeatherScreenPageViewController {
                 return
             }
             page.update(with: viewModel)
-            backgroundGradient.configure(
-                with: viewModel.current.backgroundColor
-            )
         }
+        backgroundGradient.configure(
+            with: viewModels[0].current.backgroundColor
+        )
     }
 }
 

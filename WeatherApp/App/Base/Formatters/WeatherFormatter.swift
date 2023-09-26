@@ -145,9 +145,10 @@ final class WeatherFormatter: IWeatherFormatter {
         case 800: return sunIsUp
             ? Symbol.Weather.sun.rawValue
             : Symbol.Weather.moon.rawValue
-        case 801...804: return sunIsUp
-            ? Symbol.Weather.cloud.rawValue
+        case 801: return sunIsUp
+            ? Symbol.Weather.cloudDay.rawValue
             : Symbol.Weather.cloudNight.rawValue
+        case 802...804: return Symbol.Weather.cloud.rawValue
         default: return Symbol.Other.noSign.rawValue
         }
     }
@@ -156,13 +157,12 @@ final class WeatherFormatter: IWeatherFormatter {
         _ weatherID: Int,
         dayTime: DayTime
     ) -> BackgroundType {
-        
         enum Weather {
             case clear
             case cloudy
         }
         
-        var weather: Weather
+        var weather: Weather = .clear
         
         switch weatherID {
         case 200...232: weather = .cloudy
@@ -170,8 +170,8 @@ final class WeatherFormatter: IWeatherFormatter {
         case 500...531: weather = .cloudy
         case 600...622: weather = .cloudy
         case 700...781: weather = .cloudy
-        case 800: weather = .clear
-        case 801...804: weather = .cloudy
+        case 800...801: weather = .clear
+        case 802...804: weather = .cloudy
         default: weather = .clear
         }
         

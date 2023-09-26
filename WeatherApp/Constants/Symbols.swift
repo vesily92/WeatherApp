@@ -10,7 +10,8 @@ import UIKit
 enum Symbol {
     enum Weather: String {
         case sun = "sun.max.fill"
-        case cloud = "cloud.sun.fill"
+        case cloud = "cloud.fill"
+        case cloudDay = "cloud.sun.fill"
         case drizzle = "cloud.drizzle.fill"
         case heavyRain = "cloud.heavyrain.fill"
         case bolt = "cloud.bolt.rain.fill"

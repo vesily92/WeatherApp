@@ -21,7 +21,8 @@ protocol ISearchScreenPresenter {
 protocol IResultsViewPresenter {
     
     func numberOfResults() -> Int
-    func result(at index: Int) -> String
+    func getQuery() -> String
+    func getResult(at index: Int) -> String
     func showLocation(by index: Int)
 }
 
@@ -30,17 +31,29 @@ final class SearchScreenPresenter {
     weak var searchView: ISearchScreenViewController?
     weak var resultsView: IResultsViewController?
     
-    var viewModels: [WeatherModel.ViewModel] = [] {
-        didSet {
-            render()
+    private var _viewModels: [WeatherModel.ViewModel] = []
+    
+    var viewModels: [WeatherModel.ViewModel] {
+        get {
+            var result: [WeatherModel.ViewModel] = []
+            isolatedQueue.sync {
+                result = self._viewModels
+            }
+            return result
+        }
+        set {
+            isolatedQueue.async { self._viewModels = newValue }
         }
     }
     
     private var storedLocations: [Location] = []
     private var foundLocations: [Location] = []
+    private var query: String = ""
     
     private let router: ISearchScreenRouter
     private let searchScreenManager: ISearchScreenManagersWrapper
+    
+    private let isolatedQueue = DispatchQueue(label: "SearchScreenQueue")
     
     init(router: ISearchScreenRouter,
          searchScreenManager: ISearchScreenManagersWrapper,
@@ -118,10 +131,8 @@ final class SearchScreenPresenter {
                 )
             )
             
-            if index >= 0 && index < self.viewModels.count {
-                self.viewModels[index] = viewModel
-                self.searchView?.send(viewModels: self.viewModels)
-            }
+            self.viewModels[index] = viewModel
+            self.searchView?.send(viewModels: self.viewModels)
         }
     }
 }
@@ -139,6 +150,8 @@ extension SearchScreenPresenter: ISearchScreenPresenter {
     }
     
     func search(with query: String) {
+        self.query = query
+        
         searchScreenManager.fetchLocation(
             with: .cityName(cityName: query)
         ) { [weak self] locations in
@@ -171,6 +184,7 @@ extension SearchScreenPresenter: ISearchScreenPresenter {
         searchScreenManager.delete(viewModels[index].location)
         storedLocations.remove(at: index)
         viewModels.remove(at: index)
+        render()
     }
     
     func handleCellReorder(_ viewModels: [WeatherModel.ViewModel]) {
@@ -181,6 +195,7 @@ extension SearchScreenPresenter: ISearchScreenPresenter {
             locations.append(viewModel.location)
         }
         searchScreenManager.reorder(locations)
+        render()
     }
 }
 
@@ -191,8 +206,13 @@ extension SearchScreenPresenter: IResultsViewPresenter {
         foundLocations.count
     }
     
-    func result(at index: Int) -> String {
-        foundLocations[index].fullName ?? ""
+    func getQuery() -> String {
+        return query
+    }
+    
+    func getResult(at index: Int) -> String {
+        guard index < foundLocations.count else { return "" }
+        return foundLocations[index].fullName ?? ""
     }
     
     func showLocation(by index: Int) {
@@ -261,5 +281,6 @@ extension SearchScreenPresenter: INewLocationDelegate {
         storedLocations.append(viewModel.location)
         searchView?.deactivateSearchController()
         searchScreenManager.save(viewModel.location)
+        render()
     }
 }

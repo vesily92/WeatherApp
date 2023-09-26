@@ -46,8 +46,8 @@ extension WeatherScreenPresenter: IWeatherScreenPresenter {
     
     func updateWith(viewModels: [WeatherModel.ViewModel]) {
         DispatchQueue.main.async {
-            self.viewModels = viewModels
             self.view?.updateViewControllers(with: viewModels)
+            self.viewModels = viewModels
         }
         
     }

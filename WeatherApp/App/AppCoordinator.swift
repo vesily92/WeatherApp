@@ -30,11 +30,23 @@ final class AppCoordinator: ICoordinator {
     private let navigationController: UINavigationController
     private let coreDataManager: ICoreDataLocationManager
     private let mappingManager: IMappingManager
+
+    private let isolatedQueue = DispatchQueue(label: "CoordinatorQueue")
     
-    private var viewModels: [WeatherModel.ViewModel] = [] {
-        didSet {
-            updateInterfaces() }
+    private var _viewModels: [WeatherModel.ViewModel] = []
+    var viewModels: [WeatherModel.ViewModel] {
+        get {
+            var result: [WeatherModel.ViewModel] = []
+            isolatedQueue.sync {
+                result = self._viewModels
+            }
+            return result
+        }
+        set {
+            isolatedQueue.async { self._viewModels = newValue }
+        }
     }
+    
     
     // MARK: - Initialisers
     
@@ -122,6 +134,7 @@ final class AppCoordinator: ICoordinator {
         searchScreenViewController
             .onViewModelsDidChange = { [weak self] viewModels in
                 self?.viewModels = viewModels
+                self?.updateInterfaces()
             }
         
         let weatherScreenViewController = WeatherScreenPageViewController()
@@ -148,9 +161,9 @@ extension AppCoordinator {
     
     /// Calls update method in every IUpdatableWithData ViewController.
     private func updateInterfaces() {
-        DispatchQueue.main.async {
-            self.navigationController.viewControllers.forEach {
-                ($0 as? IUpdatableWithData)?.updateWith(viewModels: self.viewModels)
+        DispatchQueue.main.async { [self] in
+            navigationController.viewControllers.forEach {
+                ($0 as? IUpdatableWithData)?.updateWith(viewModels: viewModels)
             }
         }
     }

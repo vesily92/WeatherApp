@@ -39,7 +39,8 @@ final class NoResultsView: BaseView {
     }
     
     func configure(with query: String) {
-        subtitleLabel.text = "No results found for \"\(query)\"."
+        let text = query.replacingOccurrences(of: "_", with: " ")
+        subtitleLabel.text = "No results found for \"\(text)\"."
     }
     
     private func setupConstraints() {

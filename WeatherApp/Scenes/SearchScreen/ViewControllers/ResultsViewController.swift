@@ -89,10 +89,20 @@ extension ResultsViewController: UITableViewDataSource {
         cell.contentView.backgroundColor = .black
         cell.backgroundColor = .black
         
+        let locationName = presenter.getResult(at: indexPath.row)
+        let query = presenter.getQuery()
+        let range = (locationName as NSString).range(of: query)
+        let attributedString = NSMutableAttributedString(string: locationName)
+        attributedString.addAttribute(
+            NSAttributedString.Key.foregroundColor,
+            value: Color.main.white,
+            range: range
+        )
+        
         var content = cell.defaultContentConfiguration()
-        content.textProperties.color = .white
+        content.textProperties.color = Color.translucent70.white
         content.textProperties.numberOfLines = 0
-        content.text = presenter.result(at: indexPath.row)
+        content.attributedText = attributedString
         cell.contentConfiguration = content
         
         return cell

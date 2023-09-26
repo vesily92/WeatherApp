@@ -44,7 +44,6 @@ extension WeatherManager: IWeatherManager {
             let response = WeatherModel.Response(
                 weather: weather
             )
-            
             completion(response)
         }
     }

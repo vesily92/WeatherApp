@@ -45,7 +45,6 @@ final class SearchScreenViewController: UIViewController {
         createDataSource()
         
         presenter.render()
-        
         makeSnapshot(animated: false)
     }
     
@@ -202,7 +201,6 @@ final class SearchScreenViewController: UIViewController {
         return deleteAction
     }
     
-    
     private func makeSnapshot(animated: Bool) {
         var snapshot = Snapshot()
         
@@ -211,8 +209,6 @@ final class SearchScreenViewController: UIViewController {
         
         dataSource?.apply(snapshot, animatingDifferences: animated)
     }
-    
-    
     
     func getFramesForCells() {
         collectionView.layoutIfNeeded()
@@ -281,9 +277,7 @@ extension SearchScreenViewController: ISearchScreenViewController {
     
     func render(with viewModels: [WeatherModel.ViewModel]) {
         self.viewModels = viewModels
-        DispatchQueue.main.async { [self] in
-            makeSnapshot(animated: true)
-        }
+        makeSnapshot(animated: true)
     }
     
     func deactivateSearchController() {

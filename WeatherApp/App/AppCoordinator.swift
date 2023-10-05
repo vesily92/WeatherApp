@@ -23,9 +23,7 @@ protocol IUpdatableWithData {
 /// Application coordinator.
 final class AppCoordinator: ICoordinator {
     
-    // MARK: - Private Properties
-    
-    private var locations: [Location] = []
+    // MARK: Private Properties
     
     private let navigationController: UINavigationController
     private let coreDataManager: ICoreDataLocationManager
@@ -33,8 +31,10 @@ final class AppCoordinator: ICoordinator {
 
     private let isolatedQueue = DispatchQueue(label: "CoordinatorQueue")
     
+    private var locations: [Location] = []
+    
     private var _viewModels: [WeatherModel.ViewModel] = []
-    var viewModels: [WeatherModel.ViewModel] {
+    private var viewModels: [WeatherModel.ViewModel] {
         get {
             var result: [WeatherModel.ViewModel] = []
             isolatedQueue.sync {
@@ -47,8 +47,7 @@ final class AppCoordinator: ICoordinator {
         }
     }
     
-    
-    // MARK: - Initialisers
+    // MARK: Initialisers
     
     init(navigationController: UINavigationController,
          coreDataManager: ICoreDataLocationManager,
@@ -66,7 +65,7 @@ final class AppCoordinator: ICoordinator {
         startMainFlow()
     }
     
-    // MARK: - Private Methods
+    // MARK: Private Methods
     
     private func startMainFlow() {
         

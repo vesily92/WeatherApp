@@ -31,8 +31,6 @@ final class SearchScreenPresenter {
     weak var searchView: ISearchScreenViewController?
     weak var resultsView: IResultsViewController?
     
-    private var _viewModels: [WeatherModel.ViewModel] = []
-    
     var viewModels: [WeatherModel.ViewModel] {
         get {
             var result: [WeatherModel.ViewModel] = []
@@ -45,6 +43,7 @@ final class SearchScreenPresenter {
             isolatedQueue.async { self._viewModels = newValue }
         }
     }
+    private var _viewModels: [WeatherModel.ViewModel] = []
     
     private var storedLocations: [Location] = []
     private var foundLocations: [Location] = []
@@ -132,7 +131,11 @@ final class SearchScreenPresenter {
             )
             
             self.viewModels[index] = viewModel
-            self.searchView?.send(viewModels: self.viewModels)
+            self.searchView?.sendUpdated(viewModels: self.viewModels)
+            
+            DispatchQueue.main.async {
+                self.searchView?.render(with: self.viewModels)
+            }
         }
     }
 }
@@ -152,8 +155,10 @@ extension SearchScreenPresenter: ISearchScreenPresenter {
     func search(with query: String) {
         self.query = query
         
+        let formatedQuery = query.replacingOccurrences(of: " ", with: "_")
+        
         searchScreenManager.fetchLocation(
-            with: .cityName(cityName: query)
+            with: .cityName(cityName: formatedQuery)
         ) { [weak self] locations in
             self?.foundLocations = locations
             
@@ -243,7 +248,9 @@ extension SearchScreenPresenter: IResultsViewPresenter {
                 .initial(location: location, index: newIndex)
             )
             
-            searchScreenManager.fetchWeatherFor(location) { [weak self] response in
+            searchScreenManager.fetchWeatherFor(
+                location
+            ) { [weak self] response in
                 let fetchedViewModel = self?.searchScreenManager.map(
                     .complete(
                         location: location,

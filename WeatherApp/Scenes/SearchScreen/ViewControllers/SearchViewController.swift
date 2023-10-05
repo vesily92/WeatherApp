@@ -11,7 +11,7 @@ protocol ISearchScreenViewController: AnyObject {
     
     func render(with viewModels: [WeatherModel.ViewModel])
     func deactivateSearchController()
-    func send(viewModels: [WeatherModel.ViewModel])
+    func sendUpdated(viewModels: [WeatherModel.ViewModel])
 }
 
 final class SearchScreenViewController: UIViewController {
@@ -234,10 +234,9 @@ final class SearchScreenViewController: UIViewController {
 extension SearchScreenViewController: UISearchBarDelegate {}
 
 extension SearchScreenViewController: UISearchResultsUpdating {
+    
     func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text else { return }
-        let query = text.replacingOccurrences(of: " ", with: "_")
-        
+        guard let query = searchController.searchBar.text else { return }
         presenter.search(with: query)
     }
 }
@@ -284,7 +283,7 @@ extension SearchScreenViewController: ISearchScreenViewController {
         searchController.isActive = false
     }
     
-    func send(viewModels: [WeatherModel.ViewModel]) {
+    func sendUpdated(viewModels: [WeatherModel.ViewModel]) {
         onViewModelsDidChange?(viewModels)
     }
 }

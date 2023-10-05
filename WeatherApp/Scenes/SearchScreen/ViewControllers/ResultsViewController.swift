@@ -91,7 +91,7 @@ extension ResultsViewController: UITableViewDataSource {
         
         let locationName = presenter.getResult(at: indexPath.row)
         let query = presenter.getQuery()
-        let range = (locationName as NSString).range(of: query)
+        let range = (locationName as NSString).range(of: query.capitalized)
         let attributedString = NSMutableAttributedString(string: locationName)
         attributedString.addAttribute(
             NSAttributedString.Key.foregroundColor,

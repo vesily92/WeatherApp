@@ -5,7 +5,7 @@
 //  Created by Василий Пронин on 24.03.2023.
 //
 
-struct Location: Codable, Hashable {
+struct Location: Decodable, Hashable {
     let city: String?
     let latitude: Double?
     let longitude: Double?

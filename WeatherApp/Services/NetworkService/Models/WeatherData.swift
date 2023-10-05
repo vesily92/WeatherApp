@@ -5,7 +5,7 @@
 //  Created by Василий Пронин on 23.03.2023.
 //
 
-struct WeatherData: Codable {
+struct WeatherData: Decodable {
     let lat: Double
     let lon: Double
     let timezone: String
@@ -23,7 +23,7 @@ struct WeatherData: Codable {
     }
 }
 
-struct Current: Codable {
+struct Current: Decodable {
     let dt: Int
     let sunrise: Int
     let sunset: Int
@@ -55,11 +55,11 @@ struct Current: Codable {
     }
 }
 
-struct Minutely: Codable {
+struct Minutely: Decodable {
     let dt, precipitation: Int
 }
 
-struct Hourly: Codable {
+struct Hourly: Decodable {
     let dt: Int
     let temp: Double
     let feelsLike: Double
@@ -74,7 +74,7 @@ struct Hourly: Codable {
     }
 }
 
-struct Daily: Codable {
+struct Daily: Decodable {
     let dt: Int
     let sunrise: Int
     let sunset: Int
@@ -103,7 +103,7 @@ struct Daily: Codable {
     }
 }
 
-struct Alert: Codable {
+struct Alert: Decodable {
     let senderName: String
     let event: String
     let start: Int
@@ -117,7 +117,7 @@ struct Alert: Codable {
     }
 }
 
-struct Temperature: Codable {
+struct Temperature: Decodable {
     let day: Double
     let min: Double
     let max: Double
@@ -126,14 +126,14 @@ struct Temperature: Codable {
     let morn: Double
 }
 
-struct FeelsLike: Codable {
+struct FeelsLike: Decodable {
     let day: Double
     let night: Double
     let eve: Double
     let morn: Double
 }
 
-struct Rain: Codable {
+struct Rain: Decodable {
     let oneHour: Double
     
     enum CodingKeys: String, CodingKey {
@@ -141,7 +141,7 @@ struct Rain: Codable {
     }
 }
 
-struct Weather: Codable {
+struct Weather: Decodable {
     let id: Int
     let description: String
     let icon: String

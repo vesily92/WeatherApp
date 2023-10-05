@@ -51,6 +51,9 @@ final class NetworkService {
     
     static let shared = NetworkService()
     
+    private let session = URLSession(configuration: .default)
+    private let decoder = JSONDecoder()
+    
     private init() {}
 }
 
@@ -69,17 +72,18 @@ extension NetworkService: IWeatherService {
         
         guard let url = URL(string: urlString) else { return }
         
-        let session = URLSession(configuration: .default)
-        let task = session.dataTask(with: url) { data, response, error in
-            guard let data = data,
+        let task = session.dataTask(with: url) { [weak self] data, response, error in
+            guard let self = self,
+                  let data = data,
                   let response = response,
                   url == response.url else {
                 print(error?.localizedDescription ?? "No error description")
                 return
             }
-            let decoder = JSONDecoder()
             do {
-                let weather = try decoder.decode(WeatherData.self, from: data)
+                let weather = try self.decoder.decode(
+                    WeatherData.self, from: data
+                )
                 completion(weather)
             } catch let error as NSError {
                 print(error.localizedDescription)
@@ -102,7 +106,6 @@ extension NetworkService: IGeocodingService {
         
         guard let url = URL(string: urlString) else { return }
         
-        let session = URLSession(configuration: .default)
         let task = session.dataTask(with: url) { data, response, error in
             guard let data = data,
                   let response = response,
@@ -124,7 +127,6 @@ extension NetworkService: IGeocodingService {
         
         guard let url = URL(string: urlString) else { return }
         
-        let session = URLSession(configuration: .default)
         let task = session.dataTask(with: url) { data, response, error in
             guard let data = data,
                   let response = response,
@@ -143,7 +145,6 @@ extension NetworkService: IGeocodingService {
     /// - Parameter data: Data object.
     /// - Returns: Array of ``Location`` objects.
     private func parseJSON(withData data: Data) -> [Location]? {
-        let decoder = JSONDecoder()
         do {
             let location = try decoder.decode([Location].self, from: data)
             return location

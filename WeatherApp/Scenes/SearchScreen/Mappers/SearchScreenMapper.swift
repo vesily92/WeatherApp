@@ -23,7 +23,7 @@ final class SearchScreenMapper {
         weather: WeatherData?,
         index: Int
     ) -> WeatherModel.Components.Current {
-        var backgroundColor = BackgroundType.dayClouds
+        var backgroundColor: WeatherModel.Components.BackgroundColor?
         var cityName = location.city ?? ""
         var description = ""
         var temperature = "––"
@@ -33,14 +33,9 @@ final class SearchScreenMapper {
         if let weather = weather {
             guard let today = weather.daily.first else { fatalError() }
             
-            let dayTime = dateFormatter.format(
-                weather.current.dt,
-                with: weather.timezoneOffset
-            )
-            
             backgroundColor = weatherFormatter.getBackgroundColor(
-                weather.current.weather.first!.id,
-                dayTime: dayTime
+                for: weather.current,
+                with: weather.timezoneOffset
             )
             
             description = weatherFormatter.displayDescription(

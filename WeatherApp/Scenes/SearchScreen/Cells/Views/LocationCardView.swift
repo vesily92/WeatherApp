@@ -47,7 +47,7 @@ final class LocationCardView: BaseView {
         return view
     }()
     
-    private var gradientColor: BackgroundType = .dayClear {
+    private var gradientColor: WeatherModel.Components.BackgroundColor? {
         didSet {
             setupGradient()
         }

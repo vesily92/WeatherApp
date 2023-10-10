@@ -9,9 +9,10 @@
 /* Begin PBXBuildFile section */
 		5956CE6E2AB3C19F00D1223F /* SearchScreenMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5956CE6D2AB3C19F00D1223F /* SearchScreenMapper.swift */; };
 		5956CE732AB3C26D00D1223F /* MappingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5956CE722AB3C26D00D1223F /* MappingManager.swift */; };
+		59CB99832ACAFBB200E3DF04 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CB99822ACAFBB200E3DF04 /* APIKey.swift */; };
+		59CB99A22AD017F800E3DF04 /* UIColor + Interpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CB99A12AD017F800E3DF04 /* UIColor + Interpolation.swift */; };
 		59F063C82AB3AC31002DA377 /* BackgroundGradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F063C72AB3AC31002DA377 /* BackgroundGradientLayer.swift */; };
 		59F063CA2AB3AD98002DA377 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F063C92AB3AD98002DA377 /* Factory.swift */; };
-		59F063CC2AB3AFCA002DA377 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F063CB2AB3AFCA002DA377 /* APIKey.swift */; };
 		59F063CE2AB3B098002DA377 /* SectionConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F063CD2AB3B098002DA377 /* SectionConfigurator.swift */; };
 		59F063D52AB3B3CD002DA377 /* TransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F063D42AB3B3CD002DA377 /* TransitionManager.swift */; };
 		59F063DE2AB3B576002DA377 /* WeatherScreenPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F063DD2AB3B576002DA377 /* WeatherScreenPageViewController.swift */; };
@@ -148,9 +149,10 @@
 		5956CE6D2AB3C19F00D1223F /* SearchScreenMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchScreenMapper.swift; sourceTree = "<group>"; };
 		5956CE722AB3C26D00D1223F /* MappingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MappingManager.swift; path = WeatherApp/Managers/MappingManager/MappingManager.swift; sourceTree = "<group>"; };
 		5956CE742AB3C27800D1223F /* MappingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MappingManager.swift; path = WeatherApp/Managers/MappingManager/MappingManager.swift; sourceTree = SOURCE_ROOT; };
+		59CB99822ACAFBB200E3DF04 /* APIKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		59CB99A12AD017F800E3DF04 /* UIColor + Interpolation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Interpolation.swift"; sourceTree = "<group>"; };
 		59F063C72AB3AC31002DA377 /* BackgroundGradientLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundGradientLayer.swift; sourceTree = "<group>"; };
 		59F063C92AB3AD98002DA377 /* Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
-		59F063CB2AB3AFCA002DA377 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		59F063CD2AB3B098002DA377 /* SectionConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionConfigurator.swift; sourceTree = "<group>"; };
 		59F063D42AB3B3CD002DA377 /* TransitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransitionManager.swift; path = WeatherApp/Managers/TransitionManager/TransitionManager.swift; sourceTree = SOURCE_ROOT; };
 		59F063DD2AB3B576002DA377 /* WeatherScreenPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherScreenPageViewController.swift; sourceTree = "<group>"; };
@@ -568,7 +570,7 @@
 			children = (
 				7B7A61FD2A42CBA8001A0DC2 /* Models */,
 				7B7A62002A42CBA8001A0DC2 /* NetworkService.swift */,
-				59F063CB2AB3AFCA002DA377 /* APIKey.swift */,
+				59CB99822ACAFBB200E3DF04 /* APIKey.swift */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -975,6 +977,7 @@
 				7B7A62CC2A42CCAF001A0DC2 /* Date + StartOfDay, EndOfDay.swift */,
 				7B7A62CD2A42CCAF001A0DC2 /* Notification.Name + Extension.swift */,
 				7B7A62CF2A42CCAF001A0DC2 /* UILabel + ConvenienceInit.swift */,
+				59CB99A12AD017F800E3DF04 /* UIColor + Interpolation.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1139,6 +1142,7 @@
 				7B7A62802A42CBC8001A0DC2 /* DailyMapper.swift in Sources */,
 				7B7A62042A42CBA8001A0DC2 /* ServiceAssembly.swift in Sources */,
 				7B7A61F02A42CB7B001A0DC2 /* AppDelegate.swift in Sources */,
+				59CB99A22AD017F800E3DF04 /* UIColor + Interpolation.swift in Sources */,
 				7B7A62B92A42CBE2001A0DC2 /* NewLocationPresenter.swift in Sources */,
 				7B7A62692A42CBC8001A0DC2 /* DailySectionConfigurator.swift in Sources */,
 				7B7A621C2A42CBB9001A0DC2 /* WeatherManager.swift in Sources */,
@@ -1155,7 +1159,6 @@
 				59F063EF2AB3BB51002DA377 /* LocationCardView.swift in Sources */,
 				7B7A62652A42CBC8001A0DC2 /* BackgroundDecorationView.swift in Sources */,
 				7B7A626F2A42CBC8001A0DC2 /* ConditionView.swift in Sources */,
-				59F063CC2AB3AFCA002DA377 /* APIKey.swift in Sources */,
 				7B7A62AD2A42CBD6001A0DC2 /* SearchViewController.swift in Sources */,
 				7B7A621A2A42CBB9001A0DC2 /* WeatherScreenSectionsManager.swift in Sources */,
 				7B7A62D32A42CCAF001A0DC2 /* UICollectionReusableView + ReuseIdentifier.swift in Sources */,
@@ -1219,6 +1222,7 @@
 				59F063CA2AB3AD98002DA377 /* Factory.swift in Sources */,
 				7B7A62092A42CBA8001A0DC2 /* LocationData.swift in Sources */,
 				7B7A62C12A42CCA6001A0DC2 /* Sizes.swift in Sources */,
+				59CB99832ACAFBB200E3DF04 /* APIKey.swift in Sources */,
 				7B7A620C2A42CBA8001A0DC2 /* SectionService.swift in Sources */,
 				7B7A61EF2A42CB7B001A0DC2 /* BaseView.swift in Sources */,
 				7B7A62722A42CBC8001A0DC2 /* UVIndexView.swift in Sources */,
@@ -1405,7 +1409,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1436,7 +1440,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -6,6 +6,7 @@
 //
 
 struct WeatherData: Decodable {
+    
     let lat: Double
     let lon: Double
     let timezone: String
@@ -24,6 +25,7 @@ struct WeatherData: Decodable {
 }
 
 struct Current: Decodable {
+    
     let dt: Int
     let sunrise: Int
     let sunset: Int
@@ -56,10 +58,12 @@ struct Current: Decodable {
 }
 
 struct Minutely: Decodable {
+    
     let dt, precipitation: Int
 }
 
 struct Hourly: Decodable {
+    
     let dt: Int
     let temp: Double
     let feelsLike: Double
@@ -75,6 +79,7 @@ struct Hourly: Decodable {
 }
 
 struct Daily: Decodable {
+    
     let dt: Int
     let sunrise: Int
     let sunset: Int
@@ -104,6 +109,7 @@ struct Daily: Decodable {
 }
 
 struct Alert: Decodable {
+    
     let senderName: String
     let event: String
     let start: Int
@@ -118,6 +124,7 @@ struct Alert: Decodable {
 }
 
 struct Temperature: Decodable {
+    
     let day: Double
     let min: Double
     let max: Double
@@ -127,6 +134,7 @@ struct Temperature: Decodable {
 }
 
 struct FeelsLike: Decodable {
+    
     let day: Double
     let night: Double
     let eve: Double
@@ -134,6 +142,7 @@ struct FeelsLike: Decodable {
 }
 
 struct Rain: Decodable {
+    
     let oneHour: Double
     
     enum CodingKeys: String, CodingKey {
@@ -142,6 +151,7 @@ struct Rain: Decodable {
 }
 
 struct Weather: Decodable {
+    
     let id: Int
     let description: String
     let icon: String

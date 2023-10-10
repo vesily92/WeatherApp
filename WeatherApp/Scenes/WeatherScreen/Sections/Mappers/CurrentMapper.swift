@@ -22,7 +22,7 @@ final class CurrentMapper {
         
         guard let model = model else {
             return WeatherModel.Components.Current(
-                backgroundColor: .dayClear,
+                backgroundColor: nil,
                 cityName: location.city ?? "",
                 fullName: location.fullName,
                 description: nil,
@@ -34,14 +34,9 @@ final class CurrentMapper {
         
         guard let today = model.daily.first else { fatalError() }
         
-        let dayTime = dateFormatter.format(
-            model.current.dt,
-            with: model.timezoneOffset
-        )
-        
         let backgroundColor = weatherFormatter.getBackgroundColor(
-            model.current.weather.first!.id,
-            dayTime: dayTime
+            for: model.current,
+            with: model.timezoneOffset
         )
         
         let time = dateFormatter.format(

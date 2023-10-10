@@ -33,7 +33,7 @@ enum WeatherModel {
             
             let id = UUID()
             
-            let backgroundColor: BackgroundType
+            let backgroundColor: BackgroundColor?
             let cityName: String?
             let fullName: String?
             let description: String?
@@ -60,7 +60,6 @@ enum WeatherModel {
         }
         
         struct Hourly: Hashable {
-            
             
             enum CellType {
                 case hourly
@@ -100,6 +99,16 @@ enum WeatherModel {
             let currentPoint: CGFloat?
             let minTemperature: Int
             let maxTemperature: Int
+        }
+        
+        struct BackgroundColor: Hashable {
+            
+            let id = UUID()
+            
+            let currentPosition: Double
+            let sunrisePosition: Double
+            let sunsetPosition: Double
+            let cloudy: Bool
         }
         
         struct DailyCollection: Hashable {

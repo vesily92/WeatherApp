@@ -23,7 +23,10 @@ final class NewLocationViewController: UIViewController {
         super.viewDidLoad()
         
         backgroundGradient.configure(
-            with: presenter.getViewModel().current.backgroundColor
+            with: presenter
+                .getViewModel()
+                .current
+                .backgroundColor
         )
         backgroundGradient.frame = view.bounds
         view.layer.insertSublayer(backgroundGradient, at: 0)

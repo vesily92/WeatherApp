@@ -23,7 +23,10 @@ final class HourlyMapper {
         let sunriseMapped = mapSunriseData(model)
         let sunsetMapped = mapSunsetData(model)
         
-        return getSortedViewModels(hourlyMapped, sunriseMapped, sunsetMapped)
+        return getSortedViewModels(
+            hourlyMapped, sunriseMapped, sunsetMapped,
+            currentTime: model.current.dt
+        )
     }
     
     private func mapHourlyData(_ model: WeatherData) -> [WeatherModel.Components.Hourly] {
@@ -127,7 +130,11 @@ final class HourlyMapper {
         return hourlyViewModels
     }
     
-    private func getSortedViewModels(_ arrays: [WeatherModel.Components.Hourly]...) -> [WeatherModel.Components.Hourly] {
+    private func getSortedViewModels(
+        _ arrays: [WeatherModel.Components.Hourly]...,
+        currentTime: Int
+    ) -> [WeatherModel.Components.Hourly] {
+        
         var array = arrays.flatMap { $0 }.sorted { $0.unixTime < $1.unixTime }
         
         guard let firstElement = array.first else { return [] }
@@ -137,11 +144,17 @@ final class HourlyMapper {
         }
         
         let unixHour = 3600
-        let pairs = zip(array, array.dropFirst())
-        let filteredArray = pairs
+        
+        var filteredModels = zip(array, array.dropFirst())
             .filter { $1.unixTime - $0.unixTime <= unixHour }
             .compactMap { $0.0 }
+
+        if let index = filteredModels.firstIndex(
+            where: { $0.cellType == .daily && $0.unixTime < currentTime }
+        ) {
+            filteredModels.remove(at: index)
+        }
         
-        return filteredArray
+        return filteredModels
     }
 }

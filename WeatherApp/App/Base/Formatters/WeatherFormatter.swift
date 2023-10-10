@@ -58,13 +58,16 @@ protocol IWeatherFormatter {
     ///   - icon: Name of the weather icon.
     /// - Returns: String representation.
     func getWeatherSymbolName(_ weatherID: Int, icon: String) -> String
-    
-    /// Gets the type of background gradient
+
+    /// Generates model for background gradient layer.
     /// - Parameters:
-    ///   - weatherID: ID of weather condition.
-    ///   - dayTime: Type of day time.
-    /// - Returns: Type of gradient color based on day time.
-    func getBackgroundColor(_ weatherID: Int, dayTime: DayTime) -> BackgroundType
+    ///   - current: Data for current weather.
+    ///   - timezoneOffset: Timezone offset.
+    /// - Returns: ``WeatherModel.Components.BackgroundColor`` object.
+    func getBackgroundColor(
+        for current: Current,
+        with timezoneOffset: Int
+    ) -> WeatherModel.Components.BackgroundColor
 }
 
 // MARK: - WeatherFormatter + IWeatherFormatter
@@ -145,59 +148,61 @@ final class WeatherFormatter: IWeatherFormatter {
         case 800: return sunIsUp
             ? Symbol.Weather.sun.rawValue
             : Symbol.Weather.moon.rawValue
-        case 801: return sunIsUp
+        case 801...802: return sunIsUp
             ? Symbol.Weather.cloudDay.rawValue
             : Symbol.Weather.cloudNight.rawValue
-        case 802...804: return Symbol.Weather.cloud.rawValue
+        case 803...804: return Symbol.Weather.cloud.rawValue
         default: return Symbol.Other.noSign.rawValue
         }
     }
     
     func getBackgroundColor(
-        _ weatherID: Int,
-        dayTime: DayTime
-    ) -> BackgroundType {
-        enum Weather {
-            case clear
-            case cloudy
+        for current: Current,
+        with timezoneOffset: Int
+    ) -> WeatherModel.Components.BackgroundColor {
+        let currentPosition = calculatePositionFor(
+            target: current.dt,
+            with: timezoneOffset
+        )
+        let sunrisePosition = calculatePositionFor(
+            target: current.sunrise,
+            with: timezoneOffset
+        )
+        let sunsetPosition = calculatePositionFor(
+            target: current.sunset,
+            with: timezoneOffset
+        )
+        
+        var cloudy = true
+        
+        switch current.weather.first!.id {
+        case 800...801: cloudy = false
+        default: break
         }
         
-        var weather: Weather = .clear
+        return WeatherModel.Components.BackgroundColor(
+            currentPosition: currentPosition,
+            sunrisePosition: sunrisePosition,
+            sunsetPosition: sunsetPosition,
+            cloudy: cloudy
+        )
+    }
+    
+    private func calculatePositionFor(
+        target: Int,
+        with timezoneOffset: Int
+    ) -> Double {
+        let targetDate = Date(timeIntervalSince1970: Double(target))
+        let startOfDay = targetDate
+            .startOfDay(offset: timezoneOffset)
+            .timeIntervalSince1970
+        let endOfDay = targetDate
+            .endOfDay(offset: timezoneOffset)
+            .timeIntervalSince1970
         
-        switch weatherID {
-        case 200...232: weather = .cloudy
-        case 300...321: weather = .cloudy
-        case 500...531: weather = .cloudy
-        case 600...622: weather = .cloudy
-        case 700...781: weather = .cloudy
-        case 800...801: weather = .clear
-        case 802...804: weather = .cloudy
-        default: weather = .clear
-        }
+        let secondsRange = endOfDay - startOfDay
+        let secondsFromStart = Double(target) - startOfDay
         
-        switch weather {
-        case .clear:
-            switch dayTime {
-            case .morning:
-                return .morningClear
-            case .day:
-                return .dayClear
-            case .evening:
-                return .eveningClear
-            case .night:
-                return .nightClear
-            }
-        case .cloudy:
-            switch dayTime {
-            case .morning:
-                return .morningClouds
-            case .day:
-                return .dayClouds
-            case .evening:
-                return .eveningClouds
-            case .night:
-                return .nightClouds
-            }
-        }
+        return secondsFromStart / secondsRange
     }
 }
